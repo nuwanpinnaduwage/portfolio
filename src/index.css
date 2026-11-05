@@ -1,0 +1,716 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Layout & Navigation Dimensions */
+    --navbar-height: 4.5rem;
+
+    /* 1. Core Typography Design Tokens */
+    --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+    /* Responsive clamp typography tokens */
+    --font-size-hero-name: clamp(1.75rem, 3.8vw + 0.5rem, 4.25rem);
+    --font-size-section-heading: clamp(1.5rem, 2.5vw + 0.75rem, 2.65rem);
+    --font-size-project-title: clamp(1.15rem, 1.2vw + 0.85rem, 1.5rem);
+    --font-size-degree: clamp(1.05rem, 1vw + 0.8rem, 1.45rem);
+    --font-size-body: clamp(0.925rem, 0.35vw + 0.85rem, 1.075rem);
+
+    /* Portfolio baseline tokens (Neon Emerald #22c55e Authoritative Identity) */
+    --portfolio-accent: #22c55e;
+    --portfolio-accent-light: #16a34a;
+    --portfolio-accent-dark: #39ff88;
+    --portfolio-accent-glow: rgba(34, 197, 94, 0.25);
+    --portfolio-neon: #39ff88;
+    --portfolio-soft: #86efac;
+    --portfolio-deep: #064e3b;
+    --portfolio-bg-dark: #06070a;
+    --portfolio-secondary-bg: #0b0f17;
+    --portfolio-card-bg: #101623;
+    --portfolio-border: #1e293b;
+    --portfolio-font-family: var(--font-sans);
+    --portfolio-line-height: 1.65;
+    --portfolio-font-size: 16px;
+  }
+
+  @media (max-width: 640px) {
+    :root {
+      --navbar-height: 4rem;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: var(--portfolio-font-size, 16px) !important;
+    overflow-x: clip;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: var(--portfolio-line-height);
+    overflow-x: clip;
+    min-height: 100vh;
+    min-height: 100svh;
+    @apply antialiased selection:bg-emerald-500 selection:text-slate-950;
+  }
+}
+
+/* ======================================================== */
+/* THREE-TIER TYPOGRAPHY SYSTEM                             */
+/* ======================================================== */
+
+/* A. Space Grotesk — Headings & Prominent Metrics */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading,
+[class*="font-heading"] {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  letter-spacing: -0.02em;
+}
+
+/* B. Inter — General Body, Navigation, Buttons & Form UI */
+body,
+p,
+li,
+button,
+input,
+select,
+textarea,
+.font-sans,
+[class*="font-sans"],
+.nav-tab-item {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* C. JetBrains Mono — Developer Elements, Code & Terminals */
+code,
+pre,
+kbd,
+samp,
+.font-mono,
+[class*="font-mono"] {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+/* Universal line-height rhythm for long-form reading */
+p,
+li,
+.section-desc {
+  line-height: var(--portfolio-line-height, 1.65);
+}
+
+/* Responsive heading utilities */
+.hero-name-heading {
+  font-size: var(--font-size-hero-name);
+  line-height: 1.1;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.section-main-heading {
+  font-size: var(--font-size-section-heading);
+  line-height: 1.15;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.project-card-title {
+  font-size: var(--font-size-project-title);
+  line-height: 1.25;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Hero viewport-fit and responsive clearance */
+#hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: calc(var(--navbar-height, 4.5rem) + 0.5rem);
+}
+
+@media (max-width: 640px) {
+  #hero {
+    padding-top: calc(var(--navbar-height, 4rem) + 0.5rem);
+  }
+}
+
+/* Hero Full-Screen Background Image System (Dark Mode Only) */
+html.dark .hero-fullscreen-bg,
+.hero-fullscreen-bg-dark {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  html.dark .hero-fullscreen-bg,
+  .hero-fullscreen-bg-dark {
+    background-position: 72% center;
+  }
+}
+
+@media (max-width: 768px) {
+  html.dark .hero-fullscreen-bg,
+  .hero-fullscreen-bg-dark {
+    background-position: 68% center;
+  }
+}
+
+@media (max-width: 480px) {
+  html.dark .hero-fullscreen-bg,
+  .hero-fullscreen-bg-dark {
+    background-position: 65% center;
+  }
+}
+
+/* Hero Background Image Positioning (Light Mode Only - Shifted slightly towards center) */
+html:not(.dark) .hero-light-img-container,
+body:not(.dark) .hero-light-img-container {
+  right: 2%;
+  transition: right 0.3s ease;
+}
+
+html:not(.dark) .hero-light-img,
+body:not(.dark) .hero-light-img {
+  object-position: 70% center;
+  transition: object-position 0.3s ease;
+}
+
+@media (min-width: 1536px) {
+  html:not(.dark) .hero-light-img-container,
+  body:not(.dark) .hero-light-img-container {
+    right: 4%;
+  }
+  html:not(.dark) .hero-light-img,
+  body:not(.dark) .hero-light-img {
+    object-position: 68% center;
+  }
+}
+
+@media (max-width: 1280px) {
+  html:not(.dark) .hero-light-img,
+  body:not(.dark) .hero-light-img {
+    object-position: 68% center;
+  }
+}
+
+@media (max-width: 1024px) {
+  html:not(.dark) .hero-light-img-container,
+  body:not(.dark) .hero-light-img-container {
+    right: 0;
+  }
+  html:not(.dark) .hero-light-img,
+  body:not(.dark) .hero-light-img {
+    object-position: 64% center;
+  }
+}
+
+@media (max-width: 768px) {
+  html:not(.dark) .hero-light-img,
+  body:not(.dark) .hero-light-img {
+    object-position: 58% center;
+  }
+}
+
+@media (max-width: 640px) {
+  html:not(.dark) .hero-light-img,
+  body:not(.dark) .hero-light-img {
+    object-position: 54% center;
+  }
+}
+
+@media (max-width: 480px) {
+  html:not(.dark) .hero-light-img,
+  body:not(.dark) .hero-light-img {
+    object-position: 52% center;
+  }
+}
+
+/* Dynamic Accent Color bindings for the Public Portfolio only (never leak or clobber Admin Dashboard) */
+.public-portfolio [class*="text-violet-"] {
+  color: var(--portfolio-accent) !important;
+}
+
+html.dark .public-portfolio [class*="text-violet-"] {
+  color: var(--portfolio-accent-dark, var(--portfolio-accent)) !important;
+}
+
+html:not(.dark) .public-portfolio [class*="text-violet-"] {
+  color: var(--portfolio-accent-light, var(--portfolio-accent)) !important;
+}
+
+/* Exact CTA button background replacements in public portfolio (preserves translucent alpha in / classes) */
+.public-portfolio .bg-violet-600,
+.public-portfolio .bg-violet-500 {
+  background-color: var(--portfolio-accent) !important;
+}
+
+.public-portfolio .hover\:bg-violet-500:hover,
+.public-portfolio .hover\:bg-violet-600:hover {
+  filter: brightness(1.1);
+}
+
+.public-portfolio .bg-violet-100 {
+  background-color: var(--portfolio-accent-glow) !important;
+}
+
+.public-portfolio .border-violet-500,
+.public-portfolio .border-violet-600 {
+  border-color: var(--portfolio-accent) !important;
+}
+
+.public-portfolio .hover\:border-violet-500:hover,
+.public-portfolio .hover\:border-violet-500\/50:hover,
+.public-portfolio .hover\:border-violet-500\/40:hover {
+  border-color: var(--portfolio-accent) !important;
+}
+
+.public-portfolio .focus\:border-violet-500:focus {
+  border-color: var(--portfolio-accent) !important;
+}
+
+.public-portfolio .focus\:ring-violet-500\/30:focus,
+.public-portfolio .focus\:ring-violet-500:focus {
+  --tw-ring-color: var(--portfolio-accent) !important;
+}
+
+.shadow-glow-sm {
+  box-shadow: 0 0 15px -3px var(--portfolio-accent-glow, rgba(34, 197, 94, 0.25)) !important;
+}
+
+.shadow-glow-md {
+  box-shadow: 0 0 25px -4px var(--portfolio-accent-glow, rgba(34, 197, 94, 0.35)) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass-panel {
+  background: rgba(16, 22, 35, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .glass-card {
+  background: rgba(16, 22, 35, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
+}
+
+.dark .glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.25);
+}
+
+/* ======================================================== */
+/* ADMIN SUITE CONSISTENT DARK PALETTE SCOPE                */
+/* ======================================================== */
+.admin-scope .glass-card,
+.admin-scope .glass-panel {
+  background: rgba(11, 15, 23, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(51, 65, 85, 0.6) !important;
+  color: #f1f5f9 !important;
+}
+
+.admin-scope .glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.4) !important;
+}
+
+/* Violet subtle glow effect */
+.violet-glow {
+  box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.25);
+}
+
+/* Grid background pattern */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Navigation Tab Smooth Underline Animation */
+.nav-tab-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+.nav-tab-label {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.nav-tab-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--portfolio-accent-light, #7c3aed);
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.dark .nav-tab-label::after {
+  background-color: var(--portfolio-accent-dark, #a78bfa);
+}
+
+/* Hover state: expands from left to right */
+.nav-tab-item:hover .nav-tab-label::after {
+  transform: scaleX(1);
+}
+
+/* Active state: persistent underline */
+.nav-tab-item.active .nav-tab-label::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-tab-label::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ======================================================== */
+/* NEON EMERALD PRESET SYSTEM SPECIFICATION                 */
+/* ======================================================== */
+/* Palette Foundation:                                      */
+/* Primary accent:        #22C55E                           */
+/* Bright neon highlight: #39FF88                           */
+/* Hover accent:          #16A34A                           */
+/* Soft green highlight:  #86EFAC                           */
+/* Deep emerald:          #064E3B                           */
+/* Dark background:       #06070A                           */
+/* Secondary background:  #0B0F17                           */
+/* Card background:       #101623                           */
+/* Primary text:          #F8FAFC                           */
+/* Secondary text:        #94A3B8                           */
+/* Subtle border:         #1E293B                           */
+/* ======================================================== */
+
+/* 1. Global Dark Mode Surfaces when Neon Emerald is selected */
+html[data-theme-preset="neon-emerald"].dark {
+  background-color: #06070A !important;
+  color: #F8FAFC !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark body,
+html[data-theme-preset="neon-emerald"].dark #root {
+  background-color: #06070A !important;
+}
+
+/* Base dark background overrides (#06070A) */
+html[data-theme-preset="neon-emerald"].dark .bg-dark-950,
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-950 {
+  background-color: #06070A !important;
+}
+
+/* Secondary dark backgrounds (#0B0F17) */
+html[data-theme-preset="neon-emerald"].dark .bg-dark-900,
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-900 {
+  background-color: #0B0F17 !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-900\/40,
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-900\/60,
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-900\/70 {
+  background-color: rgba(11, 15, 23, 0.75) !important;
+}
+
+/* Elevated card surfaces (#101623) */
+html[data-theme-preset="neon-emerald"].dark .bg-dark-850,
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-850,
+html[data-theme-preset="neon-emerald"].dark .bg-dark-800,
+html[data-theme-preset="neon-emerald"].dark .dark\:bg-dark-800 {
+  background-color: #101623 !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark .glass-card {
+  background: rgba(16, 22, 35, 0.75) !important;
+  border-color: #1E293B !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark .glass-card:hover {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  box-shadow: 0 10px 30px -10px rgba(34, 197, 94, 0.25) !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark .glass-panel {
+  background: rgba(11, 15, 23, 0.85) !important;
+  border-color: #1E293B !important;
+}
+
+/* Subtle Borders (#1E293B) */
+html[data-theme-preset="neon-emerald"].dark .border-slate-800,
+html[data-theme-preset="neon-emerald"].dark .dark\:border-slate-800,
+html[data-theme-preset="neon-emerald"].dark [class*="border-slate-800/"],
+html[data-theme-preset="neon-emerald"].dark [class*="dark:border-slate-800/"],
+html[data-theme-preset="neon-emerald"].dark .border-slate-700,
+html[data-theme-preset="neon-emerald"].dark .dark\:border-slate-700 {
+  border-color: #1E293B !important;
+}
+
+/* Typography High-Readability Contrast */
+html[data-theme-preset="neon-emerald"].dark h1,
+html[data-theme-preset="neon-emerald"].dark h2,
+html[data-theme-preset="neon-emerald"].dark h3,
+html[data-theme-preset="neon-emerald"].dark h4,
+html[data-theme-preset="neon-emerald"].dark .dark\:text-white,
+html[data-theme-preset="neon-emerald"].dark .dark\:text-slate-100,
+html[data-theme-preset="neon-emerald"].dark .dark\:text-slate-200 {
+  color: #F0FDF4 !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark .dark\:text-slate-300,
+html[data-theme-preset="neon-emerald"].dark .dark\:text-slate-400,
+html[data-theme-preset="neon-emerald"].dark .dark\:text-slate-500 {
+  color: #A7B8AC !important;
+}
+
+/* Active Navigation & Hover Underlines */
+html[data-theme-preset="neon-emerald"].dark .nav-tab-label::after {
+  background-color: #39FF88 !important;
+}
+
+html[data-theme-preset="neon-emerald"]:not(.dark) .nav-tab-label::after {
+  background-color: #16A34A !important;
+}
+
+/* Neon Emerald Glow & Shadow System */
+html[data-theme-preset="neon-emerald"] .shadow-glow-sm {
+  box-shadow: 0 0 15px -3px rgba(57, 255, 136, 0.25) !important;
+}
+
+html[data-theme-preset="neon-emerald"] .shadow-glow-md {
+  box-shadow: 0 0 25px -4px rgba(57, 255, 136, 0.35) !important;
+}
+
+/* Buttons and Interactive Hovers */
+html[data-theme-preset="neon-emerald"] .hover\:bg-violet-500:hover,
+html[data-theme-preset="neon-emerald"] .hover\:bg-violet-600:hover {
+  background-color: #16A34A !important;
+}
+
+/* Education & Special Section Gradient Highlights */
+html[data-theme-preset="neon-emerald"].dark [class*="from-violet-600"][class*="to-indigo-500"] {
+  background-image: linear-gradient(to right, #22C55E, #39FF88, #064E3B) !important;
+}
+
+/* Contact Internship Card Glow */
+html[data-theme-preset="neon-emerald"].dark [class*="from-violet-950/40"] {
+  background-image: linear-gradient(135deg, rgba(6, 78, 59, 0.4), rgba(13, 21, 17, 0.75)) !important;
+  border-color: rgba(34, 197, 94, 0.35) !important;
+}
+
+/* Admin Dashboard in Neon Emerald */
+html[data-theme-preset="neon-emerald"] .admin-scope,
+html[data-theme-preset="neon-emerald"] .admin-scope main,
+html[data-theme-preset="neon-emerald"] .admin-scope [class*="bg-[#07090e]"] {
+  background-color: #06070A !important;
+}
+
+html[data-theme-preset="neon-emerald"] .admin-scope aside {
+  background-color: #0B0F17 !important;
+  border-color: #1E293B !important;
+}
+
+html[data-theme-preset="neon-emerald"] .admin-scope header {
+  background-color: rgba(11, 15, 23, 0.85) !important;
+  border-color: #1E293B !important;
+}
+
+html[data-theme-preset="neon-emerald"] .admin-scope .glass-card,
+html[data-theme-preset="neon-emerald"] .admin-scope .glass-panel {
+  background: rgba(16, 22, 35, 0.85) !important;
+  border-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+html[data-theme-preset="neon-emerald"] .admin-scope .glass-card:hover {
+  border-color: rgba(34, 197, 94, 0.45) !important;
+}
+
+/* Scrollbars */
+html[data-theme-preset="neon-emerald"].dark ::-webkit-scrollbar-track {
+  background: #06070A !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark ::-webkit-scrollbar-thumb {
+  background: #1E293B !important;
+}
+
+html[data-theme-preset="neon-emerald"].dark ::-webkit-scrollbar-thumb:hover {
+  background: #16A34A !important;
+}
+
+/* ======================================================== */
+/* SECTION TITLE ACCENT SYSTEM                              */
+/* ======================================================== */
+.section-accent-bar {
+  background-color: #22c55e;
+}
+.section-accent-dot {
+  background-color: #86efac;
+  opacity: 0.75;
+}
+
+/* Adaptive tokens for presets other than neon-emerald */
+html:not([data-theme-preset="neon-emerald"]) .section-accent-bar {
+  background-color: var(--portfolio-accent, #8b5cf6) !important;
+}
+html:not([data-theme-preset="neon-emerald"]) .section-accent-dot {
+  background-color: var(--portfolio-accent-dark, #a78bfa) !important;
+}
+
+/* ======================================================== */
+/* SECTION-WISE SUBTLE BACKGROUND VARIATIONS               */
+/* ======================================================== */
+/* Light Mode section alternations */
+html:not(.dark) #about {
+  background-color: #ffffff;
+}
+html:not(.dark) #skills {
+  background-color: #f8fafc;
+}
+html:not(.dark) #projects {
+  background-color: #ffffff;
+}
+html:not(.dark) #experience {
+  background-color: #f8fafc;
+}
+html:not(.dark) #education {
+  background-color: #ffffff;
+}
+html:not(.dark) #contact {
+  background-color: #f8fafc;
+}
+html:not(.dark) #footer {
+  background-color: #ffffff;
+}
+
+/* Dark Mode section subtle tonal shifts: clean neutral obsidian/charcoal */
+html.dark #about {
+  background-color: #0b0f17;
+}
+html.dark #skills {
+  background-color: #06070a;
+}
+html.dark #projects {
+  background-color: #0b0f17;
+}
+html.dark #experience {
+  background-color: #06070a;
+}
+html.dark #education {
+  background-color: #0b0f17;
+}
+html.dark #contact {
+  background-color: #06070a;
+}
+html.dark #footer {
+  background-color: #060608;
+}
+
+/* Specific enforcement under neon-emerald preset: clean neutral obsidian/charcoal */
+html[data-theme-preset="neon-emerald"].dark #about {
+  background-color: #0b0f17 !important;
+}
+html[data-theme-preset="neon-emerald"].dark #skills {
+  background-color: #06070a !important;
+}
+html[data-theme-preset="neon-emerald"].dark #projects {
+  background-color: #0b0f17 !important;
+}
+html[data-theme-preset="neon-emerald"].dark #experience {
+  background-color: #06070a !important;
+}
+html[data-theme-preset="neon-emerald"].dark #education {
+  background-color: #0b0f17 !important;
+}
+html[data-theme-preset="neon-emerald"].dark #contact {
+  background-color: #06070a !important;
+}
+html[data-theme-preset="neon-emerald"].dark #footer {
+  background-color: #060608 !important;
+}

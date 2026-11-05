@@ -1,0 +1,23 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
+  plugins: [react()],
+  server: {
+    port: 3000,
+    open: false
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          supabase: ['@supabase/supabase-js'],
+          icons: ['lucide-react'],
+          motion: ['motion']
+        }
+      }
+    }
+  }
+});
