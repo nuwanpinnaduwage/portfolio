@@ -1,40 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import { defaultEase } from './animations/MotionWrappers';
 
+const CIRCLE_RADIUS = 20.5;
+const CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS; // ~128.805
+
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const rafIdRef = useRef(null);
+
+  const calculateScroll = useCallback(() => {
+    const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight || 0;
+    const totalScroll = scrollHeight - clientHeight;
+
+    const progress = totalScroll > 0 ? Math.min(Math.max(scrollY / totalScroll, 0), 1) : 0;
+    setScrollProgress(progress);
+    setIsVisible(scrollY > 250);
+  }, []);
 
   useEffect(() => {
-    const heroElement = document.getElementById('hero');
+    const onScrollOrResize = () => {
+      if (rafIdRef.current) return;
+      rafIdRef.current = window.requestAnimationFrame(() => {
+        calculateScroll();
+        rafIdRef.current = null;
+      });
+    };
 
-    if (!heroElement) {
-      // Fallback to passive scroll position listener if hero section is not found
-      const handleScroll = () => {
-        setIsVisible(window.scrollY > 400);
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+    calculateScroll();
 
-    // High performance IntersectionObserver to check if hero is in view
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Show button only when hero section has scrolled out of view
-        setIsVisible(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0.05,
+    return () => {
+      window.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
+      if (rafIdRef.current) {
+        window.cancelAnimationFrame(rafIdRef.current);
       }
-    );
-
-    observer.observe(heroElement);
-    return () => observer.disconnect();
-  }, []);
+    };
+  }, [calculateScroll]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -42,6 +51,8 @@ export default function BackToTop() {
       behavior: shouldReduceMotion ? 'auto' : 'smooth',
     });
   };
+
+  const strokeDashoffset = CIRCUMFERENCE * (1 - scrollProgress);
 
   return (
     <AnimatePresence>
@@ -54,7 +65,7 @@ export default function BackToTop() {
           initial={
             shouldReduceMotion
               ? { opacity: 0 }
-              : { opacity: 0, scale: 0.75, y: 16 }
+              : { opacity: 0, scale: 0.8, y: 12 }
           }
           animate={
             shouldReduceMotion
@@ -64,14 +75,44 @@ export default function BackToTop() {
           exit={
             shouldReduceMotion
               ? { opacity: 0 }
-              : { opacity: 0, scale: 0.75, y: 16 }
+              : { opacity: 0, scale: 0.8, y: 12 }
           }
-          transition={{ duration: 0.25, ease: defaultEase }}
-          whileHover={shouldReduceMotion ? {} : { scale: 1.1, y: -2 }}
+          transition={{ duration: 0.22, ease: defaultEase }}
+          whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
           whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-          className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full flex items-center justify-center bg-white/95 dark:bg-dark-850/95 text-black dark:text-white border border-slate-200/90 dark:border-slate-800 shadow-lg shadow-black/5 dark:shadow-black/40 hover:bg-slate-100 dark:hover:bg-dark-800 backdrop-blur-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 group cursor-pointer"
+          className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white dark:bg-[#121212] text-[#2D3748] dark:text-[#F5F7FA] shadow-md hover:shadow-lg dark:shadow-none transition-shadow duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#F5F7FA] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0A0A0A] group cursor-pointer"
         >
-          <ArrowUp className="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
+          {/* Animated Circular Scroll Progress Ring */}
+          <svg
+            className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            {/* Background Track Circle */}
+            <circle
+              cx="24"
+              cy="24"
+              r={CIRCLE_RADIUS}
+              className="stroke-[#E2E8F0] dark:stroke-[#222222]"
+              strokeWidth="2.5"
+              fill="none"
+            />
+            {/* Active Scroll Progress Circle */}
+            <circle
+              cx="24"
+              cy="24"
+              r={CIRCLE_RADIUS}
+              className="stroke-[#2D3748] dark:stroke-[#F5F7FA] transition-[stroke-dashoffset] duration-75 ease-linear"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeDasharray={CIRCUMFERENCE}
+              strokeDashoffset={strokeDashoffset}
+              fill="none"
+            />
+          </svg>
+
+          {/* Centered Upward-Arrow SVG Icon */}
+          <ArrowUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#2D3748] dark:text-[#F5F7FA] stroke-[2.2] transition-transform duration-200 group-hover:-translate-y-0.5" />
         </motion.button>
       )}
     </AnimatePresence>

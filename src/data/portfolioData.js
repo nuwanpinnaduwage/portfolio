@@ -1718,9 +1718,9 @@ export const portfolioData = {
     prefixText: "©",
 
     // Appearance Settings
-    bgColor: "#050706",
-    textColor: "#94a3b8", // subtle grey
-    highlightColor: "#22c55e", // neon emerald
+    bgColor: "#0A0A0A",
+    textColor: "#A0AEC0", // Clean Slate slate
+    highlightColor: "#2D3748", // Clean Slate charcoal
     fontSize: "sm", // 'xs' | 'sm' | 'base'
     paddingY: "normal", // 'compact' | 'normal' | 'spacious'
     spacing: "normal", // 'tight' | 'normal' | 'relaxed'
@@ -1777,9 +1777,9 @@ export const portfolioData = {
   // Site & Appearance Settings
   settings: {
     defaultTheme: "dark",
-    accentColor: "emerald",
-    customAccentColor: "#22c55e",
-    fontFamily: "inter",
+    accentColor: "clean-slate",
+    customAccentColor: "#2D3748",
+    fontFamily: "roboto",
     fontSize: "md",
     lineHeight: "normal",
     showStats: true,
@@ -1804,14 +1804,14 @@ export const portfolioData = {
     heroBgLight: "/hero-light.png",
     heroBgDark: "/hero-dark.png",
     sectionAppearance: {
-      hero: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      about: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      skills: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      projects: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      experience: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      education: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      contact: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
-      footer: { inheritGlobal: true, fontFamily: 'inter', fontSize: 'md', lineHeight: 'normal', accentColor: 'emerald', customAccentColor: '#22c55e' },
+      hero: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      about: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      skills: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      projects: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      experience: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      education: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      contact: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
+      footer: { inheritGlobal: true, fontFamily: 'roboto', fontSize: 'md', lineHeight: 'normal', accentColor: 'clean-slate', customAccentColor: '#2D3748' },
     }
   }
 };

@@ -8,7 +8,8 @@ import {
   Download, 
   Calendar,
   Sparkles,
-  Users
+  Users,
+  Zap
 } from 'lucide-react';
 
 export default function ResearchCard({ item, onSelect, variants }) {
@@ -21,7 +22,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
   const getStatusBadge = (status) => {
     switch (status?.toLowerCase()) {
       case 'published':
-        return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30';
+        return 'bg-[#F5F7FA] dark:bg-[#161616] text-[#2D3748] dark:text-[#F5F7FA] border-emerald-500/30';
       case 'accepted':
         return 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/30';
       case 'under review':
@@ -39,17 +40,17 @@ export default function ResearchCard({ item, onSelect, variants }) {
     <motion.article
       variants={variants}
       whileHover={shouldReduceMotion ? {} : { y: -5, transition: { duration: 0.25, ease: 'easeOut' } }}
-      className="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-slate-200/80 dark:border-slate-800/80 transition-all duration-300 hover:shadow-xl hover:border-emerald-500/50 bg-white/70 dark:bg-dark-900/80 backdrop-blur-md"
+      className="rounded-xl overflow-hidden flex flex-col justify-between group border border-[#A0AEC0]/30 dark:border-[#262626] transition-all duration-200 shadow-subtle hover:shadow-card bg-white dark:bg-[#121212]"
     >
       <div className="p-5 sm:p-6">
         
         {/* Top Header Tags */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold bg-[#F5F7FA] dark:bg-[#161616] text-[#2D3748] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626]">
               {item.type || 'Conference Paper'}
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-dark-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/60">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 dark:bg-[#1A1A1A] text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[#262626]">
               {item.category}
             </span>
           </div>
@@ -71,7 +72,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
         {/* Title */}
         <h3 
           onClick={() => onSelect(item)}
-          className="text-base sm:text-lg md:text-xl font-bold font-heading text-slate-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors cursor-pointer leading-snug line-clamp-2"
+          className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#2D3748] dark:text-white group-hover:text-[#1A202C] dark:group-hover:text-white transition-colors cursor-pointer leading-snug line-clamp-2"
         >
           {item.title}
         </h3>
@@ -103,8 +104,9 @@ export default function ResearchCard({ item, onSelect, variants }) {
         {/* Metric Pill if present */}
         {item.metrics && item.metrics[0] && (
           <div className="mt-3">
-            <span className="inline-block text-[11px] font-mono font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md">
-              ⚡ {item.metrics[0]}
+            <span className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-[#2D3748] dark:text-[#F5F7FA] bg-[#F5F7FA] dark:bg-[#161616] border border-[#A0AEC0]/30 dark:border-[#262626] px-2.5 py-1 rounded-md">
+              <Zap className="w-3 h-3 text-[#2D3748] dark:text-[#A0AEC0] shrink-0" aria-hidden="true" />
+              <span>{item.metrics[0]}</span>
             </span>
           </div>
         )}
@@ -115,7 +117,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
             {item.tags.slice(0, 3).map((tag) => (
               <span 
                 key={tag}
-                className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-dark-800 text-slate-600 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800"
+                className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-[#1A1A1A] text-slate-600 dark:text-slate-400 border border-slate-200/60 dark:border-[#262626]"
               >
                 #{tag}
               </span>
@@ -131,10 +133,10 @@ export default function ResearchCard({ item, onSelect, variants }) {
       </div>
 
       {/* Card Footer Actions */}
-      <div className="px-5 sm:px-6 py-3.5 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-dark-950/40">
+      <div className="px-5 sm:px-6 py-3.5 flex items-center justify-between border-t border-[#A0AEC0]/20 dark:border-[#222222] bg-[#F5F7FA]/70 dark:bg-[#0A0A0A]/60">
         <button
           onClick={() => onSelect(item)}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors touch-manipulation"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2D3748] dark:text-[#F5F7FA] hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors touch-manipulation"
         >
           <span>Read Abstract & Citation</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
@@ -147,7 +149,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
               target="_blank"
               rel="noopener noreferrer"
               title="Download or Read Paper"
-              className="p-1.5 rounded-lg text-slate-500 hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-[#2D3748] dark:text-[#A0AEC0] dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors"
             >
               <Download className="w-4 h-4" />
             </a>
@@ -158,7 +160,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
               target="_blank"
               rel="noopener noreferrer"
               title="External Publication Link"
-              className="p-1.5 rounded-lg text-slate-500 hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-[#2D3748] dark:text-[#A0AEC0] dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
             </a>

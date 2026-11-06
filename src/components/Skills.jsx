@@ -59,7 +59,7 @@ export default function Skills({ data }) {
 
   // Helper for skill icons
   const getSkillIcon = (iconName, catId) => {
-    const iconClass = "w-3.5 h-3.5 text-emerald-500 shrink-0";
+    const iconClass = "w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0] shrink-0";
     switch (iconName) {
       case 'Network': return <Network className={iconClass} />;
       case 'Shield': return <Shield className={iconClass} />;
@@ -81,7 +81,7 @@ export default function Skills({ data }) {
     <section 
       id="skills" 
       aria-labelledby="skills-heading"
-      className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 bg-slate-50/70 dark:bg-[#06070a] border-t border-slate-200/60 dark:border-slate-800/60 transition-colors"
+      className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 bg-[#F5F7FA] dark:bg-[#050505] border-t border-[#A0AEC0]/20 dark:border-[#1F1F1F] transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -104,16 +104,16 @@ export default function Skills({ data }) {
               once={false}
               className="h-full"
             >
-              <div className="h-full p-6 sm:p-7 rounded-2xl bg-white/50 dark:bg-dark-900/50 border border-slate-200/70 dark:border-slate-800/70 backdrop-blur-sm transition-colors flex flex-col justify-between">
+              <div className="h-full p-6 sm:p-7 rounded-xl bg-white dark:bg-[#0E0E0E] border border-[#A0AEC0]/30 dark:border-[#222222] shadow-subtle transition-colors flex flex-col justify-between">
                 <div>
                   {/* Simple Section Heading */}
-                  <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-slate-200/60 dark:border-slate-800/60">
+                  <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-slate-200/60 dark:border-[#222222]">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-emerald-500 shrink-0">
+                      <span className="text-[#2D3748] dark:text-[#F5F7FA] shrink-0">
                         {getCatalogIcon(catalog.id, "w-5 h-5")}
                       </span>
                       <div>
-                        <h3 className="text-lg sm:text-xl font-bold font-heading text-slate-900 dark:text-white">
+                        <h3 className="text-lg sm:text-xl font-bold font-heading text-[#2D3748] dark:text-white">
                           {catalog.name}
                         </h3>
                         {catalog.description && (
@@ -123,7 +123,7 @@ export default function Skills({ data }) {
                         )}
                       </div>
                     </div>
-                    <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full shrink-0">
+                    <span className="text-xs font-mono font-semibold text-[#2D3748] dark:text-[#F5F7FA] bg-[#F5F7FA] dark:bg-[#161616] border border-[#A0AEC0]/30 dark:border-[#262626] px-2.5 py-0.5 rounded-md shrink-0">
                       {catalog.skills.length} Skills
                     </span>
                   </div>
@@ -137,14 +137,14 @@ export default function Skills({ data }) {
                       >
                         {/* Top Label & Percentage */}
                         <div className="flex items-center justify-between text-xs sm:text-sm mb-1.5 gap-2 min-w-0">
-                          <span className="font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2 truncate min-w-0 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                            <span className="p-1 rounded-md bg-slate-100 dark:bg-dark-800 group-hover:bg-emerald-500/10 transition-colors shrink-0">
+                          <span className="font-medium text-[#2D3748] dark:text-[#F5F7FA] flex items-center gap-2 truncate min-w-0 group-hover:text-[#1A202C] dark:group-hover:text-white transition-colors">
+                            <span className="p-1 rounded-md bg-slate-100 dark:bg-[#161616] group-hover:bg-slate-200 dark:group-hover:bg-[#262626] transition-colors shrink-0">
                               {getSkillIcon(skill.icon, catalog.id)}
                             </span>
                             <span className="truncate">{skill.name}</span>
                           </span>
 
-                          <span className="font-mono text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 min-w-[36px] text-right shrink-0">
+                          <span className="font-mono text-xs sm:text-sm font-bold text-[#2D3748] dark:text-[#F5F7FA] min-w-[36px] text-right shrink-0">
                             {skill.level}%
                           </span>
                         </div>
@@ -156,8 +156,8 @@ export default function Skills({ data }) {
                           delay={sIdx * 0.03}
                           duration={0.8}
                           once={false}
-                          containerClassName="w-full h-2 rounded-full bg-slate-200/80 dark:bg-slate-800/80 overflow-hidden"
-                          barClassName="h-full rounded-full bg-emerald-500"
+                          containerClassName="w-full h-1.5 rounded-full bg-slate-200/80 dark:bg-[#161616] overflow-hidden"
+                          barClassName="h-full rounded-full bg-[#2D3748] dark:bg-[#F5F7FA]"
                         />
 
                         {/* Optional Short Description */}

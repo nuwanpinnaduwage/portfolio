@@ -15,7 +15,6 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
   const navLinks = getVisibleNavLinks(visibility, sectionNames, navVisibility);
 
   // Build the complete list of mobile navigation links
-  // Including Home, About Me, Skills, Projects, Certificates, Experience, Education, Contact
   const mobileNavLinks = useMemo(() => {
     const list = [];
     let hasCertificates = false;
@@ -87,19 +86,16 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Prevent background scroll ONLY when mobile menu is open, restore cleanly when closed
+  // Prevent background scroll ONLY when mobile menu is open
   useEffect(() => {
     if (!mobileMenuOpen) return;
-
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
     return () => {
       document.body.style.overflow = prevOverflow || '';
     };
   }, [mobileMenuOpen]);
 
-  // Helper to close menu and handle navigation
   const handleNavLinkClick = () => {
     setMobileMenuOpen(false);
   };
@@ -107,10 +103,10 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-250 ${
           isScrolled
-            ? 'glass-panel shadow-sm py-2.5 sm:py-3 border-b border-slate-200/60 dark:border-slate-800/60'
-            : 'bg-white/90 dark:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-slate-200/60 dark:border-transparent md:border-b-0 md:bg-transparent py-2.5 sm:py-3 md:py-5'
+            ? 'glass-panel shadow-subtle py-2.5 sm:py-3 border-b border-[#A0AEC0]/30 dark:border-[#222222]'
+            : 'bg-white/90 dark:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-[#A0AEC0]/20 dark:border-transparent md:border-b-0 md:bg-transparent py-2.5 sm:py-3 md:py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,15 +115,15 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
             <a
               href="#hero"
               aria-label={`${personal.name || "Nuwan Pinnaduwage"} Portfolio Home`}
-              className="flex items-center group text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl shrink-0"
+              className="flex items-center group text-[#2D3748] dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0] rounded-lg shrink-0"
             >
               <span className="font-mono font-bold tracking-tight text-lg sm:text-2xl flex items-center leading-none">
                 <span>{personal.preferredName || "Nuwan"}</span>
-                <span className="text-emerald-500 dark:text-emerald-400" style={{ color: 'var(--portfolio-accent, #22c55e)' }}>.dev</span>
+                <span className="text-[#2D3748] dark:text-[#A0AEC0]">.dev</span>
               </span>
             </a>
 
-            {/* Desktop Navigation (Unchanged) */}
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-0.5 lg:gap-2" aria-label="Main navigation">
               {navLinks.map((link) => {
                 const isActive = activeSection === (link.id || link.href.substring(1));
@@ -135,10 +131,10 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                   <a
                     key={link.id || link.href}
                     href={link.href}
-                    className={`nav-tab-item px-2 lg:px-3 py-1.5 text-xs lg:text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-950 rounded-lg shrink-0 ${
+                    className={`nav-tab-item px-2.5 lg:px-3 py-1.5 text-xs lg:text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0] rounded-lg shrink-0 ${
                       isActive
-                        ? 'active text-emerald-600 dark:text-emerald-400'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        ? 'active text-[#2D3748] dark:text-white font-semibold'
+                        : 'text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white'
                     }`}
                   >
                     <span className="nav-tab-label">
@@ -150,20 +146,20 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
             </nav>
 
             {/* Right Action Buttons */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               {/* Minimal Light/Dark Mode Toggle Button */}
               <button
                 type="button"
                 onClick={() => setDarkMode(!darkMode)}
                 title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                 aria-label={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/10 transition-colors duration-200 touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 flex items-center justify-center shrink-0"
+                className="p-2 rounded-lg text-[#2D3748] dark:text-[#F5F7FA] hover:bg-[#F5F7FA] dark:hover:bg-[#3A4659]/50 transition-colors duration-200 touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0] flex items-center justify-center shrink-0 cursor-pointer"
               >
-                <span className="relative flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95">
+                <span className="relative flex items-center justify-center transition-transform duration-200 active:scale-95">
                   {darkMode ? (
-                    <Moon className="w-5 h-5 text-slate-200 hover:text-emerald-400 transition-transform duration-300 -rotate-12 hover:rotate-0" />
+                    <Moon className="w-4 h-4 text-[#F5F7FA]" />
                   ) : (
-                    <Sun className="w-5 h-5 text-amber-500 hover:text-emerald-500 transition-transform duration-300 rotate-0 hover:rotate-45" />
+                    <Sun className="w-4 h-4 text-[#2D3748]" />
                   )}
                 </span>
               </button>
@@ -173,19 +169,19 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                 to="/admin/login"
                 title="Admin Dashboard Portal"
                 aria-label="Admin Dashboard Portal"
-                className="group flex items-center gap-1.5 p-2 sm:px-2.5 sm:py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/10 transition-colors duration-200 touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 shrink-0"
+                className="group flex items-center gap-1.5 p-2 sm:px-2.5 sm:py-1.5 rounded-lg text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white hover:bg-[#F5F7FA] dark:hover:bg-[#3A4659]/50 transition-colors duration-200 touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0] shrink-0"
               >
-                <Shield className="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-emerald-500 transition-colors duration-200" />
+                <Shield className="w-4 h-4 text-[#718096] dark:text-[#A0AEC0] group-hover:text-[#2D3748] dark:group-hover:text-white transition-colors duration-200" />
                 <span className="hidden sm:inline text-xs font-mono font-medium tracking-tight">Admin</span>
               </Link>
 
-              {/* Resume Button */}
+              {/* Resume Button — Clean Slate solid styling */}
               <button
                 type="button"
                 onClick={onOpenCV}
-                className="hidden sm:inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white shadow-glow-sm hover:shadow-glow-md transition-all active:scale-95 touch-manipulation shrink-0"
+                className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle hover:shadow transition-all active:scale-98 touch-manipulation shrink-0 cursor-pointer"
               >
-                <FileDown className="w-4 h-4" />
+                <FileDown className="w-3.5 h-3.5" />
                 <span>Resume</span>
               </button>
 
@@ -196,10 +192,10 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-navigation-drawer"
                 aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-                className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 rounded-xl text-slate-700 dark:text-slate-200 bg-slate-100/90 dark:bg-dark-850/90 hover:bg-slate-200 dark:hover:bg-dark-800 border border-slate-200/80 dark:border-slate-700/60 transition-colors touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="md:hidden min-w-[40px] min-h-[40px] flex items-center justify-center p-2 rounded-lg text-[#2D3748] dark:text-[#F5F7FA] bg-[#F5F7FA] dark:bg-[#121212] hover:bg-slate-200 dark:hover:bg-[#1A1A1A] border border-[#A0AEC0]/30 dark:border-[#262626] transition-colors touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0]"
               >
                 {mobileMenuOpen ? (
-                  <X className="w-5 h-5 text-emerald-500" />
+                  <X className="w-5 h-5 text-[#2D3748] dark:text-[#F5F7FA]" />
                 ) : (
                   <Menu className="w-5 h-5" />
                 )}
@@ -209,7 +205,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
         </div>
       </header>
 
-      {/* Mobile Drawer Menu Portaled Directly to document.body to prevent containing block clipping */}
+      {/* Mobile Drawer Menu */}
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -220,42 +216,42 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
               aria-label="Mobile Navigation Menu"
               className="fixed inset-0 z-50 md:hidden flex flex-col justify-start"
             >
-              {/* Semi-transparent backdrop overlay - clicking outside closes the menu */}
+              {/* Semi-transparent backdrop overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => setMobileMenuOpen(false)}
-                className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
+                className="absolute inset-0 bg-[#050505]/80 backdrop-blur-sm"
                 aria-hidden="true"
               />
 
               {/* Slide-down mobile drawer card */}
               <motion.div
-                initial={{ y: -24, opacity: 0 }}
+                initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -24, opacity: 0 }}
-                transition={{ duration: 0.25, ease: defaultEase }}
-                className="relative z-10 w-full bg-white dark:bg-[#0b0f17] border-b border-slate-200/90 dark:border-slate-800 shadow-2xl max-h-[88vh] flex flex-col overflow-hidden"
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.2, ease: defaultEase }}
+                className="relative z-10 w-full bg-white dark:bg-[#0A0A0A] border-b border-[#A0AEC0]/30 dark:border-[#262626] shadow-card-hover max-h-[88vh] flex flex-col overflow-hidden"
               >
                 {/* Drawer Top Bar */}
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-[#06070a]/70 backdrop-blur-md">
+                <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#A0AEC0]/20 dark:border-[#262626] bg-[#F5F7FA] dark:bg-[#050505]">
                   <a
                     href="#hero"
                     onClick={handleNavLinkClick}
                     aria-label={`${personal.name || "Nuwan Pinnaduwage"} Portfolio Home`}
-                    className="font-mono font-bold text-lg text-slate-900 dark:text-white flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg"
+                    className="font-mono font-bold text-lg text-[#2D3748] dark:text-white flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] rounded-lg"
                   >
                     <span>{personal.preferredName || "Nuwan"}</span>
-                    <span className="text-emerald-500 dark:text-emerald-400" style={{ color: 'var(--portfolio-accent, #22c55e)' }}>.dev</span>
+                    <span className="text-[#2D3748] dark:text-[#A0AEC0]">.dev</span>
                   </a>
 
                   <button
                     type="button"
                     onClick={() => setMobileMenuOpen(false)}
                     aria-label="Close navigation menu"
-                    className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    className="min-w-[40px] min-h-[40px] flex items-center justify-center p-2 rounded-lg text-[#718096] hover:text-[#2D3748] dark:text-[#A0AEC0] dark:hover:text-white hover:bg-slate-200 dark:hover:bg-[#2D3748] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748]"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -263,7 +259,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
 
                 {/* Drawer Scrollable Content */}
                 <div className="p-4 sm:p-5 overflow-y-auto space-y-1">
-                  <nav className="flex flex-col gap-1.5" aria-label="Mobile navigation links">
+                  <nav className="flex flex-col gap-1" aria-label="Mobile navigation links">
                     {mobileNavLinks.map((link) => {
                       const isActive = activeSection === (link.id || link.href.substring(1));
                       return (
@@ -271,28 +267,28 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                           key={link.id || link.href}
                           href={link.href}
                           onClick={handleNavLinkClick}
-                          className={`min-h-[44px] flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                          className={`min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                             isActive
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20'
-                              : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-dark-800/80'
+                              ? 'bg-[#F5F7FA] dark:bg-[#121212] text-[#2D3748] dark:text-white font-semibold border border-[#A0AEC0]/30 dark:border-[#262626]'
+                              : 'text-[#4A5568] dark:text-[#A0AEC0] hover:bg-[#F5F7FA] dark:hover:bg-[#121212]/50 hover:text-[#2D3748] dark:hover:text-white'
                           }`}
                         >
                           <span>{link.name}</span>
-                          <ChevronRight className={`w-4 h-4 ${isActive ? 'text-emerald-500' : 'opacity-40'}`} />
+                          <ChevronRight className={`w-4 h-4 ${isActive ? 'text-[#2D3748] dark:text-white' : 'opacity-40'}`} />
                         </a>
                       );
                     })}
                   </nav>
 
                   {/* Drawer Footer Actions */}
-                  <div className="pt-4 mt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2.5">
+                  <div className="pt-4 mt-3 border-t border-[#A0AEC0]/20 dark:border-[#222222] flex flex-col gap-2">
                     <button
                       type="button"
                       onClick={() => {
                         setMobileMenuOpen(false);
                         onOpenCV();
                       }}
-                      className="min-h-[44px] w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-sm transition-all active:scale-[0.99] touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                      className="min-h-[42px] w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle transition-all active:scale-[0.99] touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748]"
                     >
                       <FileDown className="w-4 h-4" />
                       <span>View / Download Resume</span>
@@ -303,9 +299,9 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                       onClick={() => setMobileMenuOpen(false)}
                       title="Admin Dashboard Portal"
                       aria-label="Admin Dashboard Portal"
-                      className="min-h-[40px] w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-mono font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                      className="min-h-[38px] w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-mono font-medium text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white hover:bg-[#F5F7FA] dark:hover:bg-[#2D3748]/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748]"
                     >
-                      <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                      <Shield className="w-3.5 h-3.5 text-[#718096] dark:text-[#A0AEC0]" />
                       <span>Admin Dashboard</span>
                     </Link>
                   </div>

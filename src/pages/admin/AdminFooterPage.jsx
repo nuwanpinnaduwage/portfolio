@@ -60,7 +60,7 @@ export default function AdminFooterPage() {
     // Appearance Settings
     bgColor: '#050706',
     textColor: '#94a3b8',
-    highlightColor: '#22c55e',
+    highlightColor: '#2D3748',
     fontSize: 'sm',
     paddingY: 'normal',
     spacing: 'normal',
@@ -170,7 +170,7 @@ export default function AdminFooterPage() {
         prefixText: '©',
         bgColor: '#050706',
         textColor: '#94a3b8',
-        highlightColor: '#22c55e',
+        highlightColor: '#2D3748',
         fontSize: 'sm',
         paddingY: 'normal',
         spacing: 'normal',
@@ -229,7 +229,8 @@ export default function AdminFooterPage() {
   ];
 
   const highlightPresets = [
-    { label: 'Neon Emerald', value: '#22c55e' },
+    { label: 'Clean Slate Charcoal', value: '#2D3748' },
+    { label: 'Clean Slate Gray', value: '#A0AEC0' },
     { label: 'Mint', value: '#10b981' },
     { label: 'Cyan', value: '#06b6d4' },
     { label: 'Violet', value: '#8b5cf6' },
@@ -275,14 +276,14 @@ export default function AdminFooterPage() {
       {/* Page Header with Action Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+            <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
               <PanelBottom className="w-6 h-6" />
             </span>
             <span>Footer Customization</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
-            Recreate and manage the minimalist single-line copyright statement, highlight your name in neon emerald (<code className="text-emerald-400 font-mono">#22c55e</code>), and configure optional elements.
+            Recreate and manage the minimalist single-line copyright statement, highlight your name in Clean Slate Charcoal (<code className="text-slate-300 font-mono">#2D3748</code>), and configure optional elements.
           </p>
         </div>
 
@@ -300,7 +301,7 @@ export default function AdminFooterPage() {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm flex items-center gap-2 transition-all disabled:opacity-50"
+            className="px-4 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle flex items-center gap-2 transition-all disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? 'Saving...' : 'Save Changes'}</span>
@@ -332,7 +333,7 @@ export default function AdminFooterPage() {
       {/* ========================================================= */}
       {/* LIVE FOOTER PREVIEW                                        */}
       {/* ========================================================= */}
-      <div className="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl overflow-hidden shadow-xl">
         <div className="px-5 py-3.5 bg-dark-950 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Eye className="w-4 h-4 text-emerald-400" />
@@ -366,7 +367,7 @@ export default function AdminFooterPage() {
           onClick={() => setActiveTab('copyright')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'copyright'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -378,7 +379,7 @@ export default function AdminFooterPage() {
           onClick={() => setActiveTab('appearance')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'appearance'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -390,7 +391,7 @@ export default function AdminFooterPage() {
           onClick={() => setActiveTab('optional')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'optional'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -402,7 +403,7 @@ export default function AdminFooterPage() {
           onClick={() => setActiveTab('layout')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'layout'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -415,7 +416,7 @@ export default function AdminFooterPage() {
       {/* TAB A: COPYRIGHT SETTINGS                                  */}
       {/* ========================================================= */}
       {activeTab === 'copyright' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Type className="w-4 h-4 text-emerald-400" />
@@ -522,7 +523,7 @@ export default function AdminFooterPage() {
       {/* TAB B: APPEARANCE & COLORS                                 */}
       {/* ========================================================= */}
       {activeTab === 'appearance' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Palette className="w-4 h-4 text-emerald-400" />
@@ -538,7 +539,7 @@ export default function AdminFooterPage() {
             {/* Highlight Color */}
             <div className="space-y-2.5">
               <label className="text-xs font-mono text-slate-300 block font-bold">
-                Highlighted Name Accent Color (Default: Neon Emerald <span className="text-emerald-400">#22c55e</span>)
+                Highlighted Name Accent Color (Default: Clean Slate Charcoal <span className="text-slate-300">#2D3748</span>)
               </label>
               <div className="flex flex-wrap items-center gap-2.5">
                 {highlightPresets.map(preset => (
@@ -587,7 +588,7 @@ export default function AdminFooterPage() {
                     onClick={() => setFooterForm(prev => ({ ...prev, bgColor: preset.value }))}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 border transition-all ${
                       footerForm.bgColor.toLowerCase() === preset.value.toLowerCase()
-                        ? 'border-emerald-500 text-white bg-dark-850 shadow-glow-sm'
+                        ? 'border-emerald-500 text-white bg-dark-850 shadow-subtle'
                         : 'border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
                     }`}
                   >
@@ -626,7 +627,7 @@ export default function AdminFooterPage() {
                     onClick={() => setFooterForm(prev => ({ ...prev, textColor: preset.value }))}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 border transition-all ${
                       footerForm.textColor.toLowerCase() === preset.value.toLowerCase()
-                        ? 'border-emerald-500 text-white bg-dark-850 shadow-glow-sm'
+                        ? 'border-emerald-500 text-white bg-dark-850 shadow-subtle'
                         : 'border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
                     }`}
                   >
@@ -706,7 +707,7 @@ export default function AdminFooterPage() {
       {/* TAB C: OPTIONAL CONTENT MANAGEMENT                         */}
       {/* ========================================================= */}
       {activeTab === 'optional' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Sliders className="w-4 h-4 text-emerald-400" />
@@ -905,7 +906,7 @@ export default function AdminFooterPage() {
                     <button
                       type="button"
                       onClick={openAddNavModal}
-                      className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/20 transition-colors"
+                      className="px-2.5 py-1 rounded-lg bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA] text-xs font-semibold hover:bg-emerald-500/20 transition-colors"
                     >
                       + Add Link
                     </button>
@@ -1093,7 +1094,7 @@ export default function AdminFooterPage() {
       {/* TAB D: LAYOUT & ALIGNMENT                                  */}
       {/* ========================================================= */}
       {activeTab === 'layout' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Layout className="w-4 h-4 text-emerald-400" />
@@ -1112,7 +1113,7 @@ export default function AdminFooterPage() {
               onClick={() => setFooterForm(prev => ({ ...prev, layout: 'minimal' }))}
               className={`p-5 rounded-xl border cursor-pointer transition-all ${
                 footerForm.layout === 'minimal'
-                  ? 'bg-emerald-950/20 border-emerald-500 shadow-glow-sm'
+                  ? 'bg-emerald-950/20 border-emerald-500 shadow-subtle'
                   : 'bg-dark-850 border-slate-800 hover:border-slate-700'
               }`}
             >
@@ -1121,7 +1122,7 @@ export default function AdminFooterPage() {
                   <span>Minimal Footer (Default)</span>
                   {footerForm.layout === 'minimal' && <Check className="w-4 h-4 text-emerald-400" />}
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568]">
                   Recommended
                 </span>
               </div>
@@ -1140,7 +1141,7 @@ export default function AdminFooterPage() {
               onClick={() => setFooterForm(prev => ({ ...prev, layout: 'expanded' }))}
               className={`p-5 rounded-xl border cursor-pointer transition-all ${
                 footerForm.layout === 'expanded'
-                  ? 'bg-emerald-950/20 border-emerald-500 shadow-glow-sm'
+                  ? 'bg-emerald-950/20 border-emerald-500 shadow-subtle'
                   : 'bg-dark-850 border-slate-800 hover:border-slate-700'
               }`}
             >
@@ -1183,7 +1184,7 @@ export default function AdminFooterPage() {
                   onClick={() => setFooterForm(prev => ({ ...prev, alignment: align.id }))}
                   className={`p-3 rounded-xl border text-left transition-all ${
                     footerForm.alignment === align.id
-                      ? 'bg-emerald-950/20 border-emerald-500 text-white shadow-glow-sm'
+                      ? 'bg-emerald-950/20 border-emerald-500 text-white shadow-subtle'
                       : 'bg-dark-850 border-slate-800 text-slate-400 hover:text-white'
                   }`}
                 >
@@ -1201,7 +1202,7 @@ export default function AdminFooterPage() {
       {/* ========================================================= */}
       {navModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl w-full max-w-sm overflow-hidden shadow-2xl">
             <div className="flex items-center justify-between p-4 border-b border-slate-800">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <LinkIcon className="w-4 h-4 text-emerald-400" />
@@ -1251,7 +1252,7 @@ export default function AdminFooterPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs"
+                  className="px-4 py-1.5 rounded-lg bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle"
                 >
                   Save Link
                 </button>
@@ -1266,7 +1267,7 @@ export default function AdminFooterPage() {
       {/* ========================================================= */}
       {resetModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto">
               <RotateCcw className="w-6 h-6" />
             </div>
@@ -1289,7 +1290,7 @@ export default function AdminFooterPage() {
               <button
                 type="button"
                 onClick={handleResetToDefault}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-dark-950 font-bold text-xs transition-colors shadow-glow-sm"
+                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-dark-950 font-bold text-xs transition-colors shadow-subtle"
               >
                 Reset Footer
               </button>

@@ -188,14 +188,14 @@ export default function Contact({ onShowToast, data, personalData }) {
     }
   };
 
-  // Helper to highlight "Connect" in neon emerald #22c55e in the form heading
+  // Helper to highlight "Connect" in Clean Slate brand tone
   const renderFormHeading = (heading = "Let's Connect") => {
     if (heading.includes("Connect")) {
       const parts = heading.split("Connect");
       return (
         <>
           {parts[0]}
-          <span className="text-[#22c55e]">Connect</span>
+          <span className="text-[#2D3748] dark:text-white font-bold">Connect</span>
           {parts.slice(1).join("Connect")}
         </>
       );
@@ -207,7 +207,7 @@ export default function Contact({ onShowToast, data, personalData }) {
     <section 
       id="contact" 
       aria-labelledby="contact-heading"
-      className="py-16 sm:py-24 relative overflow-hidden scroll-mt-24 bg-slate-50/70 dark:bg-[#06070a] border-t border-slate-200/60 dark:border-slate-800/60 transition-colors"
+      className="py-16 sm:py-24 relative overflow-hidden scroll-mt-24 bg-[#F5F7FA] dark:bg-[#050505] border-t border-[#A0AEC0]/20 dark:border-[#1F1F1F] transition-colors"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -233,7 +233,7 @@ export default function Contact({ onShowToast, data, personalData }) {
               {/* Heading: Get In Touch (Balanced 1.25 line-height) */}
               <h2 
                 id="contact-heading"
-                className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.25]"
+                className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight leading-[1.25]"
               >
                 {contact.title || "Get In Touch"}
               </h2>
@@ -261,11 +261,11 @@ export default function Contact({ onShowToast, data, personalData }) {
               {/* Email Address */}
               {display.showEmail !== false && directEmail && (
                 <div className="flex items-center gap-3.5 sm:gap-4 group">
-                  <Mail className="w-5 h-5 text-black dark:text-white shrink-0 group-hover:text-[#22c55e] dark:group-hover:text-[#22c55e] transition-colors" />
+                  <Mail className="w-5 h-5 text-[#2D3748] dark:text-[#A0AEC0] shrink-0 group-hover:text-[#1A202C] dark:group-hover:text-white transition-colors" />
                   <div className="min-w-0">
                     <a
                       href={`mailto:${directEmail}`}
-                      className="text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200 leading-[1.55] hover:text-[#22c55e] dark:hover:text-[#22c55e] transition-colors truncate block"
+                      className="text-sm sm:text-base font-medium text-[#2D3748] dark:text-[#F5F7FA] leading-[1.55] hover:text-[#2D3748] dark:hover:text-white transition-colors truncate block"
                     >
                       {directEmail}
                     </a>
@@ -276,11 +276,11 @@ export default function Contact({ onShowToast, data, personalData }) {
               {/* Phone Number */}
               {display.showPhone !== false && directPhone && (
                 <div className="flex items-center gap-3.5 sm:gap-4 group">
-                  <Phone className="w-5 h-5 text-black dark:text-white shrink-0 group-hover:text-[#22c55e] dark:group-hover:text-[#22c55e] transition-colors" />
+                  <Phone className="w-5 h-5 text-[#2D3748] dark:text-[#A0AEC0] shrink-0 group-hover:text-[#1A202C] dark:group-hover:text-white transition-colors" />
                   <div className="min-w-0">
                     <a
                       href={`tel:${directPhone.replace(/[^0-9+]/g, '')}`}
-                      className="text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200 leading-[1.55] hover:text-[#22c55e] dark:hover:text-[#22c55e] transition-colors truncate block font-mono"
+                      className="text-sm sm:text-base font-medium text-[#2D3748] dark:text-[#F5F7FA] leading-[1.55] hover:text-[#2D3748] dark:hover:text-white transition-colors truncate block font-mono"
                     >
                       {directPhone}
                     </a>
@@ -291,13 +291,13 @@ export default function Contact({ onShowToast, data, personalData }) {
               {/* Location */}
               {display.showLocation !== false && locationText && (
                 <div className="flex items-center gap-3.5 sm:gap-4 group">
-                  <MapPin className="w-5 h-5 text-black dark:text-white shrink-0 group-hover:text-[#22c55e] dark:group-hover:text-[#22c55e] transition-colors" />
+                  <MapPin className="w-5 h-5 text-[#2D3748] dark:text-[#A0AEC0] shrink-0 group-hover:text-[#1A202C] dark:group-hover:text-white transition-colors" />
                   <div className="min-w-0">
                     <a
                       href={`https://maps.google.com/?q=${encodeURIComponent(locationText)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200 leading-[1.55] hover:text-[#22c55e] dark:hover:text-[#22c55e] transition-colors truncate block"
+                      className="text-sm sm:text-base font-medium text-[#2D3748] dark:text-[#F5F7FA] leading-[1.55] hover:text-[#2D3748] dark:hover:text-white transition-colors truncate block"
                     >
                       {locationText}
                     </a>
@@ -322,14 +322,14 @@ export default function Contact({ onShowToast, data, personalData }) {
             >
               <div>
                 
-                {/* Form Heading: Let's Connect (Connect highlighted in #22c55e, balanced 1.25 line-height and margin) */}
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.25] mb-7 sm:mb-8">
+                {/* Form Heading: Let's Connect (Clean Slate typography) */}
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-slate-900 dark:text-white tracking-tight leading-[1.25] mb-6 sm:mb-7">
                   {renderFormHeading(formConfig.formHeading || "Let's Connect")}
                 </h3>
 
                 {submitted ? (
                   <div className="py-12 text-center space-y-4">
-                    <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-[#22c55e] border border-emerald-500/30 flex items-center justify-center mx-auto">
+                    <div className="w-14 h-14 rounded-full bg-white dark:bg-[#0E0E0E] text-[#2D3748] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626] flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
                     <h4 className="text-xl font-bold font-heading text-slate-900 dark:text-white">
@@ -340,7 +340,7 @@ export default function Contact({ onShowToast, data, personalData }) {
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="mt-4 px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#22c55e] hover:bg-[#1ea850] text-slate-950 transition-all shadow-glow-sm"
+                      className="mt-4 px-8 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] transition-all shadow-subtle"
                     >
                       Send Another Message
                     </button>
@@ -362,11 +362,11 @@ export default function Contact({ onShowToast, data, personalData }) {
                               placeholder={formConfig.namePlaceholder || "Your Name"}
                               required={isNameRequired}
                               aria-label={formConfig.nameLabel || "Your Name"}
-                              className={`w-full px-4 py-3 sm:py-3.5 rounded-xl text-sm leading-[1.5] bg-slate-100/80 dark:bg-black/25 border ${
+                              className={`w-full px-4 py-3 sm:py-3.5 rounded-xl text-sm leading-[1.5] bg-white dark:bg-[#0E0E0E] border ${
                                 errors.name 
                                   ? 'border-rose-500 focus:ring-rose-500/30' 
-                                  : 'border-slate-300 dark:border-slate-800 focus:border-[#22c55e]'
-                              } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#22c55e] transition-all`}
+                                  : 'border-slate-300 dark:border-[#222222] focus:border-[#2D3748] dark:focus:border-[#A0AEC0]'
+                              } text-[#2D3748] dark:text-white placeholder-[#A0AEC0] dark:placeholder-[#A0AEC0] focus:outline-none focus:ring-1 focus:ring-[#2D3748] dark:focus:ring-[#A0AEC0] transition-all`}
                             />
                             {errors.name && (
                               <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1">
@@ -386,11 +386,11 @@ export default function Contact({ onShowToast, data, personalData }) {
                               placeholder={formConfig.emailPlaceholder || "Your Email"}
                               required={isEmailRequired}
                               aria-label={formConfig.emailLabel || "Your Email"}
-                              className={`w-full px-4 py-3 sm:py-3.5 rounded-xl text-sm leading-[1.5] bg-slate-100/80 dark:bg-black/25 border ${
+                              className={`w-full px-4 py-3 sm:py-3.5 rounded-xl text-sm leading-[1.5] bg-white dark:bg-[#0E0E0E] border ${
                                 errors.email 
                                   ? 'border-rose-500 focus:ring-rose-500/30' 
-                                  : 'border-slate-300 dark:border-slate-800 focus:border-[#22c55e]'
-                              } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#22c55e] transition-all`}
+                                  : 'border-slate-300 dark:border-[#222222] focus:border-[#2D3748] dark:focus:border-[#A0AEC0]'
+                              } text-[#2D3748] dark:text-white placeholder-[#A0AEC0] dark:placeholder-[#A0AEC0] focus:outline-none focus:ring-1 focus:ring-[#2D3748] dark:focus:ring-[#A0AEC0] transition-all`}
                             />
                             {errors.email && (
                               <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1">
@@ -414,11 +414,11 @@ export default function Contact({ onShowToast, data, personalData }) {
                             placeholder={formConfig.subjectPlaceholder || "Subject"}
                             required={isSubjectRequired}
                             aria-label={formConfig.subjectLabel || "Subject"}
-                            className={`w-full px-4 py-3 sm:py-3.5 rounded-xl text-sm leading-[1.5] bg-slate-100/80 dark:bg-black/25 border ${
+                            className={`w-full px-4 py-3 sm:py-3.5 rounded-xl text-sm leading-[1.5] bg-white dark:bg-[#0E0E0E] border ${
                               errors.subject 
                                 ? 'border-rose-500 focus:ring-rose-500/30' 
-                                : 'border-slate-300 dark:border-slate-800 focus:border-[#22c55e]'
-                            } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#22c55e] transition-all`}
+                                : 'border-slate-300 dark:border-[#222222] focus:border-[#2D3748] dark:focus:border-[#A0AEC0]'
+                            } text-[#2D3748] dark:text-white placeholder-[#A0AEC0] dark:placeholder-[#A0AEC0] focus:outline-none focus:ring-1 focus:ring-[#2D3748] dark:focus:ring-[#A0AEC0] transition-all`}
                           />
                           {errors.subject && (
                             <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1">
@@ -441,11 +441,11 @@ export default function Contact({ onShowToast, data, personalData }) {
                             placeholder={formConfig.messagePlaceholder || "Message"}
                             required={isMessageRequired}
                             aria-label={formConfig.messageLabel || "Message"}
-                            className={`w-full px-4 py-3.5 rounded-xl text-sm leading-[1.6] bg-slate-100/80 dark:bg-black/25 border ${
+                            className={`w-full px-4 py-3.5 rounded-xl text-sm leading-[1.6] bg-white dark:bg-[#0E0E0E] border ${
                               errors.message 
                                 ? 'border-rose-500 focus:ring-rose-500/30' 
-                                : 'border-slate-300 dark:border-slate-800 focus:border-[#22c55e]'
-                            } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#22c55e] transition-all resize-none`}
+                                : 'border-slate-300 dark:border-[#222222] focus:border-[#2D3748] dark:focus:border-[#A0AEC0]'
+                            } text-[#2D3748] dark:text-white placeholder-[#A0AEC0] dark:placeholder-[#A0AEC0] focus:outline-none focus:ring-1 focus:ring-[#2D3748] dark:focus:ring-[#A0AEC0] transition-all resize-none`}
                           ></textarea>
                           {errors.message && (
                             <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1">
@@ -462,7 +462,7 @@ export default function Contact({ onShowToast, data, personalData }) {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="px-12 py-3 sm:py-3.5 rounded-full bg-[#22c55e] hover:bg-[#1ea850] active:scale-98 disabled:opacity-60 text-slate-950 font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 hover:shadow-glow-sm hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                            className="px-10 py-3 rounded-lg bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] active:scale-98 disabled:opacity-60 font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-subtle hover:shadow flex items-center justify-center gap-2 cursor-pointer"
                           >
                             {isSubmitting ? (
                               <>
@@ -502,7 +502,7 @@ export default function Contact({ onShowToast, data, personalData }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={item.ariaLabel}
-                    className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-xl text-black dark:text-white hover:opacity-75 transition-all hover:scale-110 active:scale-95"
+                    className="inline-flex items-center justify-center p-2 rounded-lg text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white hover:bg-white dark:hover:bg-[#2D3748] transition-colors active:scale-95"
                     title={item.platform}
                   >
                     <IconComponent className="w-6 h-6 sm:w-7 sm:h-7" />

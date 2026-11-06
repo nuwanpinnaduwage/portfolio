@@ -47,10 +47,10 @@ export default function ShowcaseFilterBar({
   );
 
   return (
-    <div className="space-y-4 mb-8 sm:mb-10 pb-5 sm:pb-6 border-b border-slate-200/60 dark:border-slate-800/60">
+    <div className="space-y-4 mb-8 sm:mb-10 pb-5 sm:pb-6 border-b border-slate-200/60 dark:border-[#222222]">
       
       {/* Top Row: Category Tabs and Search */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 border-b border-slate-200/60 dark:border-slate-800/60 pb-2">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 border-b border-slate-200/60 dark:border-[#222222] pb-2">
         
         {/* Clean Text-based Category Tabs */}
         <div 
@@ -69,22 +69,22 @@ export default function ShowcaseFilterBar({
                 onClick={() => onSelectCategory(category)}
                 className={`relative pb-2 pt-1 px-1 text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer touch-manipulation shrink-0 select-none ${
                   isSelected
-                    ? 'text-emerald-500 dark:text-emerald-400 font-bold'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium'
+                    ? 'text-[#2D3748] dark:text-white font-bold'
+                    : 'text-[#718096] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white font-medium'
                 }`}
               >
                 <span>{category}</span>
                 {count !== undefined && (
                   <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold ${
                     isSelected
-                      ? 'bg-emerald-500/10 text-emerald-500 dark:text-emerald-400'
-                      : 'bg-slate-100 dark:bg-dark-800 text-slate-500 dark:text-slate-400'
+                      ? 'bg-[#F5F7FA] text-[#2D3748] dark:bg-[#161616] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626]'
+                      : 'bg-slate-100 dark:bg-[#121212] text-[#718096] dark:text-[#A0AEC0]'
                   }`}>
                     {count}
                   </span>
                 )}
                 {isSelected && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500 -mb-[9px]" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA] -mb-[9px]" />
                 )}
               </button>
             );
@@ -99,7 +99,7 @@ export default function ShowcaseFilterBar({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={activeTab === 'research' ? "Search publications, authors, DOI..." : "Search projects, tools, CVEs, protocols..."}
-            className="w-full pl-9 pr-8 py-2 rounded-xl text-xs sm:text-sm bg-white dark:bg-dark-850 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+            className="w-full pl-9 pr-8 py-2 rounded-xl text-xs sm:text-sm bg-white dark:bg-[#121212] border border-[#A0AEC0]/35 dark:border-[#262626] text-[#2D3748] dark:text-white placeholder-[#A0AEC0] focus:outline-none focus:ring-2 focus:ring-[#2D3748]/30 dark:focus:ring-[#A0AEC0]/30 transition-all"
           />
           {searchQuery && (
             <button
@@ -127,9 +127,9 @@ export default function ShowcaseFilterBar({
                 value={activeStatus}
                 onChange={(e) => onSelectStatus(e.target.value)}
                 aria-label="Filter by status"
-                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-dark-850 border cursor-pointer focus:outline-none transition-colors ${
+                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-[#121212] border border-[#A0AEC0]/35 dark:border-[#262626] cursor-pointer focus:outline-none transition-colors ${
                   activeStatus !== 'All' 
-                    ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 font-semibold' 
+                    ? 'border-[#2D3748] dark:border-[#F5F7FA] text-[#2D3748] dark:text-white font-semibold' 
                     : 'border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
               >
@@ -149,9 +149,9 @@ export default function ShowcaseFilterBar({
                 value={activeType}
                 onChange={(e) => onSelectType(e.target.value)}
                 aria-label="Filter by type"
-                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-dark-850 border cursor-pointer focus:outline-none transition-colors ${
+                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-[#121212] border border-[#A0AEC0]/35 dark:border-[#262626] cursor-pointer focus:outline-none transition-colors ${
                   activeType !== 'All' 
-                    ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 font-semibold' 
+                    ? 'border-[#2D3748] dark:border-[#F5F7FA] text-[#2D3748] dark:text-white font-semibold' 
                     : 'border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
               >
@@ -171,9 +171,9 @@ export default function ShowcaseFilterBar({
                 value={activeYear}
                 onChange={(e) => onSelectYear(e.target.value)}
                 aria-label="Filter by year"
-                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-dark-850 border cursor-pointer focus:outline-none transition-colors ${
+                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-[#121212] border border-[#A0AEC0]/35 dark:border-[#262626] cursor-pointer focus:outline-none transition-colors ${
                   activeYear !== 'All' 
-                    ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 font-semibold' 
+                    ? 'border-[#2D3748] dark:border-[#F5F7FA] text-[#2D3748] dark:text-white font-semibold' 
                     : 'border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
               >
@@ -193,9 +193,9 @@ export default function ShowcaseFilterBar({
                 value={activeTag}
                 onChange={(e) => onSelectTag(e.target.value)}
                 aria-label="Filter by technology tag"
-                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-dark-850 border cursor-pointer focus:outline-none transition-colors ${
+                className={`py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-[#121212] border border-[#A0AEC0]/35 dark:border-[#262626] cursor-pointer focus:outline-none transition-colors ${
                   activeTag !== 'All' 
-                    ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 font-semibold' 
+                    ? 'border-[#2D3748] dark:border-[#F5F7FA] text-[#2D3748] dark:text-white font-semibold' 
                     : 'border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
               >
@@ -215,7 +215,7 @@ export default function ShowcaseFilterBar({
                 value={sortBy}
                 onChange={(e) => onSelectSortBy(e.target.value)}
                 aria-label="Sort projects"
-                className="py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-dark-850 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none transition-colors"
+                className="py-1.5 px-2.5 rounded-lg text-xs font-mono bg-white dark:bg-[#121212] border border-[#A0AEC0]/35 dark:border-[#262626] text-[#2D3748] dark:text-[#F5F7FA] cursor-pointer focus:outline-none transition-colors"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
@@ -234,7 +234,7 @@ export default function ShowcaseFilterBar({
           {isFiltered && (
             <button
               onClick={onResetFilters}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-all touch-manipulation"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-medium text-[#2D3748] dark:text-[#F5F7FA] bg-[#F5F7FA] dark:bg-[#121212] hover:bg-slate-200 dark:hover:bg-[#1A1A1A] border border-[#A0AEC0]/35 dark:border-[#262626] transition-all touch-manipulation"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset</span>

@@ -482,8 +482,8 @@ export default function AdminContactPage() {
       
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+        <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+          <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
             <Mail className="w-6 h-6" />
           </span>
           <span>Contact Section Management</span>
@@ -499,7 +499,7 @@ export default function AdminContactPage() {
           onClick={() => setActiveTab('general')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'general'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -511,7 +511,7 @@ export default function AdminContactPage() {
           onClick={() => setActiveTab('social')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'social'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -523,7 +523,7 @@ export default function AdminContactPage() {
           onClick={() => setActiveTab('form')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'form'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -535,7 +535,7 @@ export default function AdminContactPage() {
           onClick={() => setActiveTab('visibility')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'visibility'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -572,7 +572,7 @@ export default function AdminContactPage() {
       {/* TAB 1: GENERAL CONTACT INFO                                */}
       {/* ========================================================= */}
       {activeTab === 'general' && (
-        <form onSubmit={handleSaveGeneral} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <form onSubmit={handleSaveGeneral} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Phone className="w-4 h-4 text-emerald-400" />
@@ -696,7 +696,7 @@ export default function AdminContactPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-xs sm:text-sm shadow-glow-sm flex items-center gap-2 transition-all"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle flex items-center gap-2 transition-all"
             >
               <Save className="w-4 h-4" />
               <span>{saving ? 'Saving...' : 'Save General Contact Info'}</span>
@@ -710,7 +710,7 @@ export default function AdminContactPage() {
       {/* ========================================================= */}
       {activeTab === 'social' && (
         <div className="space-y-6 max-w-4xl">
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
@@ -726,7 +726,7 @@ export default function AdminContactPage() {
                 <button
                   type="button"
                   onClick={openAddSocialModal}
-                  className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm flex items-center gap-2 transition-all shrink-0"
+                  className="px-4 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle flex items-center gap-2 transition-all shrink-0"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Link</span>
@@ -856,7 +856,7 @@ export default function AdminContactPage() {
                 type="button"
                 onClick={handleSaveAllSocialLinks}
                 disabled={saving}
-                className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-xs sm:text-sm shadow-glow-sm flex items-center gap-2 transition-all"
+                className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle flex items-center gap-2 transition-all"
               >
                 <Save className="w-4 h-4" />
                 <span>{saving ? 'Saving...' : 'Save All Social Links'}</span>
@@ -870,7 +870,7 @@ export default function AdminContactPage() {
       {/* TAB 3: CONTACT FORM SETTINGS                               */}
       {/* ========================================================= */}
       {activeTab === 'form' && (
-        <form onSubmit={handleSaveFormSettings} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <form onSubmit={handleSaveFormSettings} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
             <div>
               <h2 className="text-base font-bold text-white flex items-center gap-2">
@@ -1127,7 +1127,7 @@ export default function AdminContactPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-xs sm:text-sm shadow-glow-sm flex items-center gap-2 transition-all"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle flex items-center gap-2 transition-all"
             >
               <Save className="w-4 h-4" />
               <span>{saving ? 'Saving...' : 'Save Form Settings'}</span>
@@ -1140,7 +1140,7 @@ export default function AdminContactPage() {
       {/* TAB 4: CONTACT DISPLAY SETTINGS                            */}
       {/* ========================================================= */}
       {activeTab === 'visibility' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
             <div>
               <h2 className="text-base font-bold text-white flex items-center gap-2">
@@ -1318,7 +1318,7 @@ export default function AdminContactPage() {
               type="button"
               onClick={handleSaveDisplaySettings}
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-xs sm:text-sm shadow-glow-sm flex items-center gap-2 transition-all"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle flex items-center gap-2 transition-all"
             >
               <Save className="w-4 h-4" />
               <span>{saving ? 'Saving...' : 'Save Display Settings'}</span>
@@ -1332,7 +1332,7 @@ export default function AdminContactPage() {
       {/* ========================================================= */}
       {socialModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-scale-up">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl w-full max-w-md overflow-hidden shadow-2xl animate-scale-up">
             
             <div className="flex items-center justify-between p-5 border-b border-slate-800">
               <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
@@ -1458,7 +1458,7 @@ export default function AdminContactPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm transition-all"
+                  className="px-4 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle transition-all"
                 >
                   {editingSocialIdx !== null ? 'Apply Changes' : 'Add Link'}
                 </button>
@@ -1475,7 +1475,7 @@ export default function AdminContactPage() {
       {/* ========================================================= */}
       {deleteConfirmIdx !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6" />
             </div>

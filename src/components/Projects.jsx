@@ -229,7 +229,7 @@ export default function Projects({ onSelectProject, data }) {
     <section 
       id="projects" 
       aria-labelledby="projects-heading"
-      className="py-16 sm:py-20 relative overflow-hidden scroll-mt-24 bg-white dark:bg-[#0b0f17] border-t border-slate-200/60 dark:border-slate-800/60 transition-colors"
+      className="py-16 sm:py-20 relative overflow-hidden scroll-mt-24 bg-white dark:bg-[#0A0A0A] border-t border-[#A0AEC0]/20 dark:border-[#222222] transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -245,7 +245,7 @@ export default function Projects({ onSelectProject, data }) {
         />
 
         {/* Main Tab Navigation: [ Projects (N) | Research (M) ] */}
-        <div className="flex justify-center mb-8 sm:mb-10 border-b border-slate-200/60 dark:border-slate-800/60">
+        <div className="flex justify-center mb-8 sm:mb-10 border-b border-slate-200/60 dark:border-[#222222]">
           <div 
             role="tablist"
             aria-label="Showcase category switcher"
@@ -260,23 +260,23 @@ export default function Projects({ onSelectProject, data }) {
               onClick={() => setActiveTab('projects')}
               className={`relative pb-3.5 pt-2 px-1 text-sm sm:text-base font-semibold transition-colors flex items-center gap-2 sm:gap-2.5 cursor-pointer touch-manipulation select-none ${
                 activeTab === 'projects'
-                  ? 'text-emerald-500 dark:text-emerald-400 font-bold'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium'
+                  ? 'text-[#2D3748] dark:text-white font-bold'
+                  : 'text-[#718096] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white font-medium'
               }`}
             >
-              <FolderGit2 className={`w-4 h-4 shrink-0 ${activeTab === 'projects' ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`} />
+              <FolderGit2 className={`w-4 h-4 shrink-0 ${activeTab === 'projects' ? 'text-[#2D3748] dark:text-white' : 'text-[#718096] dark:text-[#A0AEC0]'}`} />
               <span>Projects</span>
               <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono font-bold ${
                 activeTab === 'projects' 
-                  ? 'bg-emerald-500/10 text-emerald-500 dark:text-emerald-400' 
-                  : 'bg-slate-100 dark:bg-dark-800 text-slate-500 dark:text-slate-400'
+                  ? 'bg-[#F5F7FA] text-[#2D3748] dark:bg-[#161616] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626]' 
+                  : 'bg-slate-100 dark:bg-[#121212] text-[#718096] dark:text-[#A0AEC0]'
               }`}>
                 {rawProjectItems.length}
               </span>
               {activeTab === 'projects' && (
                 <motion.div
                   layoutId="activeShowcaseTabUnderline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA]"
                   transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                 />
               )}
@@ -291,23 +291,23 @@ export default function Projects({ onSelectProject, data }) {
               onClick={() => setActiveTab('research')}
               className={`relative pb-3.5 pt-2 px-1 text-sm sm:text-base font-semibold transition-colors flex items-center gap-2 sm:gap-2.5 cursor-pointer touch-manipulation select-none ${
                 activeTab === 'research'
-                  ? 'text-emerald-500 dark:text-emerald-400 font-bold'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium'
+                  ? 'text-[#2D3748] dark:text-white font-bold'
+                  : 'text-[#718096] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white font-medium'
               }`}
             >
-              <BookOpen className={`w-4 h-4 shrink-0 ${activeTab === 'research' ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`} />
+              <BookOpen className={`w-4 h-4 shrink-0 ${activeTab === 'research' ? 'text-[#2D3748] dark:text-white' : 'text-[#718096] dark:text-[#A0AEC0]'}`} />
               <span>Research</span>
               <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono font-bold ${
                 activeTab === 'research' 
-                  ? 'bg-emerald-500/10 text-emerald-500 dark:text-emerald-400' 
-                  : 'bg-slate-100 dark:bg-dark-800 text-slate-500 dark:text-slate-400'
+                  ? 'bg-[#F5F7FA] text-[#2D3748] dark:bg-[#161616] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626]' 
+                  : 'bg-slate-100 dark:bg-[#121212] text-[#718096] dark:text-[#A0AEC0]'
               }`}>
                 {rawResearchItems.length}
               </span>
               {activeTab === 'research' && (
                 <motion.div
                   layoutId="activeShowcaseTabUnderline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA]"
                   transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                 />
               )}
@@ -346,13 +346,13 @@ export default function Projects({ onSelectProject, data }) {
 
             {/* Projects Grid */}
             {filteredProjects.length === 0 ? (
-              <div className="text-center py-16 p-8 glass-card rounded-2xl max-w-md mx-auto">
-                <SlidersHorizontal className="w-10 h-10 text-emerald-500/70 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">No matching projects found</h3>
-                <p className="text-xs text-slate-500 mt-1">Try adjusting your filters or search query.</p>
+              <div className="text-center py-16 p-8 glass-card rounded-xl max-w-md mx-auto">
+                <SlidersHorizontal className="w-10 h-10 text-[#2D3748] dark:text-[#A0AEC0] mx-auto mb-3" />
+                <h3 className="text-lg font-bold font-heading text-slate-800 dark:text-slate-200">No matching projects found</h3>
+                <p className="text-xs font-sans text-slate-500 mt-1">Try adjusting your filters or search query.</p>
                 <button
                   onClick={handleResetProjectFilters}
-                  className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-dark-950 shadow-glow-sm"
+                  className="mt-4 px-4 py-2 rounded-lg text-xs font-sans font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle transition-all active:scale-98 cursor-pointer"
                 >
                   Reset Project Filters
                 </button>
@@ -360,16 +360,18 @@ export default function Projects({ onSelectProject, data }) {
             ) : (
               <motion.div 
                 key={`proj-${projectCategory}-${projectType}-${projectStatus}-${projectTag}-${projectSearch}-${projectSortBy}`}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8"
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.08, margin: "-20px 0px -20px 0px" }}
               >
-                {filteredProjects.map((project) => (
+                {filteredProjects.map((project, index) => (
                   <ProjectCard
                     key={project.id}
                     project={project}
+                    index={index}
+                    layout={project.featured ? 'featured' : 'standard'}
                     onSelect={(p, tab) => onSelectProject(p, tab)}
                     variants={cardVariants}
                   />
@@ -411,13 +413,13 @@ export default function Projects({ onSelectProject, data }) {
 
             {/* Research Grid */}
             {filteredResearch.length === 0 ? (
-              <div className="text-center py-16 p-8 glass-card rounded-2xl max-w-md mx-auto">
-                <SlidersHorizontal className="w-10 h-10 text-emerald-500/70 mx-auto mb-3" />
+              <div className="text-center py-16 p-8 glass-card rounded-xl max-w-md mx-auto">
+                <SlidersHorizontal className="w-10 h-10 text-[#2D3748] dark:text-[#A0AEC0] mx-auto mb-3" />
                 <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">No matching publications found</h3>
                 <p className="text-xs text-slate-500 mt-1">Try adjusting your research filters or search terms.</p>
                 <button
                   onClick={handleResetResearchFilters}
-                  className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-dark-950 shadow-glow-sm"
+                  className="mt-4 px-4 py-2 rounded-lg text-xs font-sans font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle transition-all active:scale-98 cursor-pointer"
                 >
                   Reset Research Filters
                 </button>

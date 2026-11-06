@@ -5,6 +5,7 @@ import { PortfolioProvider } from './context/PortfolioContext';
 
 // Public Pages
 import PublicPortfolioPage from './pages/PublicPortfolioPage';
+import ProjectDetailPage from './pages/ProjectDetailPage';
 
 // Admin Pages
 import AdminLoginPage from './pages/admin/AdminLoginPage';
@@ -34,6 +35,9 @@ export default function App() {
           <Routes>
             {/* Public Portfolio Route */}
             <Route path="/" element={<PublicPortfolioPage />} />
+
+            {/* Public Individual Project Detail Route */}
+            <Route path="/projects/:slug" element={<ProjectDetailPage />} />
 
             {/* Private Admin Login Route */}
             <Route path="/admin/login" element={<AdminLoginPage />} />

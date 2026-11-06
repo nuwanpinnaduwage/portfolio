@@ -14,7 +14,8 @@ import {
   Sparkles,
   Bookmark,
   Layers,
-  Activity
+  Activity,
+  Zap
 } from 'lucide-react';
 
 export default function ResearchModal({ item, onClose }) {
@@ -64,7 +65,7 @@ export default function ResearchModal({ item, onClose }) {
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'published':
-        return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+        return 'bg-emerald-500/15 text-[#2D3748] dark:text-[#A0AEC0] border-emerald-500/30';
       case 'accepted':
         return 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30';
       case 'under review':
@@ -83,17 +84,17 @@ export default function ResearchModal({ item, onClose }) {
       role="dialog" 
       aria-modal="true" 
       aria-labelledby="modal-research-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-dark-950/85 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-[#050505]/80 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-3xl rounded-2xl bg-white dark:bg-dark-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-4 sm:my-6"
+        className="relative w-full max-w-3xl rounded-xl bg-white dark:bg-[#0E0E0E] border border-[#A0AEC0]/30 dark:border-[#262626] shadow-card-hover overflow-hidden my-4 sm:my-6"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-dark-850/70 gap-2">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#A0AEC0]/20 dark:border-[#222222] bg-[#F5F7FA] dark:bg-[#121212] gap-2">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-[#F5F7FA] dark:bg-[#1A1A1A] text-[#2D3748] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626]">
               {item.type || 'Research Publication'}
             </span>
             <span className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-dark-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
@@ -156,7 +157,7 @@ export default function ResearchModal({ item, onClose }) {
                     href={`https://doi.org/${item.doi}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                    className="font-mono text-emerald-600 dark:text-[#2D3748] dark:text-[#A0AEC0] hover:underline inline-flex items-center gap-1"
                   >
                     <span>{item.doi}</span>
                     <ExternalLink className="w-3 h-3" />
@@ -168,7 +169,7 @@ export default function ResearchModal({ item, onClose }) {
 
           {/* Abstract */}
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 flex items-center gap-1.5 font-semibold">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-[#2D3748] dark:text-[#A0AEC0] mb-2 flex items-center gap-1.5 font-semibold">
               <FileText className="w-4 h-4" />
               <span>Abstract</span>
             </h4>
@@ -231,7 +232,7 @@ export default function ResearchModal({ item, onClose }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {item.metrics.map((m, i) => (
                   <div key={i} className="p-3 rounded-xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800 flex items-center gap-2">
-                    <span className="text-emerald-500 text-sm">⚡</span>
+                    <Zap className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0] shrink-0" aria-hidden="true" />
                     <span className="text-xs sm:text-sm font-mono text-slate-800 dark:text-slate-200">{m}</span>
                   </div>
                 ))}
@@ -262,12 +263,12 @@ export default function ResearchModal({ item, onClose }) {
           <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-mono uppercase text-slate-400 flex items-center gap-1.5">
-                <Share2 className="w-3.5 h-3.5 text-emerald-400" />
+                <Share2 className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                 <span>BibTeX Citation</span>
               </span>
               <button
                 onClick={handleCopyCitation}
-                className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1 rounded-md transition-colors touch-manipulation"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-[#2D3748] dark:text-[#A0AEC0] hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1 rounded-md transition-colors touch-manipulation"
               >
                 {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? 'Copied' : 'Copy BibTeX'}</span>
@@ -281,14 +282,14 @@ export default function ResearchModal({ item, onClose }) {
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-dark-850/70 flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 sm:p-5 border-t border-[#A0AEC0]/20 dark:border-[#4A5568] bg-[#F5F7FA] dark:bg-[#1A202C] flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             {item.paperUrl && (
               <a
                 href={item.paperUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle transition-all"
               >
                 <Download className="w-4 h-4" />
                 <span>Download / Read Paper</span>
@@ -301,7 +302,7 @@ export default function ResearchModal({ item, onClose }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white dark:bg-dark-900 hover:bg-slate-100 dark:hover:bg-dark-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-colors"
               >
-                <ExternalLink className="w-4 h-4 text-emerald-400" />
+                <ExternalLink className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                 <span>External Publication</span>
               </a>
             )}

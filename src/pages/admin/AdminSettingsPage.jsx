@@ -28,7 +28,7 @@ export default function AdminSettingsPage() {
 
   const [formData, setFormData] = useState({
     defaultTheme: currentSettings.defaultTheme || 'dark',
-    accentColor: currentSettings.accentColor || 'neon-emerald',
+    accentColor: currentSettings.accentColor || 'clean-slate',
     showStats: currentSettings.showStats ?? true,
     showTerminal: currentSettings.showTerminal ?? true,
     showLeetcode: currentSettings.showLeetcode ?? false,
@@ -47,7 +47,7 @@ export default function AdminSettingsPage() {
       setFormData(prev => ({
         ...prev,
         defaultTheme: s.defaultTheme || prev.defaultTheme || 'dark',
-        accentColor: s.accentColor || prev.accentColor || 'neon-emerald',
+        accentColor: s.accentColor || prev.accentColor || 'clean-slate',
         showStats: s.showStats ?? prev.showStats ?? true,
         showTerminal: s.showTerminal ?? prev.showTerminal ?? true,
         showLeetcode: s.showLeetcode ?? prev.showLeetcode ?? false,
@@ -68,10 +68,10 @@ export default function AdminSettingsPage() {
 
   const accentOptions = [
     {
-      id: 'neon-emerald',
-      name: 'Neon Emerald',
-      color: '#22c55e',
-      neon: '#39ff88',
+      id: 'clean-slate',
+      name: 'Clean Slate',
+      color: '#2D3748',
+      dark: '#F5F7FA',
       bg: '#06070a',
       ring: 'ring-emerald-400',
       badge: 'Preset'
@@ -131,7 +131,7 @@ export default function AdminSettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight">
             Settings & System Setup
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -142,7 +142,7 @@ export default function AdminSettingsPage() {
         <button
           onClick={handleSaveSettings}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all active:scale-95 disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle transition-all active:scale-95 disabled:opacity-50"
         >
           {saving ? (
             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -173,7 +173,7 @@ export default function AdminSettingsPage() {
       <form onSubmit={handleSaveSettings} className="space-y-8">
         
         {/* Accent Color & Theme Customization */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-5">
           <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
             <Palette className="w-4 h-4 text-emerald-400" />
             <span>Theme & Accent Color Branding</span>
@@ -256,7 +256,7 @@ export default function AdminSettingsPage() {
                 onClick={() => setPreviewMode(!previewMode)}
                 className={`w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 border transition-all ${
                   previewMode
-                    ? 'bg-emerald-600/20 text-emerald-300 border-emerald-500/40 shadow-glow-sm'
+                    ? 'bg-emerald-600/20 text-emerald-300 border-emerald-500/40 shadow-subtle'
                     : 'bg-dark-900 text-slate-400 border-slate-800 hover:text-white'
                 }`}
               >
@@ -268,7 +268,7 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Layout Component Visibility Toggles */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
             <Layers className="w-4 h-4 text-emerald-400" />
             <span>Layout & Section Display Controls</span>
@@ -317,7 +317,7 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Hero Background Images (Light & Dark Mode) */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
             <Image className="w-4 h-4 text-emerald-400" />
             <span>Hero Section Background Images</span>
@@ -359,7 +359,7 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Resume / CV Document Management */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
             <FileDown className="w-4 h-4 text-emerald-400" />
             <span>Curriculum Vitae / Resume Attachment</span>
@@ -400,7 +400,7 @@ export default function AdminSettingsPage() {
       </form>
 
       {/* Supabase Architecture & Setup Guide */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-dark-900 border border-slate-800 space-y-6">
+      <div className="p-6 sm:p-8 rounded-xl bg-dark-900 border border-slate-800 space-y-6">
         <div className="flex items-center justify-between pb-4 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <Database className="w-5 h-5 text-emerald-400" />
@@ -413,7 +413,7 @@ export default function AdminSettingsPage() {
 
         <div className="space-y-4 text-xs text-slate-300 leading-relaxed">
           <div className="flex items-start gap-3">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold shrink-0">1</span>
+            <span className="w-5 h-5 rounded-full bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568] flex items-center justify-center font-mono font-bold shrink-0">1</span>
             <div>
               <strong className="text-white">Create a Supabase Project:</strong>
               <p className="text-slate-400 mt-0.5">Go to <a href="https://supabase.com" target="_blank" rel="noreferrer" className="text-emerald-400 underline">supabase.com</a>, create an organization, and create a new project.</p>
@@ -421,7 +421,7 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold shrink-0">2</span>
+            <span className="w-5 h-5 rounded-full bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568] flex items-center justify-center font-mono font-bold shrink-0">2</span>
             <div>
               <strong className="text-white">Run Database Migration:</strong>
               <p className="text-slate-400 mt-0.5">In Supabase Dashboard, open <strong>SQL Editor</strong>, open the provided file <code className="text-emerald-300">supabase/schema.sql</code>, and click <strong>Run</strong>. (Optionally run <code className="text-emerald-300">supabase/seed.sql</code> to populate initial data).</p>
@@ -429,7 +429,7 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold shrink-0">3</span>
+            <span className="w-5 h-5 rounded-full bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568] flex items-center justify-center font-mono font-bold shrink-0">3</span>
             <div>
               <strong className="text-white">Create Storage Bucket:</strong>
               <p className="text-slate-400 mt-0.5">Under <strong>Storage</strong>, create a new public bucket named <code className="text-emerald-300">portfolio-assets</code> so avatars, project images, and resumes can be stored securely.</p>
@@ -437,7 +437,7 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold shrink-0">4</span>
+            <span className="w-5 h-5 rounded-full bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568] flex items-center justify-center font-mono font-bold shrink-0">4</span>
             <div>
               <strong className="text-white">Create Administrator User:</strong>
               <p className="text-slate-400 mt-0.5">Under <strong>Authentication -&gt; Users</strong>, click <strong>Add User -&gt; Create User</strong> and enter your administrator email and a strong password.</p>
@@ -445,7 +445,7 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold shrink-0">5</span>
+            <span className="w-5 h-5 rounded-full bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568] flex items-center justify-center font-mono font-bold shrink-0">5</span>
             <div className="w-full">
               <strong className="text-white">Add Environment Variables:</strong>
               <p className="text-slate-400 mt-0.5">Under <strong>Project Settings -&gt; API</strong>, copy your Project URL and anon public key into a <code className="text-emerald-300">.env</code> file:</p>

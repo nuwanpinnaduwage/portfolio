@@ -9,7 +9,8 @@ import {
   Upload, 
   CheckCircle2, 
   AlertCircle, 
-  X, 
+  X,
+  Check,
   Eye, 
   EyeOff, 
   Sparkles,
@@ -410,7 +411,7 @@ export default function AdminResearchPage() {
         <div className="flex items-center gap-2.5">
           <button
             onClick={openCreateModal}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm transition-all"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>New Publication</span>
@@ -569,13 +570,13 @@ export default function AdminResearchPage() {
 
           {/* Publications Cards / Table */}
           {filteredItems.length === 0 ? (
-            <div className="text-center py-12 p-6 rounded-2xl bg-dark-900/40 border border-slate-800">
+            <div className="text-center py-12 p-6 rounded-xl bg-dark-900/40 border border-slate-800">
               <BookOpen className="w-8 h-8 text-slate-500 mx-auto mb-2" />
               <p className="text-sm font-medium text-slate-300">No research publications found</p>
               <p className="text-xs text-slate-500 mt-1">Try adjusting your search criteria or add a new publication.</p>
               <button
                 onClick={openCreateModal}
-                className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-dark-950"
+                className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-[#F5F7FA] text-[#2D3748]"
               >
                 Create First Publication
               </button>
@@ -585,7 +586,7 @@ export default function AdminResearchPage() {
               {filteredItems.map((item) => (
                 <div
                   key={item.id}
-                  className={`p-4 sm:p-5 rounded-2xl border transition-all ${
+                  className={`p-4 sm:p-5 rounded-xl border transition-all ${
                     item.is_published === false 
                       ? 'bg-dark-900/40 border-slate-800/60 opacity-75' 
                       : 'bg-dark-900/90 border-slate-800 hover:border-slate-700'
@@ -596,7 +597,7 @@ export default function AdminResearchPage() {
                     {/* Main Content Info */}
                     <div className="space-y-2 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568]">
                           {item.type || 'Publication'}
                         </span>
                         <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-800 text-slate-300 border border-slate-700">
@@ -721,7 +722,7 @@ export default function AdminResearchPage() {
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shrink-0"
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shrink-0"
               >
                 Add Type
               </button>
@@ -745,7 +746,7 @@ export default function AdminResearchPage() {
                       />
                       <button
                         onClick={() => handleRenameType(type)}
-                        className="px-2 py-1 text-[11px] bg-emerald-500 text-dark-950 font-bold rounded"
+                        className="px-2 py-1 text-[11px] bg-[#F5F7FA] text-[#2D3748] font-semibold rounded"
                       >
                         Save
                       </button>
@@ -809,7 +810,7 @@ export default function AdminResearchPage() {
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shrink-0"
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shrink-0"
               >
                 Add Category
               </button>
@@ -833,7 +834,7 @@ export default function AdminResearchPage() {
                       />
                       <button
                         onClick={() => handleRenameCategory(cat)}
-                        className="px-2 py-1 text-[11px] bg-emerald-500 text-dark-950 font-bold rounded"
+                        className="px-2 py-1 text-[11px] bg-[#F5F7FA] text-[#2D3748] font-semibold rounded"
                       >
                         Save
                       </button>
@@ -897,7 +898,7 @@ export default function AdminResearchPage() {
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shrink-0"
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shrink-0"
               >
                 Add Tag
               </button>
@@ -920,16 +921,22 @@ export default function AdminResearchPage() {
                         className="px-2 py-0.5 text-xs rounded bg-dark-800 border border-slate-600 text-white w-full"
                       />
                       <button
+                        type="button"
                         onClick={() => handleRenameTag(tag)}
-                        className="px-1.5 py-0.5 text-[10px] bg-emerald-500 text-dark-950 font-bold rounded"
+                        aria-label="Confirm rename tag"
+                        title="Confirm rename"
+                        className="p-1 text-white bg-[#2D3748] hover:bg-[#1A202C] dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] rounded transition-colors inline-flex items-center justify-center"
                       >
-                        ✓
+                        <Check className="w-3.5 h-3.5" aria-hidden="true" />
                       </button>
                       <button
+                        type="button"
                         onClick={() => setRenamingTag(null)}
-                        className="px-1.5 py-0.5 text-[10px] bg-slate-700 text-slate-300 rounded"
+                        aria-label="Cancel rename tag"
+                        title="Cancel rename"
+                        className="p-1 bg-dark-800 hover:bg-dark-700 text-slate-300 border border-slate-700 rounded transition-colors inline-flex items-center justify-center"
                       >
-                        ✕
+                        <X className="w-3.5 h-3.5" aria-hidden="true" />
                       </button>
                     </div>
                   ) : (
@@ -1019,7 +1026,7 @@ export default function AdminResearchPage() {
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 overflow-y-auto bg-dark-950/85 backdrop-blur-md animate-fade-in"
         >
           <div 
-            className="relative w-full max-w-3xl rounded-2xl bg-dark-900 border border-slate-800 shadow-2xl overflow-hidden my-6"
+            className="relative w-full max-w-3xl rounded-xl bg-dark-900 border border-slate-800 shadow-2xl overflow-hidden my-6"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -1327,7 +1334,7 @@ export default function AdminResearchPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 rounded-xl font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm transition-all disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle transition-all disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : (editingItem ? 'Save Changes' : 'Create Publication')}
                 </button>
@@ -1345,7 +1352,7 @@ export default function AdminResearchPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-sm animate-fade-in"
         >
-          <div className="p-6 rounded-2xl bg-dark-900 border border-slate-800 max-w-sm w-full space-y-4">
+          <div className="p-6 rounded-xl bg-dark-900 border border-slate-800 max-w-sm w-full space-y-4">
             <h3 className="text-base font-bold text-white">Delete Research Publication?</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Are you sure you want to delete this publication? This action cannot be undone.

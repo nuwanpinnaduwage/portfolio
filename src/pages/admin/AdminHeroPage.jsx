@@ -160,8 +160,8 @@ export default function AdminHeroPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+            <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
               <Sparkles className="w-6 h-6" />
             </span>
             <span>Hero Section Management</span>
@@ -174,7 +174,7 @@ export default function AdminHeroPage() {
         <button
           onClick={handleSubmit}
           disabled={saving}
-          className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-xs sm:text-sm shadow-glow-sm flex items-center gap-2 transition-all shrink-0 self-start sm:self-center"
+          className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle flex items-center gap-2 transition-all shrink-0 self-start sm:self-center"
         >
           {saving ? (
             <div className="w-4 h-4 border-2 border-dark-950 border-t-transparent rounded-full animate-spin" />
@@ -190,7 +190,7 @@ export default function AdminHeroPage() {
         <div
           className={`p-4 rounded-xl flex items-center gap-3 text-xs sm:text-sm animate-fade-in ${
             feedback.type === 'success'
-              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+              ? 'bg-[#2D3748] text-[#F5F7FA] border border-[#4A5568]'
               : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
           }`}
         >
@@ -208,7 +208,7 @@ export default function AdminHeroPage() {
         {/* ========================================================================= */}
         {/* CARD 1: AVAILABILITY STATUS BADGE (Hero Banner Top)                        */}
         {/* ========================================================================= */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-800">
             <div>
               <h2 className="text-base font-bold text-white flex items-center gap-2">
@@ -284,7 +284,7 @@ export default function AdminHeroPage() {
         {/* ========================================================================= */}
         {/* CARD 2: HERO IDENTITY & HEADINGS                                          */}
         {/* ========================================================================= */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-base font-bold text-white flex items-center gap-2 pb-3 border-b border-slate-800">
             <User className="w-5 h-5 text-emerald-400" />
             <span>Primary Identity & Headlines</span>
@@ -338,7 +338,7 @@ export default function AdminHeroPage() {
         {/* ========================================================================= */}
         {/* CARD 3: ACADEMIC CREDENTIALS & LOCATION                                   */}
         {/* ========================================================================= */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-base font-bold text-white flex items-center gap-2 pb-3 border-b border-slate-800">
             <GraduationCap className="w-5 h-5 text-emerald-400" />
             <span>Academic Degree & Institution</span>
@@ -402,7 +402,7 @@ export default function AdminHeroPage() {
         {/* ========================================================================= */}
         {/* CARD 4: HERO BACKGROUND IMAGES (Light & Dark Mode)                        */}
         {/* ========================================================================= */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-base font-bold text-white flex items-center gap-2 pb-3 border-b border-slate-800">
             <Image className="w-5 h-5 text-emerald-400" />
             <span>Hero Background Images (Light & Dark Mode)</span>
@@ -446,7 +446,7 @@ export default function AdminHeroPage() {
         {/* ========================================================================= */}
         {/* CARD 5: RESUME / CV ATTACHMENT                                            */}
         {/* ========================================================================= */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-4">
           <h2 className="text-base font-bold text-white flex items-center gap-2 pb-3 border-b border-slate-800">
             <FileDown className="w-5 h-5 text-emerald-400" />
             <span>Resume / CV Download Button Attachment</span>
@@ -512,7 +512,7 @@ export default function AdminHeroPage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-8 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-sm shadow-glow-sm flex items-center gap-2 transition-all"
+            className="px-8 py-3 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-sm shadow-subtle flex items-center gap-2 transition-all"
           >
             {saving ? (
               <div className="w-4 h-4 border-2 border-dark-950 border-t-transparent rounded-full animate-spin" />

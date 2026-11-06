@@ -158,7 +158,7 @@ export default function AdminEducationPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight">
             Education & Honors
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -184,7 +184,7 @@ export default function AdminEducationPage() {
       )}
 
       {/* Degree Information Form */}
-      <form onSubmit={handleSaveDegree} className="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+      <form onSubmit={handleSaveDegree} className="glass-card rounded-xl p-6 border border-slate-800 space-y-5">
         <div className="flex items-center justify-between pb-4 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-emerald-400" />
@@ -193,7 +193,7 @@ export default function AdminEducationPage() {
           <button
             type="submit"
             disabled={savingDegree}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm disabled:opacity-50 flex items-center gap-1.5 font-bold cursor-pointer"
+            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle disabled:opacity-50 flex items-center gap-1.5 font-bold cursor-pointer"
           >
             {savingDegree ? <div className="w-3.5 h-3.5 border-2 border-dark-950/30 border-t-dark-950 rounded-full animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>Save Degree</span>
@@ -299,7 +299,7 @@ export default function AdminEducationPage() {
       </form>
 
       {/* Collegiate Honors & Achievements Grid */}
-      <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+      <div className="glass-card rounded-xl p-6 border border-slate-800 space-y-5">
         <div className="flex items-center justify-between pb-4 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <Trophy className="w-5 h-5 text-amber-400" />
@@ -377,7 +377,7 @@ export default function AdminEducationPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md"
         >
-          <div className="relative w-full max-w-lg rounded-2xl bg-dark-900 border border-slate-800 shadow-2xl p-6 sm:p-7">
+          <div className="relative w-full max-w-lg rounded-xl bg-dark-900 border border-slate-800 shadow-2xl p-6 sm:p-7">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h2 className="text-base font-bold text-white flex items-center gap-2">
                 <Trophy className="w-4 h-4 text-amber-400" />
@@ -471,7 +471,7 @@ export default function AdminEducationPage() {
                 <button
                   type="submit"
                   disabled={savingAch}
-                  className="px-5 py-2 rounded-xl text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 font-bold shadow-glow-sm disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-bold shadow-subtle disabled:opacity-50"
                 >
                   {savingAch ? 'Saving...' : 'Save Honor'}
                 </button>

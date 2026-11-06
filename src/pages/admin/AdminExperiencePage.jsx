@@ -113,7 +113,7 @@ export default function AdminExperiencePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight">
             Work Experience & Leadership
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -123,7 +123,7 @@ export default function AdminExperiencePage() {
 
         <button
           onClick={openAddModal}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all active:scale-95"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle transition-all active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add Experience</span>
@@ -151,7 +151,7 @@ export default function AdminExperiencePage() {
         {roles.map((item) => (
           <div
             key={item.id || item.role}
-            className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-slate-700 transition-colors"
+            className="glass-card rounded-xl p-6 border border-slate-800 flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-slate-700 transition-colors"
           >
             <div className="space-y-2 flex-1">
               <div className="flex flex-wrap items-center gap-2">
@@ -247,7 +247,7 @@ export default function AdminExperiencePage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md overflow-y-auto"
         >
-          <div className="relative w-full max-w-xl rounded-2xl bg-dark-900 border border-slate-800 shadow-2xl p-6 sm:p-7 my-8 max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-xl rounded-xl bg-dark-900 border border-slate-800 shadow-2xl p-6 sm:p-7 my-8 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h2 className="text-base font-bold text-white flex items-center gap-2">
                 <Briefcase className="w-4 h-4 text-emerald-400" />
@@ -373,7 +373,7 @@ export default function AdminExperiencePage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : 'Save Role'}
                 </button>

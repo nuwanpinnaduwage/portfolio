@@ -96,16 +96,16 @@ export default function AdminLayout() {
   ];
 
   return (
-    <div className="admin-scope min-h-screen bg-[#07090e] text-slate-100 flex flex-col md:flex-row antialiased font-sans">
+    <div className="admin-scope min-h-screen bg-[#0A0A0A] text-slate-100 flex flex-col md:flex-row antialiased font-sans">
       
       {/* Mobile Top Header */}
-      <header className="md:hidden flex items-center justify-between p-4 bg-dark-900 border-b border-slate-800 z-30">
+      <header className="md:hidden flex items-center justify-between p-4 bg-[#050505] border-b border-[#222222] z-30">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
-            <Terminal className="w-4 h-4 text-emerald-400" />
+          <div className="w-8 h-8 rounded-lg bg-[#121212] border border-[#262626] flex items-center justify-center">
+            <Terminal className="w-4 h-4 text-[#F5F7FA]" />
           </div>
           <span className="font-mono font-bold text-sm tracking-tight text-white">
-            Admin<span className="text-emerald-400">Suite</span>
+            Admin<span className="text-[#A0AEC0]">Suite</span>
           </span>
         </div>
 
@@ -120,7 +120,7 @@ export default function AdminLayout() {
 
       {/* Admin Sidebar Navigation */}
       <aside 
-        className={`fixed md:sticky top-0 left-0 h-screen w-64 bg-dark-900 border-r border-slate-800 p-4 flex flex-col justify-between z-40 transition-transform duration-300 overflow-y-auto ${
+        className={`fixed md:sticky top-0 left-0 h-screen w-64 bg-[#050505] border-r border-[#222222] p-4 flex flex-col justify-between z-40 transition-transform duration-300 overflow-y-auto ${
           mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
@@ -128,12 +128,12 @@ export default function AdminLayout() {
           {/* Logo */}
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-800/80">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono font-bold text-base shadow-glow-sm">
-                <Terminal className="w-5 h-5 text-emerald-400" />
+              <div className="w-9 h-9 rounded-xl bg-[#121212] border border-[#262626] flex items-center justify-center text-[#F5F7FA] font-mono font-bold text-base shadow-subtle">
+                <Terminal className="w-5 h-5 text-[#F5F7FA]" />
               </div>
               <div>
                 <h1 className="font-mono font-bold text-sm text-white tracking-tight leading-none">
-                  Admin<span className="text-emerald-400">Suite</span>
+                  Admin<span className="text-[#A0AEC0]">Suite</span>
                 </h1>
                 <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider">
                   Portfolio CMS
@@ -150,8 +150,8 @@ export default function AdminLayout() {
           </div>
 
           {/* Database Status Pill */}
-          <div className="mb-4 p-2 rounded-xl bg-dark-950 border border-slate-800/80 flex items-center gap-2 text-xs">
-            <Database className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <div className="mb-4 p-2.5 rounded-xl bg-[#0A0A0A] border border-[#222222] flex items-center gap-2.5 text-xs shadow-inner-subtle">
+            <Database className="w-3.5 h-3.5 text-[#A0AEC0] shrink-0" />
             <div className="flex-1 truncate">
               <span className="block font-medium text-slate-300 text-[10px]">Database Status</span>
               {isConfigured ? (
@@ -186,8 +186,8 @@ export default function AdminLayout() {
                         className={({ isActive }) => `
                           flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                             isActive
-                              ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold shadow-glow-sm'
-                              : 'text-slate-400 hover:text-slate-200 hover:bg-dark-850'
+                              ? 'bg-[#171717] text-[#F5F7FA] border border-[#2E2E2E] font-semibold shadow-subtle'
+                              : 'text-slate-400 hover:text-slate-100 hover:bg-[#121212]'
                           }
                         `}
                       >
@@ -203,15 +203,15 @@ export default function AdminLayout() {
         </div>
 
         {/* Bottom User Actions */}
-        <div className="pt-4 mt-4 border-t border-slate-800 space-y-2 shrink-0">
+        <div className="pt-4 mt-4 border-t border-[#222222] space-y-2 shrink-0">
           <Link
             to="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white bg-dark-850 hover:bg-dark-800 border border-slate-800 transition-colors"
+            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white bg-[#121212] hover:bg-[#1A1A1A] border border-[#262626] transition-colors"
           >
             <span className="flex items-center gap-2">
-              <Eye className="w-3.5 h-3.5 text-emerald-400" />
+              <Eye className="w-3.5 h-3.5 text-[#A0AEC0]" />
               <span>Public Website</span>
             </span>
             <ExternalLink className="w-3 h-3 opacity-60" />
@@ -222,7 +222,7 @@ export default function AdminLayout() {
               <span className="text-xs font-semibold text-slate-200 truncate">
                 {user?.email || 'Administrator'}
               </span>
-              <span className="text-[10px] font-mono text-emerald-400">Authenticated</span>
+              <span className="text-[10px] font-mono text-[#A0AEC0]">Authenticated</span>
             </div>
             <button
               onClick={handleSignOut}
@@ -238,13 +238,13 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main Admin Workspace Area */}
-      <main className="flex-1 flex flex-col min-w-0 bg-[#07090e] bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(34,197,94,0.04),transparent_80%)] overflow-y-auto">
+      <main className="flex-1 flex flex-col min-w-0 bg-[#0A0A0A] overflow-y-auto">
         
         {/* Top Ribbon */}
-        <header className="hidden md:flex items-center justify-between px-8 py-3.5 bg-dark-900/60 border-b border-slate-800/80 backdrop-blur-md sticky top-0 z-20">
+        <header className="hidden md:flex items-center justify-between px-8 py-3.5 bg-[#0A0A0A]/95 border-b border-[#222222] backdrop-blur-md sticky top-0 z-20">
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono text-slate-400">Signed in as:</span>
-            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-md bg-dark-800 text-emerald-400 border border-emerald-500/20">
+            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-md bg-[#121212] text-[#F5F7FA] border border-[#262626]">
               {user?.email || 'admin@portfolio.dev'}
             </span>
             {!isConfigured && (
@@ -258,9 +258,9 @@ export default function AdminLayout() {
           <div className="flex items-center gap-3">
             <Link
               to="/"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white bg-dark-800 hover:bg-dark-750 border border-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium text-[#F5F7FA] hover:text-white bg-[#121212] hover:bg-[#1A1A1A] border border-[#262626] transition-colors"
             >
-              <Eye className="w-3.5 h-3.5 text-emerald-400" />
+              <Eye className="w-3.5 h-3.5 text-[#A0AEC0]" />
               <span>Preview Portfolio</span>
             </Link>
 

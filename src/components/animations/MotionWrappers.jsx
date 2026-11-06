@@ -257,8 +257,8 @@ export function AnimatedProgressBar({
   duration = 0.75,
   once = false,
   amount = 0.2,
-  containerClassName = 'w-full h-2 rounded-full bg-slate-200/80 dark:bg-slate-800/80 overflow-hidden',
-  barClassName = 'h-full rounded-full bg-emerald-500',
+  containerClassName = 'w-full h-1.5 rounded-full bg-slate-200/80 dark:bg-[#161616] overflow-hidden',
+  barClassName = 'h-full rounded-full bg-[#2D3748] dark:bg-[#F5F7FA]',
 }) {
   const shouldReduceMotion = useReducedMotion();
 

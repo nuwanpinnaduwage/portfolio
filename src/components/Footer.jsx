@@ -27,9 +27,9 @@ export default function Footer({ data, personalData, visibility, sectionNames })
   const ownerName = footer.ownerName || personal.name || 'Nuwan Pinnaduwage';
   const prefix = footer.prefixText !== undefined ? footer.prefixText : '©';
   const rightsText = footer.rightsText !== undefined ? footer.rightsText : 'All rights reserved.';
-  const highlightColor = footer.highlightColor || '#22c55e';
-  const textColor = footer.textColor || '#94a3b8';
-  const bgColor = footer.bgColor || '#050706';
+  const highlightColor = footer.highlightColor && !['#22c55e', '#8EB69B'].includes(footer.highlightColor) ? footer.highlightColor : 'currentColor';
+  const textColor = footer.textColor && footer.textColor !== '#94a3b8' ? footer.textColor : undefined;
+  const bgColor = footer.bgColor && footer.bgColor !== '#050706' ? footer.bgColor : undefined;
 
   // Padding classes
   const paddingClasses = {
@@ -85,7 +85,7 @@ export default function Footer({ data, personalData, visibility, sectionNames })
       }}
       className={`relative transition-colors select-none ${paddingClasses} ${
         footer.showBorderTop 
-          ? 'border-t border-slate-200/60 dark:border-slate-800/60' 
+          ? 'border-t border-slate-200/60 dark:border-[#222222]' 
           : 'border-none'
       }`}
     >
@@ -128,7 +128,7 @@ export default function Footer({ data, personalData, visibility, sectionNames })
                   <a
                     key={link.id || link.href || idx}
                     href={link.href}
-                    className="hover:text-emerald-400 transition-colors"
+                    className="hover:text-[#2D3748] dark:hover:text-white transition-colors"
                   >
                     {link.name}
                   </a>
@@ -140,25 +140,25 @@ export default function Footer({ data, personalData, visibility, sectionNames })
             {(footer.showEmail || footer.showLocation || footer.showGithub || footer.showLinkedin) && (
               <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400 font-mono">
                 {footer.showEmail && emailAddress && (
-                  <a href={`mailto:${emailAddress}`} className="hover:text-emerald-400 transition-colors flex items-center gap-1">
-                    <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                  <a href={`mailto:${emailAddress}`} className="hover:text-[#2D3748] dark:hover:text-white transition-colors flex items-center gap-1">
+                    <Mail className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>{emailAddress}</span>
                   </a>
                 )}
                 {footer.showLocation && locationText && (
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                    <MapPin className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>{locationText}</span>
                   </span>
                 )}
                 {footer.showGithub && githubUrl && (
-                  <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                  <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#2D3748] dark:hover:text-white transition-colors flex items-center gap-1">
                     <GithubIcon className="w-3.5 h-3.5" />
                     <span>GitHub</span>
                   </a>
                 )}
                 {footer.showLinkedin && linkedinUrl && (
-                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#2D3748] dark:hover:text-white transition-colors flex items-center gap-1">
                     <LinkedinIcon className="w-3.5 h-3.5" />
                     <span>LinkedIn</span>
                   </a>
@@ -190,12 +190,12 @@ export default function Footer({ data, personalData, visibility, sectionNames })
                   <span>{footer.customText}</span>
                 )}
                 {footer.showPrivacyPolicy && (
-                  <a href={footer.privacyUrl || "#privacy"} className="hover:text-emerald-400 transition-colors">
+                  <a href={footer.privacyUrl || "#privacy"} className="hover:text-[#2D3748] dark:hover:text-white transition-colors">
                     {footer.privacyText || "Privacy Policy"}
                   </a>
                 )}
                 {footer.showTerms && (
-                  <a href={footer.termsUrl || "#terms"} className="hover:text-emerald-400 transition-colors">
+                  <a href={footer.termsUrl || "#terms"} className="hover:text-[#2D3748] dark:hover:text-white transition-colors">
                     {footer.termsText || "Terms & Conditions"}
                   </a>
                 )}
@@ -203,10 +203,10 @@ export default function Footer({ data, personalData, visibility, sectionNames })
                   <button
                     onClick={scrollToTop}
                     aria-label="Back to top"
-                    className="inline-flex items-center gap-1 hover:text-emerald-400 transition-colors text-slate-400"
+                    className="inline-flex items-center gap-1 hover:text-[#2D3748] dark:hover:text-white transition-colors text-slate-400"
                   >
                     <span>{footer.backToTopText || "Top"}</span>
-                    <ArrowUp className="w-3 h-3 text-emerald-400" />
+                    <ArrowUp className="w-3 h-3 text-[#2D3748] dark:text-[#A0AEC0]" />
                   </button>
                 )}
               </div>
@@ -228,7 +228,7 @@ export default function Footer({ data, personalData, visibility, sectionNames })
                   <span style={{ color: highlightColor }}>.sec</span>
                 </span>
                 {footer.showProfessionalTitle && (
-                  <p className="text-xs font-mono text-emerald-400">
+                  <p className="text-xs font-mono text-[#2D3748] dark:text-[#A0AEC0]">
                     {footer.professionalTitle}
                   </p>
                 )}
@@ -246,7 +246,7 @@ export default function Footer({ data, personalData, visibility, sectionNames })
                     <a
                       key={link.id || link.href || idx}
                       href={link.href}
-                      className="hover:text-emerald-400 transition-colors"
+                      className="hover:text-[#2D3748] dark:hover:text-white transition-colors"
                     >
                       {link.name}
                     </a>
@@ -260,14 +260,14 @@ export default function Footer({ data, personalData, visibility, sectionNames })
               <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
                 <div className="flex flex-wrap items-center gap-4 font-mono">
                   {footer.showEmail && emailAddress && (
-                    <a href={`mailto:${emailAddress}`} className="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                    <a href={`mailto:${emailAddress}`} className="hover:text-[#2D3748] dark:hover:text-white transition-colors flex items-center gap-1.5">
+                      <Mail className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                       <span>{emailAddress}</span>
                     </a>
                   )}
                   {footer.showLocation && locationText && (
                     <span className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                      <MapPin className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                       <span>{locationText}</span>
                     </span>
                   )}
@@ -275,12 +275,12 @@ export default function Footer({ data, personalData, visibility, sectionNames })
 
                 <div className="flex items-center gap-3">
                   {footer.showGithub && githubUrl && (
-                    <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-900 border border-slate-800 hover:border-emerald-500/50 hover:text-emerald-400 transition-all">
+                    <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-900 border border-slate-800 hover:border-emerald-500/50 hover:text-[#2D3748] dark:hover:text-white transition-all">
                       <GithubIcon className="w-4 h-4" />
                     </a>
                   )}
                   {footer.showLinkedin && linkedinUrl && (
-                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-900 border border-slate-800 hover:border-emerald-500/50 hover:text-emerald-400 transition-all">
+                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-dark-900 border border-slate-800 hover:border-emerald-500/50 hover:text-[#2D3748] dark:hover:text-white transition-all">
                       <LinkedinIcon className="w-4 h-4" />
                     </a>
                   )}
@@ -300,12 +300,12 @@ export default function Footer({ data, personalData, visibility, sectionNames })
 
               <div className="flex items-center gap-4 text-[11px] sm:text-xs text-slate-500">
                 {footer.showPrivacyPolicy && (
-                  <a href={footer.privacyUrl || "#privacy"} className="hover:text-emerald-400 transition-colors">
+                  <a href={footer.privacyUrl || "#privacy"} className="hover:text-[#2D3748] dark:hover:text-white transition-colors">
                     {footer.privacyText || "Privacy"}
                   </a>
                 )}
                 {footer.showTerms && (
-                  <a href={footer.termsUrl || "#terms"} className="hover:text-emerald-400 transition-colors">
+                  <a href={footer.termsUrl || "#terms"} className="hover:text-[#2D3748] dark:hover:text-white transition-colors">
                     {footer.termsText || "Terms"}
                   </a>
                 )}
@@ -313,10 +313,10 @@ export default function Footer({ data, personalData, visibility, sectionNames })
                   <button
                     onClick={scrollToTop}
                     aria-label="Back to top"
-                    className="inline-flex items-center gap-1 text-slate-400 hover:text-emerald-400 transition-colors ml-2"
+                    className="inline-flex items-center gap-1 text-slate-400 hover:text-[#2D3748] dark:hover:text-white transition-colors ml-2"
                   >
                     <span>{footer.backToTopText || "Top"}</span>
-                    <ArrowUp className="w-3.5 h-3.5 text-emerald-400" />
+                    <ArrowUp className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                   </button>
                 )}
               </div>

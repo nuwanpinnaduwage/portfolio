@@ -77,8 +77,8 @@ export default function AdminMediaLibraryPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+        <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+          <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
             <ImageIcon className="w-6 h-6" />
           </span>
           <span>Media & Document Library</span>
@@ -94,7 +94,7 @@ export default function AdminMediaLibraryPage() {
           onClick={() => setActiveTab('hero')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'hero'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -106,7 +106,7 @@ export default function AdminMediaLibraryPage() {
           onClick={() => setActiveTab('avatar')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'avatar'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -118,7 +118,7 @@ export default function AdminMediaLibraryPage() {
           onClick={() => setActiveTab('diagrams')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'diagrams'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -130,7 +130,7 @@ export default function AdminMediaLibraryPage() {
           onClick={() => setActiveTab('documents')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'documents'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -159,7 +159,7 @@ export default function AdminMediaLibraryPage() {
       {/* TAB 1: HERO BACKGROUNDS */}
       {activeTab === 'hero' && (
         <div className="space-y-6">
-          <form onSubmit={handleSaveHeroBackgrounds} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 space-y-6">
+          <form onSubmit={handleSaveHeroBackgrounds} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 space-y-6">
             <div>
               <h3 className="text-base font-bold text-white">Full-Screen Hero Backgrounds</h3>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -220,7 +220,7 @@ export default function AdminMediaLibraryPage() {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm"
+                className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle"
               >
                 Save Hero Backgrounds
               </button>
@@ -231,7 +231,7 @@ export default function AdminMediaLibraryPage() {
 
       {/* TAB 2: AVATAR */}
       {activeTab === 'avatar' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 space-y-6 max-w-2xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 space-y-6 max-w-2xl">
           <div>
             <h3 className="text-base font-bold text-white">Profile Avatar & Bio Photo</h3>
             <p className="text-xs text-slate-400 mt-0.5">
@@ -240,7 +240,7 @@ export default function AdminMediaLibraryPage() {
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-emerald-500/40 shrink-0 bg-dark-850">
+            <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-emerald-500/40 shrink-0 bg-dark-850">
               <img
                 src={avatarUrl || portfolio.personal?.avatarUrl}
                 alt="Avatar Preview"
@@ -266,7 +266,7 @@ export default function AdminMediaLibraryPage() {
       {activeTab === 'diagrams' && (
         <div className="space-y-6">
           
-          <form onSubmit={handleAddDiagram} className="bg-dark-900 border border-slate-800 rounded-2xl p-5">
+          <form onSubmit={handleAddDiagram} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5">
             <h3 className="text-sm font-bold text-white mb-2">Register Technical Diagram / Screenshot</h3>
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
               <div className="sm:col-span-5">
@@ -292,7 +292,7 @@ export default function AdminMediaLibraryPage() {
               <div className="sm:col-span-2">
                 <button
                   type="submit"
-                  className="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs rounded-xl"
+                  className="w-full py-2 bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle rounded-xl"
                 >
                   Add to Library
                 </button>
@@ -302,7 +302,7 @@ export default function AdminMediaLibraryPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {diagramsList.map((d, idx) => (
-              <div key={idx} className="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden group">
+              <div key={idx} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl overflow-hidden group">
                 <div className="h-40 bg-dark-950 relative overflow-hidden">
                   <img src={d.url} alt={d.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
@@ -330,7 +330,7 @@ export default function AdminMediaLibraryPage() {
 
       {/* TAB 4: DOCUMENTS */}
       {activeTab === 'documents' && (
-        <div className="bg-dark-900 border border-slate-800 rounded-2xl p-6 space-y-6 max-w-2xl">
+        <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 space-y-6 max-w-2xl">
           <div>
             <h3 className="text-base font-bold text-white">Technical Resume / CV</h3>
             <p className="text-xs text-slate-400 mt-0.5">

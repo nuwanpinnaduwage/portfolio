@@ -230,15 +230,15 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
                 className="mb-3.5 sm:mb-4 max-w-full"
               >
                 <div 
-                  className={`inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10.5px] sm:text-xs font-mono font-medium tracking-wide bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 shadow-sm backdrop-blur-sm transition-colors ${colorTransitionClass}`}
+                  className={`inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-md text-[11px] font-mono font-medium tracking-wider bg-[#F5F7FA] dark:bg-[#121212] text-[#2D3748] dark:text-[#F5F7FA] border border-[#A0AEC0]/35 dark:border-[#262626] shadow-subtle transition-colors ${colorTransitionClass}`}
                 >
                   <span className="relative flex h-2 w-2 shrink-0">
                     {isHeroVisible && (
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 bg-[#22c55e] opacity-75"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60"></span>
                     )}
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 bg-[#22c55e]"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span className="whitespace-normal sm:whitespace-nowrap font-semibold tracking-wider">
+                  <span className="whitespace-normal sm:whitespace-nowrap font-semibold">
                     {(personal.statusBadge.text || "AVAILABLE FOR OPPORTUNITIES.").toUpperCase()}
                   </span>
                 </div>
@@ -264,7 +264,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
             {/* 4. Subtitle / professional role / degree (Balanced 14-16px margin and 1.45 line-height) */}
             <motion.div 
               variants={itemVariants}
-              className={`mt-3.5 sm:mt-4 text-sm sm:text-lg lg:text-xl font-medium font-sans text-violet-600 dark:text-violet-400 leading-[1.45] transition-colors ${colorTransitionClass}`}
+              className={`mt-3.5 sm:mt-4 text-sm sm:text-lg lg:text-xl font-medium font-sans text-[#2D3748] dark:text-[#F5F7FA] font-semibold leading-[1.45] transition-colors ${colorTransitionClass}`}
             >
               {degreeProgram}
             </motion.div>
@@ -282,7 +282,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
               variants={itemVariants}
               className={`mt-3 sm:mt-3.5 flex items-start sm:items-center gap-2 text-xs sm:text-sm lg:text-base font-medium text-slate-700 dark:text-slate-300 leading-normal transition-colors ${colorTransitionClass}`}
             >
-              <Code className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5 sm:mt-0" />
+              <Code className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0] shrink-0 mt-0.5 sm:mt-0" />
               <span>{careerPath}</span>
             </motion.div>
 
@@ -291,7 +291,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
               variants={itemVariants}
               className={`mt-1.5 sm:mt-2 flex items-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-normal transition-colors ${colorTransitionClass}`}
             >
-              <MapPin className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0" />
+              <MapPin className="w-4 h-4 text-[#718096] dark:text-[#A0AEC0] shrink-0" />
               <span>{personal.location}</span>
             </motion.div>
 
@@ -312,23 +312,23 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
             >
               <a
                 href="#projects"
-                className={`inline-flex items-center justify-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs sm:text-sm shadow-glow-sm hover:shadow-glow-md transition-all ${colorTransitionClass} active:scale-95 group touch-manipulation`}
+                className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle hover:shadow transition-all ${colorTransitionClass} active:scale-98 group touch-manipulation`}
               >
                 <span>View Projects</span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" />
               </a>
 
               <button
                 onClick={onOpenCV}
-                className={`inline-flex items-center justify-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-white/80 hover:bg-white dark:bg-dark-850 dark:hover:bg-dark-800 text-slate-900 dark:text-slate-100 font-medium text-xs sm:text-sm border border-slate-200 dark:border-slate-800 transition-all ${colorTransitionClass} active:scale-95 shadow-sm backdrop-blur-sm touch-manipulation`}
+                className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-[#F5F7FA] hover:bg-white dark:bg-[#121212] dark:hover:bg-[#1A1A1A] text-[#2D3748] dark:text-[#F5F7FA] font-medium text-xs sm:text-sm border border-[#A0AEC0]/40 dark:border-[#262626] transition-all ${colorTransitionClass} active:scale-98 shadow-subtle touch-manipulation cursor-pointer`}
               >
-                <FileDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-violet-500 transition-colors ${colorTransitionClass}`} />
+                <FileDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2D3748] dark:text-[#A0AEC0] transition-colors ${colorTransitionClass}`} />
                 <span>Download CV</span>
               </button>
 
               <a
                 href="#contact"
-                className={`inline-flex items-center justify-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white font-medium text-xs sm:text-sm hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all ${colorTransitionClass} backdrop-blur-sm touch-manipulation`}
+                className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[#2D3748] hover:bg-[#F5F7FA] dark:text-[#F5F7FA] dark:hover:bg-[#121212] font-medium text-xs sm:text-sm transition-all ${colorTransitionClass} touch-manipulation`}
               >
                 <span>Contact Me</span>
               </a>
@@ -342,7 +342,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
           variants={itemVariants}
           initial={isHeroVisible ? "visible" : "hidden"}
           animate={isHeroVisible ? "visible" : "hidden"}
-          className={`w-full mt-3 sm:mt-4 lg:mt-5 pt-3 sm:pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-center shrink-0 transition-colors ${colorTransitionClass}`}
+          className={`w-full mt-3 sm:mt-4 lg:mt-5 pt-3 sm:pt-4 border-t border-slate-200/60 dark:border-[#222222] flex items-center justify-center shrink-0 transition-colors ${colorTransitionClass}`}
         >
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7">
             {/* LinkedIn */}
@@ -351,7 +351,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
-              className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-xl text-black dark:text-white hover:opacity-75 transition-all hover:scale-110 active:scale-95"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white hover:bg-[#F5F7FA] dark:hover:bg-[#121212] transition-colors active:scale-95"
             >
               <LinkedinIcon className="w-6 h-6 sm:w-7 sm:h-7" />
             </a>
@@ -362,7 +362,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
-              className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-xl text-black dark:text-white hover:opacity-75 transition-all hover:scale-110 active:scale-95"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white hover:bg-[#F5F7FA] dark:hover:bg-[#121212] transition-colors active:scale-95"
             >
               <GithubIcon className="w-6 h-6 sm:w-7 sm:h-7" />
             </a>
@@ -373,7 +373,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Send email via Gmail"
-              className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-xl text-black dark:text-white hover:opacity-75 transition-all hover:scale-110 active:scale-95"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-[#4A5568] dark:text-[#A0AEC0] hover:text-[#2D3748] dark:hover:text-white hover:bg-[#F5F7FA] dark:hover:bg-[#121212] transition-colors active:scale-95"
             >
               <GmailIcon className="w-6 h-6 sm:w-7 sm:h-7" />
             </a>

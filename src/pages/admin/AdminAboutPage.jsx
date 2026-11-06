@@ -273,8 +273,8 @@ export default function AdminAboutPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+        <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+          <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
             <UserCheck className="w-6 h-6" />
           </span>
           <span>Profile & About Me Hub</span>
@@ -290,7 +290,7 @@ export default function AdminAboutPage() {
           onClick={() => setActiveTab('profile')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'profile'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -302,7 +302,7 @@ export default function AdminAboutPage() {
           onClick={() => setActiveTab('bio')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'bio'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -314,7 +314,7 @@ export default function AdminAboutPage() {
           onClick={() => setActiveTab('social')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'social'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -326,7 +326,7 @@ export default function AdminAboutPage() {
           onClick={() => setActiveTab('resume')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'resume'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -354,7 +354,7 @@ export default function AdminAboutPage() {
 
       {/* TAB 1: BASIC PROFILE & HERO */}
       {activeTab === 'profile' && (
-        <form onSubmit={handleSaveProfile} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <form onSubmit={handleSaveProfile} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white">Identity & Academic Positioning</h2>
             <p className="text-xs text-slate-400 mt-0.5">Primary information displayed in the Hero banner and header.</p>
@@ -483,7 +483,7 @@ export default function AdminAboutPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle"
             >
               {saving ? 'Saving...' : 'Save Profile'}
             </button>
@@ -493,7 +493,7 @@ export default function AdminAboutPage() {
 
       {/* TAB 2: ABOUT STORY & BIO */}
       {activeTab === 'bio' && (
-        <form onSubmit={handleSaveBio} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-4xl">
+        <form onSubmit={handleSaveBio} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-4xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white">Narrative Biography & Domain Highlights</h2>
             <p className="text-xs text-slate-400 mt-0.5">Content displayed in the public About Me section.</p>
@@ -600,7 +600,7 @@ export default function AdminAboutPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle"
             >
               {saving ? 'Saving...' : 'Save Bio & Highlights'}
             </button>
@@ -610,7 +610,7 @@ export default function AdminAboutPage() {
 
       {/* TAB 3: SOCIAL & PROFESSIONAL LINKS */}
       {activeTab === 'social' && (
-        <form onSubmit={handleSaveSocialLinks} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-3xl">
+        <form onSubmit={handleSaveSocialLinks} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-3xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white">Social & Professional Platforms</h2>
             <p className="text-xs text-slate-400 mt-0.5">Configured links displayed in Hero, Footer, and Contact sections.</p>
@@ -676,7 +676,7 @@ export default function AdminAboutPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle"
             >
               {saving ? 'Saving...' : 'Save Social Links'}
             </button>
@@ -686,7 +686,7 @@ export default function AdminAboutPage() {
 
       {/* TAB 4: RESUME & AVATAR */}
       {activeTab === 'resume' && (
-        <form onSubmit={handleSaveResume} className="bg-dark-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 max-w-2xl">
+        <form onSubmit={handleSaveResume} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6 max-w-2xl">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-base font-bold text-white">Resume Document & Avatar Photo</h2>
             <p className="text-xs text-slate-400 mt-0.5">Manage your downloadable resume and public avatar.</p>
@@ -730,7 +730,7 @@ export default function AdminAboutPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs shadow-glow-sm"
+              className="px-6 py-2.5 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle shadow-subtle"
             >
               {saving ? 'Saving...' : 'Save Document & Avatar'}
             </button>

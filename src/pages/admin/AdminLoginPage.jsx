@@ -70,11 +70,11 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="admin-scope min-h-screen flex flex-col justify-center items-center p-4 relative overflow-hidden bg-[#07090e] selection:bg-emerald-500 selection:text-dark-950">
+    <div className="admin-scope min-h-screen flex flex-col justify-center items-center p-4 relative overflow-hidden bg-[#0A0A0A] selection:bg-[#F5F7FA] selection:text-[#0A0A0A]">
       {/* Modern Matching Ambient Atmosphere */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Deep, diffused radial gradient from top - matching portfolio Neon Emerald accent */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[1200px] h-[650px] bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.14)_0%,rgba(16,185,129,0.05)_40%,transparent_75%)] pointer-events-none" />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[1200px] h-[650px] bg-[radial-gradient(ellipse_at_top,rgba(45,55,72,0.3)_0%,transparent_75%)] pointer-events-none" />
 
         {/* Bottom ambient slate depth */}
         <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_bottom,rgba(15,23,42,0.6)_0%,transparent_70%)] pointer-events-none" />
@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
         />
 
         {/* Subtle vignette gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#07090e] via-transparent to-[#07090e]/80 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/80 pointer-events-none" />
       </div>
 
       <div className="w-full max-w-md relative z-10">
@@ -94,15 +94,15 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <Link 
             to="/" 
-            className="inline-flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-2xl"
+            className="inline-flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl"
           >
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 group-hover:scale-105 group-hover:border-emerald-500/50 group-hover:bg-emerald-500/20 transition-all shadow-glow-sm">
-              <Terminal className="w-6 h-6 text-emerald-400" />
+            <div className="w-12 h-12 rounded-xl bg-[#121212] border border-[#262626] flex items-center justify-center text-[#F5F7FA] transition-all shadow-subtle">
+              <Terminal className="w-6 h-6 text-[#F5F7FA]" />
             </div>
           </Link>
-          <h1 className="mt-4 text-2xl font-heading font-extrabold text-white tracking-tight flex items-center justify-center gap-2">
+          <h1 className="mt-4 text-2xl font-heading font-bold text-white tracking-tight flex items-center justify-center gap-2">
             <span>Administrator</span>
-            <span className="text-emerald-400">Portal</span>
+            <span className="text-[#A0AEC0]">Portal</span>
           </h1>
           <p className="mt-1 text-xs text-slate-400">
             Authenticate to manage portfolio projects, skills, and configuration.
@@ -110,14 +110,14 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Login Card */}
-        <div className="relative rounded-2xl bg-dark-900/90 border border-slate-800/90 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl p-6 sm:p-8 overflow-hidden">
+        <div className="relative rounded-xl bg-[#121212] border border-[#262626] shadow-card p-6 sm:p-8 overflow-hidden">
           {/* Subtle top edge border glow highlight */}
-          <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent pointer-events-none" />
+          
           
           {/* Supabase Status Pill */}
-          <div className="mb-5 flex items-center justify-between text-xs font-mono p-2.5 rounded-xl bg-dark-950 border border-slate-800">
+          <div className="mb-5 flex items-center justify-between text-xs font-mono p-2.5 rounded-xl bg-[#050505] border border-[#222222]">
             <span className="flex items-center gap-2 text-slate-400">
-              <Database className="w-3.5 h-3.5 text-emerald-400" />
+              <Database className="w-3.5 h-3.5 text-[#A0AEC0]" />
               <span>Auth Backend:</span>
             </span>
             {isConfigured ? (
@@ -155,7 +155,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@example.com"
                   required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-dark-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm bg-[#0A0A0A] border border-[#262626] text-white placeholder-slate-400 focus:outline-none focus:border-[#A0AEC0] focus:ring-1 focus:ring-[#A0AEC0] transition-all"
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
                   required
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl text-sm bg-dark-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-lg text-sm bg-[#0A0A0A] border border-[#262626] text-white placeholder-slate-400 focus:outline-none focus:border-[#A0AEC0] focus:ring-1 focus:ring-[#A0AEC0] transition-all"
                 />
                 <button
                   type="button"
@@ -188,7 +188,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-dark-950 font-bold text-sm shadow-glow-sm hover:shadow-glow-md transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
+              className="w-full mt-2 py-3 rounded-xl bg-[#F5F7FA] hover:bg-white disabled:opacity-50 text-[#2D3748] font-semibold text-sm shadow-subtle hover:shadow transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
             >
               {loading ? (
                 <>
@@ -213,7 +213,7 @@ export default function AdminLoginPage() {
               <button
                 type="button"
                 onClick={handleFillDemo}
-                className="text-xs font-mono text-emerald-400 hover:text-emerald-300 underline font-medium cursor-pointer"
+                className="text-xs font-mono text-[#A0AEC0] hover:text-white underline font-medium cursor-pointer"
               >
                 Auto-fill Sandbox Demo Credentials (admin@portfolio.dev)
               </button>

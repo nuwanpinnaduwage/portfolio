@@ -116,8 +116,8 @@ export default function AdminOrganizationPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+        <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+          <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
             <FolderTree className="w-6 h-6" />
           </span>
           <span>Taxonomy & Organization Hub</span>
@@ -133,7 +133,7 @@ export default function AdminOrganizationPage() {
           onClick={() => setActiveTab('skills')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'skills'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -145,7 +145,7 @@ export default function AdminOrganizationPage() {
           onClick={() => setActiveTab('projects')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'projects'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -157,7 +157,7 @@ export default function AdminOrganizationPage() {
           onClick={() => setActiveTab('tags')}
           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             activeTab === 'tags'
-              ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
               : 'text-slate-400 hover:text-white hover:bg-dark-850'
           }`}
         >
@@ -188,7 +188,7 @@ export default function AdminOrganizationPage() {
         <div className="space-y-6">
           
           {/* Create Subcategory */}
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl p-5">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5">
             <h3 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
               <Plus className="w-4 h-4 text-emerald-400" />
               <span>Add Subcategory to Skill Domain</span>
@@ -219,7 +219,7 @@ export default function AdminOrganizationPage() {
               <div className="sm:col-span-2">
                 <button
                   type="submit"
-                  className="w-full py-2 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs"
+                  className="w-full py-2 px-4 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle"
                 >
                   Add
                 </button>
@@ -232,7 +232,7 @@ export default function AdminOrganizationPage() {
             {skillCategories.map((cat) => {
               const catSkills = allSkills.filter(s => s.category_id === cat.id);
               return (
-                <div key={cat.id} className="bg-dark-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+                <div key={cat.id} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5 space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div>
                       <h4 className="text-base font-bold text-white">{cat.name}</h4>
@@ -283,7 +283,7 @@ export default function AdminOrganizationPage() {
       {/* TAB 2: PROJECT CATEGORIES */}
       {activeTab === 'projects' && (
         <div className="space-y-6">
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl p-5">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5">
             <h3 className="text-sm font-bold text-white mb-2">Project Categories & Taxonomies</h3>
             <p className="text-xs text-slate-400 mb-4">
               Configured categories for organizing technical software engineering and cybersecurity projects.
@@ -310,7 +310,7 @@ export default function AdminOrganizationPage() {
       {activeTab === 'tags' && (
         <div className="space-y-6">
           
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h3 className="text-sm font-bold text-white">Centralized Technology Tags</h3>
               <p className="text-xs text-slate-400">Total unique tags used across projects and competencies: {aggregatedTags.length}</p>
@@ -343,7 +343,7 @@ export default function AdminOrganizationPage() {
                 />
                 <button
                   onClick={handleRenameTag}
-                  className="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-bold text-xs rounded-lg"
+                  className="px-3 py-1.5 bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold text-xs shadow-subtle rounded-lg"
                 >
                   Save
                 </button>
@@ -358,7 +358,7 @@ export default function AdminOrganizationPage() {
           )}
 
           {/* Tags Grid */}
-          <div className="bg-dark-900 border border-slate-800 rounded-2xl p-5">
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {filteredTags.map(({ name, count }) => (
                 <div 

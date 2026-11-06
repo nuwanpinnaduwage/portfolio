@@ -264,6 +264,9 @@ export const portfolioService = {
         is_published: p.is_published !== undefined ? Boolean(p.is_published) : true,
         order_index: p.order_index ?? 0,
         defaultView: p.default_view || p.defaultView || 'overview',
+        sections: Array.isArray(p.sections) ? p.sections : [],
+        attachments: Array.isArray(p.attachments) ? p.attachments : [],
+        customStyling: (typeof p.custom_styling === 'object' && p.custom_styling) ? p.custom_styling : {},
       })) : initialStaticData.projects.items;
 
       const projects = {
@@ -372,8 +375,8 @@ export const portfolioService = {
         id: settingRow?.id,
         defaultTheme: settingRow?.default_theme || 'dark',
         accentColor: appearanceObj.accentColor || settingRow?.accent_color || 'neon-emerald',
-        customAccentColor: appearanceObj.customAccentColor !== undefined ? appearanceObj.customAccentColor : (settingRow?.custom_accent_color || '#22c55e'),
-        fontFamily: appearanceObj.fontFamily || settingRow?.font_family || 'inter',
+        customAccentColor: appearanceObj.customAccentColor !== undefined ? appearanceObj.customAccentColor : (settingRow?.custom_accent_color || '#2D3748'),
+        fontFamily: appearanceObj.fontFamily || settingRow?.font_family || 'roboto',
         fontSize: appearanceObj.fontSize || settingRow?.font_size || 'md',
         lineHeight: appearanceObj.lineHeight || settingRow?.line_height || 'normal',
         sectionAppearance: appearanceObj.sections || sectionContent.sectionAppearance || initialStaticData.settings?.sectionAppearance || {},
@@ -444,6 +447,92 @@ export const portfolioService = {
       const staged = getStagedData();
       return { data: staged || initialStaticData, error: null };
     }
+  },
+
+  // Fetch a single project by its URL slug or ID
+  async fetchProjectBySlug(slug, isAdmin = false) {
+    if (!slug) return { data: null, error: 'Slug is required' };
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        let query = supabase.from('projects').select('*');
+        if (isUuid(slug)) {
+          query = query.eq('id', slug);
+        } else {
+          query = query.eq('slug', slug);
+        }
+
+        if (!isAdmin) {
+          query = query.eq('is_published', true);
+        }
+
+        const { data: p } = await query.maybeSingle();
+
+        if (p) {
+          const mappedProject = {
+            id: p.id,
+            slug: p.slug || p.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            title: p.title,
+            type: p.type || "Security Tool",
+            category: p.category || "Cybersecurity",
+            subcategory: p.subcategory || "",
+            status: p.status || "Completed",
+            completionYear: p.completion_year || p.completionYear || "2024",
+            completionDate: p.completion_date || p.completionDate || "2024-01",
+            startDate: p.start_date || p.startDate || "",
+            tagline: p.tagline || "",
+            description: p.description || "",
+            fullOverview: p.full_overview || p.fullOverview || p.description || "",
+            problemStatement: p.problem_statement || p.problemStatement || "",
+            objectives: p.objectives || "",
+            proposedSolution: p.proposed_solution || p.proposedSolution || "",
+            methodology: p.methodology || "",
+            technicalImplementation: p.technical_implementation || p.technicalImplementation || p.full_overview || p.description || "",
+            keyFeatures: p.highlights || p.key_features || p.keyFeatures || [],
+            highlights: p.highlights || p.key_features || p.keyFeatures || [],
+            results: p.results || p.resultsAndOutcomes || "",
+            challenges: p.challenges || p.challengesAndSolutions || "",
+            futureImprovements: p.future_improvements || p.futureImprovements || "",
+            architectureDiagram: p.architecture_diagram || p.architectureDiagram || "",
+            topologyDiagram: p.topology_diagram || p.topologyDiagram || "",
+            documentationUrl: p.documentation_url || p.documentationUrl || "",
+            paperUrl: p.paper_url || p.paperUrl || "",
+            technologies: p.technologies || [],
+            tags: p.tags || p.technologies || [],
+            metrics: p.metrics || [],
+            github: p.github || '',
+            demo: p.demo || '',
+            image: p.image || '',
+            gallery: p.gallery && p.gallery.length > 0 ? p.gallery : (p.image ? [p.image] : []),
+            featured: Boolean(p.featured),
+            is_published: p.is_published !== undefined ? Boolean(p.is_published) : true,
+            order_index: p.order_index ?? 0,
+            defaultView: p.default_view || p.defaultView || 'overview',
+            sections: Array.isArray(p.sections) ? p.sections : [],
+            attachments: Array.isArray(p.attachments) ? p.attachments : [],
+            customStyling: (typeof p.custom_styling === 'object' && p.custom_styling) ? p.custom_styling : {},
+          };
+          return { data: mappedProject, error: null };
+        }
+      } catch (err) {
+        console.warn('Error fetching project by slug from Supabase:', err);
+      }
+    }
+
+    const staged = getStagedData();
+    const items = staged?.projects?.items || initialStaticData.projects.items || [];
+    const found = items.find(
+      (item) => item.slug === slug || item.id === slug || item.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug
+    );
+
+    if (found) {
+      if (!isAdmin && found.is_published === false) {
+        return { data: null, error: 'Project is not published' };
+      }
+      return { data: found, error: null };
+    }
+
+    return { data: null, error: 'Project not found' };
   },
 
   // Save / Update Profile (supports partial updates, flat objects, and nested objects without data loss)
@@ -673,6 +762,9 @@ export const portfolioService = {
         featured: Boolean(project.featured),
         is_published: project.is_published !== undefined ? Boolean(project.is_published) : true,
         defaultView: project.defaultView || 'overview',
+        sections: Array.isArray(project.sections) ? project.sections : [],
+        attachments: Array.isArray(project.attachments) ? project.attachments : [],
+        customStyling: project.customStyling || project.custom_styling || {},
       };
 
       if (existingIdx >= 0) {
@@ -732,6 +824,9 @@ export const portfolioService = {
         featured: Boolean(project.featured),
         is_published: project.is_published !== undefined ? Boolean(project.is_published) : true,
         default_view: project.defaultView || 'overview',
+        sections: Array.isArray(project.sections) ? project.sections : [],
+        attachments: Array.isArray(project.attachments) ? project.attachments : [],
+        custom_styling: project.customStyling || project.custom_styling || {},
         updated_at: new Date().toISOString()
       };
 
@@ -2251,11 +2346,11 @@ export const portfolioService = {
         sectionNames: settings.sectionNames || {},
         nav_visibility: settings.navVisibility || (settings.sectionContent && settings.sectionContent.nav_visibility) || {},
         appearance: {
-          fontFamily: settings.fontFamily || 'inter',
+          fontFamily: settings.fontFamily || 'roboto',
           fontSize: settings.fontSize || 'md',
           lineHeight: settings.lineHeight || 'normal',
           accentColor: settings.accentColor || 'neon-emerald',
-          customAccentColor: settings.customAccentColor || '#22c55e',
+          customAccentColor: settings.customAccentColor || '#2D3748',
           sections: settings.sectionAppearance || {},
         },
         sectionAppearance: settings.sectionAppearance || {},

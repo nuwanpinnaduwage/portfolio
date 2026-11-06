@@ -201,7 +201,7 @@ export default function About({
     <section 
       id="about" 
       aria-labelledby="about-heading"
-      className="py-16 sm:py-20 relative scroll-mt-24 bg-white dark:bg-[#0b0f17] border-t border-slate-200/60 dark:border-slate-800/60 transition-colors"
+      className="py-16 sm:py-20 relative scroll-mt-24 bg-white dark:bg-[#0A0A0A] border-t border-[#A0AEC0]/20 dark:border-[#222222] transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -223,11 +223,11 @@ export default function About({
             {/* 1. Who I Am */}
             <div>
               <ScrollReveal direction="up" distance={20} duration={0.55} once={false}>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-[#2D3748] dark:text-white mb-3 sm:mb-4 tracking-tight">
                   {about.whoIAmHeading || "Who I Am"}
                 </h3>
               </ScrollReveal>
-              <StaggerContainer staggerDelay={0.08} once={false} className="space-y-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+              <StaggerContainer staggerDelay={0.08} once={false} className="space-y-3 text-sm sm:text-base text-[#4A5568] dark:text-[#A0AEC0] leading-relaxed font-sans">
                 {about.paragraphs && about.paragraphs.length > 0 ? (
                   about.paragraphs.map((p, idx) => (
                     <StaggerItem key={idx} direction="up" distance={16} duration={0.5}>
@@ -241,7 +241,7 @@ export default function About({
                 )}
                 {about.professionalSummary && (
                   <StaggerItem direction="up" distance={16} duration={0.5}>
-                    <p className="text-slate-700 dark:text-slate-200 font-medium pt-1">
+                    <p className="text-[#2D3748] dark:text-[#F5F7FA] font-medium pt-1">
                       {about.professionalSummary}
                     </p>
                   </StaggerItem>
@@ -252,7 +252,7 @@ export default function About({
             {/* 2. Education (horizontal row of items, without enclosing card boxes) */}
             <div>
               <ScrollReveal direction="up" distance={20} duration={0.55} once={false}>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-[#2D3748] dark:text-white mb-3 sm:mb-4 tracking-tight">
                   Education
                 </h3>
               </ScrollReveal>
@@ -260,13 +260,13 @@ export default function About({
               <StaggerContainer staggerDelay={0.1} once={false} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {educationItems.map((edu, idx) => (
                   <StaggerItem key={edu.id || idx} direction="up" distance={18} duration={0.5} className="space-y-1">
-                    <span className="text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400 block">
+                    <span className="text-xs font-mono font-medium text-[#2D3748] dark:text-[#A0AEC0] block font-semibold">
                       {edu.period}
                     </span>
-                    <h4 className="text-sm sm:text-base font-heading font-bold text-slate-900 dark:text-white leading-snug">
+                    <h4 className="text-sm sm:text-base font-heading font-bold text-[#2D3748] dark:text-white leading-snug">
                       {edu.degree}
                     </h4>
-                    <p className="text-xs sm:text-sm font-sans text-slate-600 dark:text-slate-400">
+                    <p className="text-xs sm:text-sm font-sans text-[#4A5568] dark:text-[#A0AEC0]">
                       {edu.institution}
                     </p>
                     {edu.description && (
@@ -282,7 +282,7 @@ export default function About({
             {/* 3. Tech Stack (two columns of skills, with icons, names, durations, and simple proficiency bars) */}
             <div>
               <ScrollReveal direction="up" distance={20} duration={0.55} once={false}>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 tracking-tight">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-[#2D3748] dark:text-white mb-3 sm:mb-4 tracking-tight">
                   Tech Stack
                 </h3>
               </ScrollReveal>
@@ -305,9 +305,9 @@ export default function About({
                     </div>
 
                     {/* Simple horizontal proficiency bar */}
-                    <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                    <div className="w-full h-1.5 rounded-full bg-slate-200/80 dark:bg-[#1A1A1A] overflow-hidden">
                       <div 
-                        className="h-full rounded-full bg-emerald-600 dark:bg-emerald-500 transition-all duration-500"
+                        className="h-full rounded-full bg-[#2D3748] dark:bg-[#F5F7FA] transition-all duration-500"
                         style={{ width: `${Math.min(100, Math.max(0, skill.level ?? 80))}%` }}
                       />
                     </div>
@@ -326,7 +326,7 @@ export default function About({
             
             {/* 1. Existing profile photograph at the top, centered and circular */}
             <ScaleReveal initialScale={0.94} duration={0.65} once={false} className="flex justify-center">
-              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-emerald-500/40 shadow-md">
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-[#A0AEC0]/40 dark:border-[#262626] shadow-subtle">
                 <img
                   src={avatarToDisplay}
                   alt={personal.name || "Profile Photograph"}
@@ -352,16 +352,16 @@ export default function About({
                       type="button"
                       onClick={handlePrevCertificate}
                       aria-label="Previous certificate"
-                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white dark:bg-dark-850 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/50 shadow-sm flex items-center justify-center transition-all focus:outline-none touch-manipulation"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white dark:bg-[#121212] border border-[#A0AEC0]/40 dark:border-[#262626] text-[#2D3748] dark:text-[#F5F7FA] hover:bg-[#F5F7FA] dark:hover:bg-[#1A1A1A] shadow-subtle flex items-center justify-center transition-all focus:outline-none touch-manipulation"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                   )}
 
                   {/* Horizontal, compact certificate card */}
-                  <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-dark-900/70 p-3 sm:p-4 shadow-sm">
+                  <div className="rounded-xl border border-[#A0AEC0]/30 dark:border-[#262626] bg-white dark:bg-[#121212] p-3 sm:p-4 shadow-subtle">
                     {/* Prominent Certificate Image across the top, preserving aspect ratio */}
-                    <div className="w-full aspect-[16/10] bg-slate-100 dark:bg-dark-850 rounded-lg overflow-hidden flex items-center justify-center border border-slate-200/50 dark:border-slate-800/50">
+                    <div className="w-full aspect-[16/10] bg-slate-100 dark:bg-[#161616] rounded-lg overflow-hidden flex items-center justify-center border border-slate-200/50 dark:border-[#222222]">
                       {currentCertificate.image ? (
                         <img 
                           src={currentCertificate.image} 
@@ -369,8 +369,8 @@ export default function About({
                           className="w-full h-full object-contain"
                         />
                       ) : (
-                        <div className="w-full h-full p-4 flex flex-col items-center justify-center text-center bg-slate-50 dark:bg-dark-850">
-                          <Award className="w-8 h-8 text-emerald-500 mb-1.5" />
+                        <div className="w-full h-full p-4 flex flex-col items-center justify-center text-center bg-slate-50 dark:bg-[#161616]">
+                          <Award className="w-8 h-8 text-[#2D3748] dark:text-[#A0AEC0] mb-1.5" />
                           <span className="text-xs font-mono font-medium text-slate-700 dark:text-slate-300 line-clamp-1">
                             {currentCertificate.issuer}
                           </span>
@@ -383,7 +383,7 @@ export default function About({
                       <span className="text-xs font-mono text-slate-500 dark:text-slate-400 block">
                         {currentCertificate.year}
                       </span>
-                      <h4 className="text-sm sm:text-base font-heading font-bold text-slate-900 dark:text-white leading-snug">
+                      <h4 className="text-sm sm:text-base font-heading font-bold text-[#2D3748] dark:text-white leading-snug">
                         {currentCertificate.title}
                       </h4>
                       {currentCertificate.tags && currentCertificate.tags.length > 0 && (
@@ -391,7 +391,7 @@ export default function About({
                           {currentCertificate.tags.map((tag, tIdx) => (
                             <span
                               key={tIdx}
-                              className="text-xs font-mono text-emerald-600 dark:text-emerald-400"
+                              className="text-xs font-mono text-[#2D3748] dark:text-[#A0AEC0]"
                             >
                               #{tag}
                             </span>
@@ -404,7 +404,7 @@ export default function About({
                             href={currentCertificate.credentialUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 hover:underline"
+                            className="inline-flex items-center gap-1 text-[11px] font-mono text-[#2D3748] dark:text-[#A0AEC0] hover:underline"
                           >
                             <span>Verify Credential</span>
                             <ExternalLink className="w-3 h-3" />
@@ -420,7 +420,7 @@ export default function About({
                       type="button"
                       onClick={handleNextCertificate}
                       aria-label="Next certificate"
-                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white dark:bg-dark-850 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/50 shadow-sm flex items-center justify-center transition-all focus:outline-none touch-manipulation"
+                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white dark:bg-[#121212] border border-[#A0AEC0]/40 dark:border-[#262626] text-[#2D3748] dark:text-[#F5F7FA] hover:bg-[#F5F7FA] dark:hover:bg-[#1A1A1A] shadow-subtle flex items-center justify-center transition-all focus:outline-none touch-manipulation"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>

@@ -15,7 +15,8 @@ import {
   FileText,
   AlertTriangle,
   Lightbulb,
-  Maximize2
+  Maximize2,
+  Zap
 } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 
@@ -72,7 +73,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
   const getStatusBadge = (status) => {
     switch (status?.toLowerCase()) {
       case 'completed':
-        return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30';
+        return 'bg-emerald-500/10 text-[#4A5568] dark:text-[#A0AEC0] border-emerald-500/30';
       case 'in progress':
         return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30';
       case 'research':
@@ -80,7 +81,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
       case 'planned':
         return 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/30';
       default:
-        return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30';
+        return 'bg-emerald-500/10 text-[#4A5568] dark:text-[#A0AEC0] border-emerald-500/30';
     }
   };
 
@@ -89,17 +90,17 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
       role="dialog" 
       aria-modal="true" 
       aria-labelledby="modal-project-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-dark-950/85 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-[#050505]/80 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl rounded-2xl bg-white dark:bg-dark-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-2 sm:my-6 flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-4xl rounded-xl bg-white dark:bg-[#0E0E0E] border border-[#A0AEC0]/30 dark:border-[#262626] shadow-card-hover overflow-hidden my-2 sm:my-6 flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-dark-850/70 gap-2 shrink-0">
+        <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-[#A0AEC0]/20 dark:border-[#222222] bg-[#F5F7FA] dark:bg-[#121212] gap-2 shrink-0">
           <div className="flex items-center gap-2 flex-wrap min-w-0">
-            <span className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-[#F5F7FA] dark:bg-[#1A1A1A] text-[#2D3748] dark:text-[#F5F7FA] border border-[#A0AEC0]/30 dark:border-[#262626]">
               {project.category}
             </span>
             {project.subcategory && (
@@ -113,7 +114,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               </span>
             )}
             {project.featured && (
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500 text-dark-950 shadow-glow-sm">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2D3748] dark:bg-[#F5F7FA] text-white dark:text-[#2D3748] shadow-subtle">
                 Flagship Project
               </span>
             )}
@@ -129,18 +130,18 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="flex items-center gap-6 px-4 sm:px-6 border-b border-slate-200 dark:border-slate-800 overflow-x-auto scrollbar-none shrink-0 text-xs font-semibold">
+        <div className="flex items-center gap-6 px-4 sm:px-6 border-b border-[#A0AEC0]/20 dark:border-[#222222] overflow-x-auto scrollbar-none shrink-0 text-xs font-semibold">
           <button
             onClick={() => setActiveTab('overview')}
             className={`relative py-3 transition-colors whitespace-nowrap cursor-pointer select-none ${
               activeTab === 'overview'
-                ? 'text-emerald-500 dark:text-emerald-400 font-bold'
+                ? 'text-[#2D3748] dark:text-white font-bold'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium'
             }`}
           >
             Overview & Gallery
             {activeTab === 'overview' && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500" />
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA]" />
             )}
           </button>
 
@@ -148,13 +149,13 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
             onClick={() => setActiveTab('problem_solution')}
             className={`relative py-3 transition-colors whitespace-nowrap cursor-pointer select-none ${
               activeTab === 'problem_solution'
-                ? 'text-emerald-500 dark:text-emerald-400 font-bold'
+                ? 'text-[#2D3748] dark:text-white font-bold'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium'
             }`}
           >
             Problem & Solution
             {activeTab === 'problem_solution' && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500" />
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA]" />
             )}
           </button>
 
@@ -163,14 +164,14 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               onClick={() => setActiveTab('architecture')}
               className={`relative py-3 flex items-center gap-1.5 transition-colors whitespace-nowrap cursor-pointer select-none ${
                 activeTab === 'architecture'
-                  ? 'text-emerald-500 dark:text-emerald-400 font-bold'
+                  ? 'text-[#2D3748] dark:text-white font-bold'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium'
               }`}
             >
               <Network className="w-3.5 h-3.5" />
               <span>Topology & Architecture</span>
               {activeTab === 'architecture' && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA]" />
               )}
             </button>
           )}
@@ -179,13 +180,13 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
             onClick={() => setActiveTab('outcomes')}
             className={`relative py-3 transition-colors whitespace-nowrap cursor-pointer select-none ${
               activeTab === 'outcomes'
-                ? 'text-emerald-500 dark:text-emerald-400 font-bold'
+                ? 'text-[#2D3748] dark:text-white font-bold'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium'
             }`}
           >
             Features & Results
             {activeTab === 'outcomes' && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500" />
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2D3748] dark:bg-[#F5F7FA]" />
             )}
           </button>
         </div>
@@ -199,14 +200,14 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {project.title}
             </h3>
             {project.tagline && (
-              <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm md:text-base font-medium font-sans text-emerald-600 dark:text-emerald-400">
+              <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm md:text-base font-medium font-sans text-[#4A5568] dark:text-[#A0AEC0]">
                 {project.tagline}
               </p>
             )}
             <div className="mt-2 flex items-center gap-3 flex-wrap text-xs font-mono text-slate-400">
               {project.completionDate && (
                 <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-emerald-500" />
+                  <Calendar className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0]" />
                   <span>Timeline: {project.startDate ? `${project.startDate} to ` : ''}{project.completionDate}</span>
                 </span>
               )}
@@ -263,7 +264,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {/* Full Description & Overview */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1.5 font-semibold">
-                  <Code2 className="w-4 h-4 text-emerald-500" />
+                  <Code2 className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                   <span>Technical Overview</span>
                 </h4>
                 <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
@@ -275,14 +276,15 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {project.metrics && project.metrics.length > 0 && (
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2.5 flex items-center gap-1.5 font-semibold">
-                    <Activity className="w-4 h-4 text-emerald-500" />
+                    <Activity className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>Performance Metrics & Benchmarks</span>
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {project.metrics.map((metric, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800 text-center">
-                        <span className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400">
-                          ⚡ {metric}
+                      <div key={i} className="p-3 rounded-xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800 text-center flex items-center justify-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-[#2D3748] dark:text-[#A0AEC0] shrink-0" aria-hidden="true" />
+                        <span className="text-xs font-mono font-semibold text-[#4A5568] dark:text-[#F5F7FA]">
+                          {metric}
                         </span>
                       </div>
                     ))}
@@ -293,7 +295,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {/* Tech Stack */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1.5 font-semibold">
-                  <Layers className="w-4 h-4 text-emerald-500" />
+                  <Layers className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                   <span>Technologies & Tools Employed</span>
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -315,7 +317,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
             <div className="space-y-6 animate-fade-in">
               {/* Problem Statement */}
               {project.problemStatement && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20">
+                <div className="p-4 sm:p-5 rounded-xl bg-amber-500/5 border border-amber-500/20">
                   <h4 className="text-xs font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-2 font-bold">
                     <AlertTriangle className="w-4 h-4" />
                     <span>Problem Statement</span>
@@ -328,9 +330,9 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
 
               {/* Objectives */}
               {project.objectives && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800">
+                <div className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800">
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2 flex items-center gap-2 font-bold">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    <CheckCircle2 className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>Project Objectives</span>
                   </h4>
                   <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans whitespace-pre-line">
@@ -341,8 +343,8 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
 
               {/* Proposed Solution */}
               {project.proposedSolution && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 flex items-center gap-2 font-bold">
+                <div className="p-4 sm:p-5 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#4A5568] dark:text-[#A0AEC0] mb-2 flex items-center gap-2 font-bold">
                     <Lightbulb className="w-4 h-4" />
                     <span>Proposed Solution</span>
                   </h4>
@@ -356,7 +358,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {project.technicalImplementation && (
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1.5 font-semibold">
-                    <Terminal className="w-4 h-4 text-emerald-500" />
+                    <Terminal className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>Implementation Details & Methodology</span>
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans whitespace-pre-line">
@@ -374,12 +376,12 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5 font-semibold">
-                      <Network className="w-4 h-4 text-emerald-500" />
+                      <Network className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                       <span>Network Topology Diagram</span>
                     </h4>
                     <button
                       onClick={() => setFullscreenDiagram(project.topologyDiagram)}
-                      className="inline-flex items-center gap-1 text-xs font-mono text-emerald-500 hover:text-emerald-400"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-[#2D3748] dark:text-[#A0AEC0] hover:text-emerald-400"
                     >
                       <Maximize2 className="w-3 h-3" />
                       <span>Fullscreen</span>
@@ -407,12 +409,12 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5 font-semibold">
-                      <Cpu className="w-4 h-4 text-emerald-500" />
+                      <Cpu className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                       <span>System Architecture Diagram</span>
                     </h4>
                     <button
                       onClick={() => setFullscreenDiagram(project.architectureDiagram)}
-                      className="inline-flex items-center gap-1 text-xs font-mono text-emerald-500 hover:text-emerald-400"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-[#2D3748] dark:text-[#A0AEC0] hover:text-emerald-400"
                     >
                       <Maximize2 className="w-3 h-3" />
                       <span>Fullscreen</span>
@@ -445,7 +447,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {project.keyFeatures && project.keyFeatures.length > 0 && (
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 flex items-center gap-1.5 font-semibold">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    <CheckCircle2 className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>Key Architectural Features</span>
                   </h4>
                   <ul className="space-y-2">
@@ -461,8 +463,8 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
 
               {/* Results & Outcomes */}
               {project.results && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 flex items-center gap-2 font-bold">
+                <div className="p-4 sm:p-5 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#4A5568] dark:text-[#A0AEC0] mb-2 flex items-center gap-2 font-bold">
                     <Activity className="w-4 h-4" />
                     <span>Results & Verification Outcomes</span>
                   </h4>
@@ -474,9 +476,9 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
 
               {/* Challenges & Solutions */}
               {project.challenges && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800">
+                <div className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-dark-850 border border-slate-200 dark:border-slate-800">
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2 flex items-center gap-2 font-bold">
-                    <Shield className="w-4 h-4 text-emerald-500" />
+                    <Shield className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>Challenges & Engineering Solutions</span>
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans whitespace-pre-line">
@@ -489,7 +491,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
               {project.futureImprovements && (
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1.5 font-semibold">
-                    <Sparkles className="w-4 h-4 text-emerald-500" />
+                    <Sparkles className="w-4 h-4 text-[#2D3748] dark:text-[#A0AEC0]" />
                     <span>Planned Enhancements</span>
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
@@ -503,14 +505,14 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-dark-850/50 flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 shrink-0">
+        <div className="p-4 sm:p-5 border-t border-[#A0AEC0]/20 dark:border-[#4A5568] bg-[#F5F7FA] dark:bg-[#1A202C] flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 shrink-0">
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-dark-900 hover:bg-dark-800 text-white border border-slate-700 transition-colors touch-manipulation"
+                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white hover:bg-[#F5F7FA] dark:bg-[#2D3748] dark:hover:bg-[#3A4659] text-[#2D3748] dark:text-white border border-[#A0AEC0]/35 dark:border-[#4A5568] transition-colors touch-manipulation"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub Repository</span>
@@ -522,7 +524,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm transition-all touch-manipulation font-bold"
+                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle transition-all touch-manipulation font-semibold"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span>Live Demonstration</span>
@@ -534,7 +536,7 @@ export default function ProjectModal({ project, onClose, initialTab = 'overview'
                 href={project.documentationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-emerald-500 border border-slate-200 dark:border-slate-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-[#2D3748] dark:hover:text-white border border-slate-200 dark:border-slate-800 transition-colors"
               >
                 <FileText className="w-4 h-4" />
                 <span>Documentation</span>

@@ -335,8 +335,8 @@ export default function AdminSkillsPage() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+            <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
               <Wrench className="w-6 h-6" />
             </span>
             <span>Skills & Technologies Manager</span>
@@ -357,7 +357,7 @@ export default function AdminSkillsPage() {
 
           <button
             onClick={() => handleOpenAddSkill(selectedCatalogId !== 'all' ? selectedCatalogId : 'network')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-dark-950 shadow-glow-sm transition-all active:scale-95 cursor-pointer font-bold"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold shadow-subtle transition-all active:scale-95 cursor-pointer font-bold"
           >
             <Plus className="w-4 h-4 font-bold" />
             <span>Add New Skill</span>
@@ -403,14 +403,14 @@ export default function AdminSkillsPage() {
       )}
 
       {/* Controls & Catalog Filters */}
-      <div className="bg-dark-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+      <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         {/* Catalog Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 sm:pb-0">
           <button
             onClick={() => setSelectedCatalogId('all')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
               selectedCatalogId === 'all'
-                ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+                ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
                 : 'text-slate-400 hover:text-white hover:bg-dark-850'
             }`}
           >
@@ -422,7 +422,7 @@ export default function AdminSkillsPage() {
               onClick={() => setSelectedCatalogId(c.id)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
                 selectedCatalogId === c.id
-                  ? 'bg-emerald-500 text-dark-950 font-bold shadow-glow-sm'
+                  ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
                   : 'text-slate-400 hover:text-white hover:bg-dark-850'
               }`}
             >
@@ -452,7 +452,7 @@ export default function AdminSkillsPage() {
       {/* Catalogs & Skills Display */}
       <div className="space-y-8">
         {displayedCatalogs.length === 0 ? (
-          <div className="text-center py-16 bg-dark-900 border border-dashed border-slate-800 rounded-2xl p-6">
+          <div className="text-center py-16 bg-dark-900 border border-dashed border-slate-800 rounded-xl p-6">
             <Wrench className="w-10 h-10 text-slate-500 mx-auto mb-2 opacity-50" />
             <h3 className="text-sm font-semibold text-slate-300">No skills or catalogs match</h3>
             <p className="text-xs text-slate-500 mt-1">Try resetting the search query or adding a new skill.</p>
@@ -461,7 +461,7 @@ export default function AdminSkillsPage() {
           displayedCatalogs.map((catalog, cIdx) => (
             <div 
               key={catalog.id}
-              className="bg-dark-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl"
+              className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl overflow-hidden shadow-xl"
             >
               {/* Catalog Card Header */}
               <div className="p-5 bg-dark-950 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -691,7 +691,7 @@ export default function AdminSkillsPage() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
         >
           <div 
-            className="w-full max-w-lg bg-dark-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative"
+            className="w-full max-w-lg bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800">
@@ -806,7 +806,7 @@ export default function AdminSkillsPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 text-xs font-bold shadow-glow-sm cursor-pointer"
+                    className="px-5 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] text-xs font-semibold shadow-subtle shadow-subtle cursor-pointer"
                   >
                     {saving ? 'Saving...' : 'Save Skill'}
                   </button>
@@ -825,7 +825,7 @@ export default function AdminSkillsPage() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
         >
           <div 
-            className="w-full max-w-md bg-dark-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative"
+            className="w-full max-w-md bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800">
@@ -888,7 +888,7 @@ export default function AdminSkillsPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 text-xs font-bold shadow-glow-sm cursor-pointer"
+                    className="px-5 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] text-xs font-semibold shadow-subtle shadow-subtle cursor-pointer"
                   >
                     {saving ? 'Saving...' : 'Save Catalog'}
                   </button>
@@ -907,7 +907,7 @@ export default function AdminSkillsPage() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
         >
           <div 
-            className="w-full max-w-md bg-dark-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative"
+            className="w-full max-w-md bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
@@ -952,7 +952,7 @@ export default function AdminSkillsPage() {
                   type="button"
                   disabled={saving || !targetCatalogId || targetCatalogId === skillToMove.currentCatId}
                   onClick={handleExecuteMoveSkill}
-                  className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 text-xs font-bold cursor-pointer disabled:opacity-40"
+                  className="px-5 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] text-xs font-semibold shadow-subtle cursor-pointer disabled:opacity-40"
                 >
                   {saving ? 'Moving...' : 'Move Skill'}
                 </button>

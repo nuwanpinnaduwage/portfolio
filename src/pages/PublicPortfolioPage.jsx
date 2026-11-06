@@ -39,6 +39,11 @@ export default function PublicPortfolioPage() {
   const [toast, setToast] = useState(null);
 
   const handleOpenProject = (project, tab = 'overview') => {
+    const slug = project?.slug || project?.id;
+    if (slug) {
+      window.open(`/projects/${slug}`, '_blank', 'noopener,noreferrer');
+      return;
+    }
     setSelectedProject(project);
     setModalInitialTab(tab || 'overview');
   };
@@ -62,20 +67,24 @@ export default function PublicPortfolioPage() {
     const settings = portfolio.settings || {};
     const root = document.documentElement;
 
-    // Font Family
+    // Font Family — Dual-Font System: Manrope (Headings) + Roboto (Body & UI)
     const fontMap = {
-      inter: "'Inter', system-ui, -apple-system, sans-serif",
-      'plus-jakarta': "'Plus Jakarta Sans', 'Inter', sans-serif",
-      outfit: "'Outfit', 'Inter', sans-serif",
-      roboto: "'Roboto', -apple-system, sans-serif",
+      roboto: "'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      manrope: "'Manrope', system-ui, -apple-system, sans-serif",
+      inter: "'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      'space-grotesk': "'Manrope', system-ui, -apple-system, sans-serif",
+      'plus-jakarta': "'Plus Jakarta Sans', 'Roboto', sans-serif",
+      outfit: "'Outfit', 'Roboto', sans-serif",
       'fira-code': "'Fira Code', 'JetBrains Mono', monospace",
+      'jetbrains-mono': "'JetBrains Mono', 'Fira Code', monospace",
       system: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     };
     if (settings.fontFamily && fontMap[settings.fontFamily]) {
       root.style.setProperty('--portfolio-font-family', fontMap[settings.fontFamily]);
     } else {
-      root.style.setProperty('--portfolio-font-family', fontMap.inter);
+      root.style.setProperty('--portfolio-font-family', fontMap.roboto);
     }
+    root.style.setProperty('--font-heading', "'Manrope', system-ui, -apple-system, sans-serif");
 
     // Font Size (Base font scale)
     const sizeMap = {
@@ -103,36 +112,61 @@ export default function PublicPortfolioPage() {
       root.style.setProperty('--portfolio-line-height', '1.6');
     }
 
-    // Colors / Accent
+    // Colors / Accent — Clean Slate Design System
     const colorMap = {
+      'clean-slate': {
+        light: '#2D3748',
+        dark: '#F5F7FA',
+        primary: '#2D3748',
+        glow: 'rgba(160, 174, 192, 0.25)',
+        soft: '#F5F7FA',
+        deep: '#1A202C',
+        bg: '#2D3748',
+        secondaryBg: '#1E2530',
+        cardBg: '#2D3748',
+        border: '#4A5568',
+        textPrimary: '#F5F7FA',
+        textSecondary: '#A0AEC0'
+      },
       'neon-emerald': {
-        light: '#16a34a',
-        dark: '#39ff88',
-        primary: '#22c55e',
-        glow: 'rgba(57, 255, 136, 0.35)',
-        neon: '#39ff88',
-        soft: '#86efac',
-        deep: '#064e3b',
-        bg: '#06070a',
-        secondaryBg: '#0b0f17',
-        cardBg: '#101623',
-        border: '#1e293b',
-        textPrimary: '#f8fafc',
-        textSecondary: '#94a3b8'
+        light: '#2D3748',
+        dark: '#F5F7FA',
+        primary: '#2D3748',
+        glow: 'rgba(160, 174, 192, 0.25)',
+        soft: '#F5F7FA',
+        deep: '#1A202C',
+        bg: '#2D3748',
+        secondaryBg: '#1E2530',
+        cardBg: '#2D3748',
+        border: '#4A5568',
+        textPrimary: '#F5F7FA',
+        textSecondary: '#A0AEC0'
+      },
+      emerald: {
+        light: '#2D3748',
+        dark: '#F5F7FA',
+        primary: '#2D3748',
+        glow: 'rgba(160, 174, 192, 0.25)',
+        soft: '#F5F7FA',
+        deep: '#1A202C',
+        bg: '#2D3748',
+        secondaryBg: '#1E2530',
+        cardBg: '#2D3748',
+        border: '#4A5568',
+        textPrimary: '#F5F7FA',
+        textSecondary: '#A0AEC0'
       },
       violet: { light: '#7c3aed', dark: '#a78bfa', primary: '#8b5cf6', glow: 'rgba(139, 92, 246, 0.35)' },
       indigo: { light: '#4f46e5', dark: '#818cf8', primary: '#6366f1', glow: 'rgba(99, 102, 241, 0.35)' },
-      emerald: { light: '#059669', dark: '#34d399', primary: '#10b981', glow: 'rgba(16, 185, 129, 0.35)' },
       cyan: { light: '#0891b2', dark: '#22d3ee', primary: '#06b6d4', glow: 'rgba(6, 182, 212, 0.35)' },
       blue: { light: '#2563eb', dark: '#60a5fa', primary: '#3b82f6', glow: 'rgba(59, 130, 246, 0.35)' },
       rose: { light: '#e11d48', dark: '#fb7185', primary: '#f43f5e', glow: 'rgba(244, 63, 94, 0.35)' },
       orange: { light: '#ea580c', dark: '#fb923c', primary: '#f97316', glow: 'rgba(249, 115, 22, 0.35)' },
       amber: { light: '#d97706', dark: '#fbbf24', primary: '#f59e0b', glow: 'rgba(245, 158, 11, 0.35)' },
-      fuchsia: { light: '#c026d3', dark: '#e879f9', primary: '#d946ef', glow: 'rgba(217, 70, 239, 0.35)' },
     };
 
-    const accentKey = settings.accentColor || 'neon-emerald';
-    let chosen = colorMap[accentKey] || colorMap['neon-emerald'];
+    const accentKey = settings.accentColor || 'clean-slate';
+    let chosen = colorMap[accentKey] || colorMap['clean-slate'];
 
     if (settings.customAccentColor && settings.customAccentColor.startsWith('#')) {
       chosen = {
@@ -199,28 +233,28 @@ export default function PublicPortfolioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-dark-950 text-slate-900 dark:text-slate-100 transition-colors duration-500 public-portfolio">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#2D3748] dark:text-[#F5F7FA] transition-colors duration-250 public-portfolio">
       
       {/* Administrator Live Preview Banner */}
       {user && (
-        <div className="bg-emerald-600 text-white text-xs py-2 px-4 sticky top-0 z-50 flex items-center justify-between shadow-md">
+        <div className="bg-[#121212] text-[#F5F7FA] border-b border-[#262626] text-xs py-2 px-4 sticky top-0 z-50 flex items-center justify-between shadow-subtle">
           <div className="flex items-center gap-2">
-            <Eye className="w-3.5 h-3.5 animate-pulse" />
-            <span className="font-mono">
-              <strong>Admin Mode:</strong> {previewMode ? 'Live Draft Preview Active' : 'Public Visitor View'}
+            <Eye className="w-3.5 h-3.5 text-[#A0AEC0]" />
+            <span className="font-mono text-xs">
+              <strong className="text-white">Admin Mode:</strong> {previewMode ? 'Live Draft Preview Active' : 'Public Visitor View'}
             </span>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={() => setPreviewMode(!previewMode)}
-              className="px-2.5 py-0.5 rounded bg-emerald-700 hover:bg-emerald-800 text-[11px] font-semibold transition-colors"
+              className="px-2.5 py-0.5 rounded bg-[#1A1A1A] hover:bg-[#222222] text-[11px] font-semibold border border-[#333333] transition-colors cursor-pointer"
             >
               {previewMode ? 'Switch to Public Filter' : 'Show Drafts'}
             </button>
             <Link
               to="/admin/dashboard"
-              className="inline-flex items-center gap-1 text-[11px] font-mono hover:underline text-emerald-100"
+              className="inline-flex items-center gap-1 text-[11px] font-mono hover:underline text-[#A0AEC0] hover:text-white"
             >
               <span>Dashboard</span>
               <ArrowRight className="w-3 h-3" />

@@ -64,14 +64,14 @@ export default function AdminDashboardPage() {
         <div className="flex items-center gap-2.5 flex-wrap">
           <Link
             to="/admin/research"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm transition-all"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] shadow-subtle transition-all active:scale-98"
           >
             <Plus className="w-4 h-4" />
             <span>New Publication</span>
           </Link>
           <Link
             to="/admin/projects"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-dark-800 hover:bg-dark-700 text-slate-200 border border-slate-700 transition-all"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-[#121212] hover:bg-[#1A1A1A] text-[#F5F7FA] border border-[#262626] shadow-subtle transition-all active:scale-98"
           >
             <Plus className="w-4 h-4" />
             <span>New Project</span>
@@ -80,7 +80,7 @@ export default function AdminDashboardPage() {
             to="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-dark-900 hover:bg-dark-800 text-slate-200 border border-slate-800 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-[#0E0E0E] hover:bg-[#1A1A1A] text-[#F5F7FA] border border-[#262626] transition-colors"
           >
             <Eye className="w-4 h-4 text-emerald-400" />
             <span>Live View</span>
@@ -90,7 +90,7 @@ export default function AdminDashboardPage() {
 
       {/* Database Connection Notice Banner */}
       {!isConfigured && (
-        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start justify-between gap-4">
+        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start justify-between gap-4">
           <div className="flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
             <div>
@@ -117,17 +117,17 @@ export default function AdminDashboardPage() {
         {/* Research */}
         <Link 
           to="/admin/research"
-          className="rounded-2xl p-5 bg-dark-900/90 border border-slate-800/80 hover:border-emerald-500/50 shadow-sm transition-all group backdrop-blur-md"
+          className="rounded-xl p-5 bg-[#121212] border border-[#262626] hover:border-[#383838] shadow-subtle transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase text-slate-400">Research</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-[#222222] flex items-center justify-center text-[#F5F7FA]">
               <BookOpen className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="text-2xl font-bold font-heading text-white">{researchCount}</span>
-            <span className="text-xs text-emerald-400 font-mono">({publishedResearch} published)</span>
+            <span className="text-xs text-[#A0AEC0] font-mono">({publishedResearch} published)</span>
           </div>
           <span className="text-[11px] text-slate-500 mt-1 block">Papers, Preprints, Conferences</span>
         </Link>
@@ -135,17 +135,17 @@ export default function AdminDashboardPage() {
         {/* Projects */}
         <Link 
           to="/admin/projects"
-          className="rounded-2xl p-5 bg-dark-900/90 border border-slate-800/80 hover:border-emerald-500/50 shadow-sm transition-all group backdrop-blur-md"
+          className="rounded-xl p-5 bg-[#121212] border border-[#262626] hover:border-[#383838] shadow-subtle transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase text-slate-400">Projects</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-[#222222] flex items-center justify-center text-[#F5F7FA]">
               <FolderGit2 className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="text-2xl font-bold font-heading text-white">{projectCount}</span>
-            <span className="text-xs text-emerald-400 font-mono">({publishedProjects} published)</span>
+            <span className="text-xs text-[#A0AEC0] font-mono">({publishedProjects} published)</span>
           </div>
           <span className="text-[11px] text-slate-500 mt-1 block">Full-Stack, Systems, AI tools</span>
         </Link>
@@ -153,17 +153,17 @@ export default function AdminDashboardPage() {
         {/* Skills */}
         <Link 
           to="/admin/skills"
-          className="rounded-2xl p-5 bg-dark-900/90 border border-slate-800/80 hover:border-emerald-500/50 shadow-sm transition-all group backdrop-blur-md"
+          className="rounded-xl p-5 bg-[#121212] border border-[#262626] hover:border-[#383838] shadow-subtle transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase text-slate-400">Skills</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-[#222222] flex items-center justify-center text-[#F5F7FA]">
               <Wrench className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="text-2xl font-bold font-heading text-white">{skillsCount}</span>
-            <span className="text-xs text-emerald-400 font-mono">technical items</span>
+            <span className="text-xs text-[#A0AEC0] font-mono">technical items</span>
           </div>
           <span className="text-[11px] text-slate-500 mt-1 block">Networking, Cyber, CS, AI/ML</span>
         </Link>
@@ -171,17 +171,17 @@ export default function AdminDashboardPage() {
         {/* Experience */}
         <Link 
           to="/admin/experience"
-          className="rounded-2xl p-5 bg-dark-900/90 border border-slate-800/80 hover:border-emerald-500/50 shadow-sm transition-all group backdrop-blur-md"
+          className="rounded-xl p-5 bg-[#121212] border border-[#262626] hover:border-[#383838] shadow-subtle transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase text-slate-400">Experience</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-[#222222] flex items-center justify-center text-[#F5F7FA]">
               <Briefcase className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="text-2xl font-bold font-heading text-white">{experienceCount}</span>
-            <span className="text-xs text-emerald-400 font-mono">work & leadership</span>
+            <span className="text-xs text-[#A0AEC0] font-mono">work & leadership</span>
           </div>
           <span className="text-[11px] text-slate-500 mt-1 block">Internships, TA roles</span>
         </Link>
@@ -189,17 +189,17 @@ export default function AdminDashboardPage() {
         {/* Education & Honors */}
         <Link 
           to="/admin/education"
-          className="rounded-2xl p-5 bg-dark-900/90 border border-slate-800/80 hover:border-emerald-500/50 shadow-sm transition-all group backdrop-blur-md"
+          className="rounded-xl p-5 bg-[#121212] border border-[#262626] hover:border-[#383838] shadow-subtle transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase text-slate-400">Education</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-[#222222] flex items-center justify-center text-[#F5F7FA]">
               <GraduationCap className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
             <span className="text-2xl font-bold font-heading text-white">{degrees.length}</span>
-            <span className="text-xs text-emerald-400 font-mono">+{honors.length} honors</span>
+            <span className="text-xs text-[#A0AEC0] font-mono">+{honors.length} honors</span>
           </div>
           <span className="text-[11px] text-slate-500 mt-1 block">GPA: {gpaStat}</span>
         </Link>
@@ -210,15 +210,15 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Left: Recent Projects Table */}
-        <div className="lg:col-span-8 rounded-2xl p-6 bg-dark-900/90 border border-slate-800/80 shadow-sm backdrop-blur-md">
+        <div className="lg:col-span-8 rounded-xl p-6 bg-[#121212] border border-[#262626] shadow-subtle">
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-800/80">
             <div className="flex items-center gap-2">
-              <FolderGit2 className="w-4 h-4 text-emerald-400" />
+              <FolderGit2 className="w-4 h-4 text-[#A0AEC0]" />
               <h2 className="text-base font-bold font-heading text-white">Project Catalog</h2>
             </div>
             <Link
               to="/admin/projects"
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+              className="text-xs font-semibold text-[#F5F7FA] hover:text-white flex items-center gap-1"
             >
               <span>Manage All</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -238,7 +238,7 @@ export default function AdminDashboardPage() {
               projectList.slice(0, 6).map((proj) => (
                 <div 
                   key={proj.id}
-                  className="p-3.5 rounded-xl bg-dark-950/70 border border-slate-800/70 flex items-center justify-between gap-3 hover:border-slate-700 hover:bg-dark-950/90 transition-colors"
+                  className="p-3.5 rounded-lg bg-[#0A0A0A] border border-[#222222] flex items-center justify-between gap-3 hover:border-[#383838] transition-colors"
                 >
                   <div className="flex items-center gap-3 overflow-hidden">
                     <img
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
                   <div className="flex items-center gap-2 shrink-0">
                     <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium ${
                       proj.is_published !== false 
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
+                        ? 'bg-[#1A1A1A] text-[#F5F7FA] border border-[#262626]' 
                         : 'bg-slate-800 text-slate-400'
                     }`}>
                       {proj.is_published !== false ? 'Published' : 'Draft'}
@@ -285,26 +285,26 @@ export default function AdminDashboardPage() {
         <div className="lg:col-span-4 space-y-6">
           
           {/* Quick Management Shortcuts */}
-          <div className="rounded-2xl p-6 bg-dark-900/90 border border-slate-800/80 shadow-sm space-y-3 backdrop-blur-md">
+          <div className="rounded-xl p-6 bg-[#121212] border border-[#262626] shadow-subtle space-y-2.5">
             <h2 className="text-sm font-bold font-heading text-white flex items-center gap-2 pb-2 border-b border-slate-800/80">
-              <Settings className="w-4 h-4 text-emerald-400" />
+              <Settings className="w-4 h-4 text-[#A0AEC0]" />
               <span>Quick Management</span>
             </h2>
 
             <Link
               to="/admin/hero"
-              className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-500/60 hover:bg-emerald-500/20 text-xs font-semibold text-emerald-400 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#383838] text-xs font-semibold text-[#F5F7FA] hover:text-white transition-all shadow-subtle"
             >
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
+                <Sparkles className="w-4 h-4 text-[#F5F7FA]" />
                 <span>Hero Section & Availability</span>
               </div>
-              <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#F5F7FA]" />
             </Link>
 
             <Link
               to="/admin/about"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <UserCheck className="w-4 h-4 text-emerald-400" />
@@ -315,7 +315,7 @@ export default function AdminDashboardPage() {
 
             <Link
               to="/admin/certificates"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <GraduationCap className="w-4 h-4 text-emerald-400" />
@@ -326,7 +326,7 @@ export default function AdminDashboardPage() {
 
             <Link
               to="/admin/skills"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <Wrench className="w-4 h-4 text-emerald-400" />
@@ -337,7 +337,7 @@ export default function AdminDashboardPage() {
 
             <Link
               to="/admin/contact"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-emerald-400" />
@@ -348,7 +348,7 @@ export default function AdminDashboardPage() {
 
             <Link
               to="/admin/section-visibility"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <Eye className="w-4 h-4 text-emerald-400" />
@@ -359,7 +359,7 @@ export default function AdminDashboardPage() {
 
             <Link
               to="/admin/footer"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <PanelBottom className="w-4 h-4 text-emerald-400" />
@@ -370,10 +370,10 @@ export default function AdminDashboardPage() {
 
             <Link
               to="/admin/settings"
-              className="flex items-center justify-between p-3 rounded-xl bg-dark-950/70 border border-slate-800/70 hover:border-emerald-500/40 hover:bg-dark-950/90 text-xs font-medium text-slate-300 hover:text-white transition-all"
+              className="flex items-center justify-between p-3 rounded-lg bg-[#0A0A0A] border border-[#222222] hover:border-[#333333] text-xs font-medium text-slate-300 hover:text-white transition-all"
             >
               <div className="flex items-center gap-2.5">
-                <Settings className="w-4 h-4 text-emerald-400" />
+                <Settings className="w-4 h-4 text-[#A0AEC0]" />
                 <span>Backend Database & Settings</span>
               </div>
               <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
@@ -381,7 +381,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Security & RLS Compliance Card */}
-          <div className="p-5 rounded-2xl bg-dark-900/90 border border-slate-800/80 text-xs space-y-3 shadow-sm">
+          <div className="p-5 rounded-xl bg-[#121212] border border-[#222222] text-xs space-y-3 shadow-sm">
             <div className="flex items-center gap-2 text-emerald-400 font-semibold font-mono text-xs">
               <ShieldCheck className="w-4 h-4" />
               <span>Security Architecture</span>

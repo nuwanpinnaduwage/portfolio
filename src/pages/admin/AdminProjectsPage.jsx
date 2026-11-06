@@ -34,6 +34,7 @@ import {
 } from 'lucide-react';
 import { GithubIcon } from '../../components/BrandIcons';
 import ProjectCard from '../../components/ProjectCard';
+import AdvancedProjectVisualEditor from '../../components/admin/AdvancedProjectVisualEditor';
 
 export default function AdminProjectsPage() {
   const { 
@@ -79,6 +80,7 @@ export default function AdminProjectsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editorTab, setEditorTab] = useState('basic'); // 'basic' | 'technical' | 'media' | 'in_depth' | 'preview'
   const [editingProject, setEditingProject] = useState(null);
+  const [visualStudioProject, setVisualStudioProject] = useState(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [saving, setSaving] = useState(false);
@@ -582,6 +584,25 @@ export default function AdminProjectsPage() {
 
         <div className="flex items-center gap-2.5">
           <button
+            onClick={() => setVisualStudioProject({
+              id: '',
+              title: 'New Engineering Project',
+              slug: '',
+              category: 'Cybersecurity',
+              type: 'Security Tool',
+              status: 'Completed',
+              completionYear: new Date().getFullYear().toString(),
+              is_published: true,
+              sections: [],
+              attachments: [],
+            })}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#0A0A0A] shadow-subtle transition-all cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span>New in Visual Studio</span>
+          </button>
+
+          <button
             onClick={openCreateModal}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-dark-950 shadow-glow-sm transition-all"
           >
@@ -910,6 +931,15 @@ export default function AdminProjectsPage() {
                                 className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-dark-800 transition-colors"
                               >
                                 <Copy className="w-3.5 h-3.5" />
+                              </button>
+
+                              <button
+                                onClick={() => setVisualStudioProject(proj)}
+                                title="Open Visual Studio CMS Editor"
+                                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#0A0A0A] inline-flex items-center gap-1 shadow-sm transition-all"
+                              >
+                                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                                <span className="hidden sm:inline">Visual Studio</span>
                               </button>
 
                               <button
@@ -1822,6 +1852,22 @@ export default function AdminProjectsPage() {
         </div>
       )}
 
-    </div>
+    
+      {/* Advanced Visual Project Editor (Phase 3 & 4) */}
+      {visualStudioProject && (
+        <AdvancedProjectVisualEditor
+          initialProject={visualStudioProject}
+          onSave={async (payload) => {
+            const res = await saveProject(payload);
+            if (res.success) {
+              setVisualStudioProject(payload);
+            }
+            return res;
+          }}
+          onClose={() => setVisualStudioProject(null)}
+          uploadAsset={uploadAsset}
+        />
+      )}
+</div>
   );
 }

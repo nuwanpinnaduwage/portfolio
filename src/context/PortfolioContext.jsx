@@ -134,6 +134,14 @@ export function PortfolioProvider({ children }) {
     return res;
   };
 
+  const getProjectBySlug = async (slug) => {
+    const inMemory = portfolio.projects?.items?.find(
+      (p) => p.slug === slug || p.id === slug || p.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug
+    );
+    if (inMemory) return { data: inMemory, error: null };
+    return await portfolioService.fetchProjectBySlug(slug);
+  };
+
   const saveSubcategory = async (categoryName, subcategoryName) => {
     const res = await portfolioService.saveSubcategory(categoryName, subcategoryName);
     if (res.success) await loadData();
@@ -708,6 +716,7 @@ export function PortfolioProvider({ children }) {
         setAllNavVisibility,
         renameSection,
         uploadAsset,
+        getProjectBySlug,
       }}
     >
       {children}

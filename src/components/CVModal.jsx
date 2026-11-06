@@ -117,17 +117,17 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
       role="dialog" 
       aria-modal="true" 
       aria-labelledby="cv-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-dark-950/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-[#050505]/80 backdrop-blur-md animate-fade-in"
     >
       <div 
-        className="relative w-full max-w-4xl rounded-2xl bg-white dark:bg-dark-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-2 sm:my-6 flex flex-col max-h-[94vh]"
+        className="relative w-full max-w-4xl rounded-xl bg-white dark:bg-[#0E0E0E] border border-[#A0AEC0]/30 dark:border-[#262626] shadow-card-hover overflow-hidden my-2 sm:my-6 flex flex-col max-h-[94vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Actions Bar */}
-        <div className="flex items-center justify-between p-3 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-dark-850/80 shrink-0 gap-2">
+        <div className="flex items-center justify-between p-3 sm:p-5 border-b border-[#A0AEC0]/20 dark:border-[#222222] bg-[#F5F7FA] dark:bg-[#121212] shrink-0 gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <FileText className="w-5 h-5 text-violet-500 shrink-0" />
-            <h3 id="cv-modal-title" className="text-sm sm:text-lg font-heading font-bold text-slate-900 dark:text-white truncate">
+            <FileText className="w-5 h-5 text-[#2D3748] dark:text-[#A0AEC0] shrink-0" />
+            <h3 id="cv-modal-title" className="text-sm sm:text-lg font-heading font-bold text-[#2D3748] dark:text-white truncate">
               Curriculum Vitae Preview
             </h3>
             <span className="text-xs font-mono text-slate-400 hidden md:inline truncate">
@@ -138,7 +138,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={handleDownloadFile}
-              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-violet-600 hover:bg-violet-500 text-white shadow-glow-sm transition-colors touch-manipulation"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle transition-colors touch-manipulation"
             >
               <Download className="w-3.5 h-3.5" />
               <span className="hidden xs:inline">Download</span>
@@ -177,24 +177,24 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
           
           {/* Header */}
           <div className="text-center pb-6 border-b border-slate-200 dark:border-slate-800">
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl font-heading font-bold tracking-tight text-[#2D3748] dark:text-white">
               {personal.name}
             </h1>
-            <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 mt-1">
+            <p className="text-sm font-semibold text-[#2D3748] dark:text-[#F5F7FA] mt-1">
               {personal.role} • {personal.specialization}
             </p>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-500 dark:text-slate-400 font-mono">
               <span>{personal.location}</span>
               <span>•</span>
-              <a href={`mailto:${personal.email}`} className="text-violet-500 hover:underline">
+              <a href={`mailto:${personal.email}`} className="text-[#2D3748] dark:text-[#A0AEC0] hover:underline">
                 {personal.email}
               </a>
               <span>•</span>
-              <a href={personal.github} target="_blank" rel="noreferrer" className="text-violet-500 hover:underline">
+              <a href={personal.github} target="_blank" rel="noreferrer" className="text-[#2D3748] dark:text-[#A0AEC0] hover:underline">
                 GitHub
               </a>
               <span>•</span>
-              <a href={personal.linkedin} target="_blank" rel="noreferrer" className="text-violet-500 hover:underline">
+              <a href={personal.linkedin} target="_blank" rel="noreferrer" className="text-[#2D3748] dark:text-[#A0AEC0] hover:underline">
                 LinkedIn
               </a>
             </div>
@@ -202,7 +202,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
 
           {/* Objective / Summary */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-violet-600 dark:text-violet-400 mb-2">
+            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-[#2D3748] dark:text-[#F5F7FA] mb-2">
               Summary
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -212,13 +212,13 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
 
           {/* Education */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-violet-600 dark:text-violet-400 mb-2 flex items-center gap-1.5">
+            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-[#2D3748] dark:text-[#F5F7FA] mb-2 flex items-center gap-1.5">
               <GraduationCap className="w-4 h-4" />
               <span>Education</span>
             </h2>
             <div className="space-y-2">
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs sm:text-sm">
-                <span className="font-bold text-slate-900 dark:text-white">
+                <span className="font-bold text-[#2D3748] dark:text-white">
                   {education.degrees[0].institution}
                 </span>
                 <span className="font-mono text-slate-500 text-xs">
@@ -227,7 +227,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
               </div>
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs text-slate-600 dark:text-slate-400">
                 <span className="italic">{education.degrees[0].degree}</span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400">GPA: {education.degrees[0].gpa}</span>
+                <span className="font-semibold text-[#2D3748] dark:text-[#F5F7FA]">GPA: {education.degrees[0].gpa}</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 <strong className="font-semibold text-slate-700 dark:text-slate-300">Coursework: </strong>
@@ -238,7 +238,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
 
           {/* Technical Skills */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-violet-600 dark:text-violet-400 mb-2 flex items-center gap-1.5">
+            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-[#2D3748] dark:text-[#F5F7FA] mb-2 flex items-center gap-1.5">
               <Code2 className="w-4 h-4" />
               <span>Technical Skills</span>
             </h2>
@@ -260,7 +260,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
 
           {/* Work Experience */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-violet-600 dark:text-violet-400 mb-3 flex items-center gap-1.5">
+            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-[#2D3748] dark:text-[#F5F7FA] mb-3 flex items-center gap-1.5">
               <Briefcase className="w-4 h-4" />
               <span>Experience</span>
             </h2>
@@ -268,7 +268,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
               {experience.roles.map((role, idx) => (
                 <div key={idx} className="space-y-1">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs sm:text-sm">
-                    <span className="font-bold text-slate-900 dark:text-white">
+                    <span className="font-bold text-[#2D3748] dark:text-white">
                       {role.role} <span className="font-normal text-slate-500">| {role.organization}</span>
                     </span>
                     <span className="font-mono text-slate-500 text-xs">
@@ -287,7 +287,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
 
           {/* Flagship Projects */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-violet-600 dark:text-violet-400 mb-3 flex items-center gap-1.5">
+            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-[#2D3748] dark:text-[#F5F7FA] mb-3 flex items-center gap-1.5">
               <FileText className="w-4 h-4" />
               <span>Key Software Projects</span>
             </h2>
@@ -295,8 +295,8 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
               {projects.items.slice(0, 3).map((proj) => (
                 <div key={proj.id} className="space-y-1 text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900 dark:text-white">
-                      {proj.title} <span className="font-normal font-mono text-[11px] text-violet-500">({proj.technologies.slice(0, 4).join(', ')})</span>
+                    <span className="font-bold text-[#2D3748] dark:text-white">
+                      {proj.title} <span className="font-normal font-mono text-[11px] text-[#2D3748] dark:text-[#A0AEC0]">({proj.technologies.slice(0, 4).join(', ')})</span>
                     </span>
                   </div>
                   <p className="text-slate-600 dark:text-slate-300">{proj.description}</p>
@@ -307,7 +307,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
 
           {/* Honors */}
           <div>
-            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-violet-600 dark:text-violet-400 mb-2 flex items-center gap-1.5">
+            <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-[#2D3748] dark:text-[#F5F7FA] mb-2 flex items-center gap-1.5">
               <Award className="w-4 h-4" />
               <span>Honors & Certifications</span>
             </h2>
@@ -324,7 +324,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
         </div>
 
         {/* Modal Footer Note */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-dark-850/80 flex items-center justify-between text-xs text-slate-500 shrink-0">
+        <div className="p-4 border-t border-[#A0AEC0]/20 dark:border-[#4A5568] bg-[#F5F7FA] dark:bg-[#1A202C] flex items-center justify-between text-xs text-slate-500 shrink-0">
           <span>Formatted for standard ATS & technical recruiters.</span>
           <button
             onClick={onClose}

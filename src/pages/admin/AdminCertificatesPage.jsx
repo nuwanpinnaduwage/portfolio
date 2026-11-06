@@ -216,8 +216,8 @@ export default function AdminCertificatesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white tracking-tight flex items-center gap-3">
+            <span className="p-2 rounded-xl bg-[#2D3748] border border-[#4A5568] text-[#F5F7FA]">
               <Award className="w-6 h-6" />
             </span>
             <span>Certificates & Honors</span>
@@ -229,7 +229,7 @@ export default function AdminCertificatesPage() {
 
         <button
           onClick={handleOpenAdd}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-dark-950 shadow-glow-sm transition-all active:scale-95"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-[#F5F7FA] hover:bg-white text-[#2D3748] font-semibold shadow-subtle transition-all active:scale-95"
         >
           <Plus className="w-4 h-4 font-bold" />
           <span>Add New Certificate</span>
@@ -254,7 +254,7 @@ export default function AdminCertificatesPage() {
       )}
 
       {/* Search & Overview */}
-      <div className="bg-dark-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -273,7 +273,7 @@ export default function AdminCertificatesPage() {
       {/* Certificates Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredCerts.length === 0 ? (
-          <div className="col-span-full py-16 text-center bg-dark-900 border border-dashed border-slate-800 rounded-2xl">
+          <div className="col-span-full py-16 text-center bg-dark-900 border border-dashed border-slate-800 rounded-xl">
             <Award className="w-10 h-10 text-slate-500 mx-auto mb-2 opacity-50" />
             <h3 className="text-sm font-semibold text-slate-300">No certificates found</h3>
             <p className="text-xs text-slate-500 mt-1">Click "Add New Certificate" above to record your credentials.</p>
@@ -282,7 +282,7 @@ export default function AdminCertificatesPage() {
           filteredCerts.map((cert) => (
             <div 
               key={cert.id}
-              className="bg-dark-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between gap-4 hover:border-slate-700 transition-colors group"
+              className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-5 flex flex-col justify-between gap-4 hover:border-slate-700 transition-colors group"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 pb-3 border-b border-slate-800">
@@ -386,7 +386,7 @@ export default function AdminCertificatesPage() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
         >
           <div 
-            className="w-full max-w-2xl bg-dark-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative"
+            className="w-full max-w-2xl bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800">
@@ -538,7 +538,7 @@ export default function AdminCertificatesPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-dark-950 text-xs font-bold shadow-glow-sm"
+                    className="px-5 py-2 rounded-xl bg-[#F5F7FA] hover:bg-white text-[#2D3748] text-xs font-semibold shadow-subtle shadow-subtle"
                   >
                     {saving ? 'Saving...' : 'Save Certificate'}
                   </button>
