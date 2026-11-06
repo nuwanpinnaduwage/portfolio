@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { usePortfolio } from '../../context/PortfolioContext';
 import { 
   FolderGit2, 
@@ -37,6 +38,7 @@ import ProjectCard from '../../components/ProjectCard';
 import AdvancedProjectVisualEditor from '../../components/admin/AdvancedProjectVisualEditor';
 
 export default function AdminProjectsPage() {
+  const navigate = useNavigate();
   const { 
     portfolio, 
     saveProject, 
@@ -563,6 +565,24 @@ export default function AdminProjectsPage() {
     };
   }, [formData]);
 
+  // Mutual exclusion: when Visual Studio is open in state, unmount dashboard table completely
+  if (visualStudioProject) {
+    return (
+      <AdvancedProjectVisualEditor
+        initialProject={visualStudioProject}
+        onSave={async (payload) => {
+          const res = await saveProject(payload);
+          if (res.success) {
+            setVisualStudioProject(payload);
+          }
+          return res;
+        }}
+        onClose={() => setVisualStudioProject(null)}
+        uploadAsset={uploadAsset}
+      />
+    );
+  }
+
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in pb-12">
       
@@ -584,18 +604,7 @@ export default function AdminProjectsPage() {
 
         <div className="flex items-center gap-2.5">
           <button
-            onClick={() => setVisualStudioProject({
-              id: '',
-              title: 'New Engineering Project',
-              slug: '',
-              category: 'Cybersecurity',
-              type: 'Security Tool',
-              status: 'Completed',
-              completionYear: new Date().getFullYear().toString(),
-              is_published: true,
-              sections: [],
-              attachments: [],
-            })}
+            onClick={() => navigate('/admin/projects/editor/new')}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#0A0A0A] shadow-subtle transition-all cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-amber-400" />
@@ -934,7 +943,7 @@ export default function AdminProjectsPage() {
                               </button>
 
                               <button
-                                onClick={() => setVisualStudioProject(proj)}
+                                onClick={() => navigate(`/admin/projects/editor/${proj.id || proj.slug}`)}
                                 title="Open Visual Studio CMS Editor"
                                 className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#0A0A0A] inline-flex items-center gap-1 shadow-sm transition-all"
                               >

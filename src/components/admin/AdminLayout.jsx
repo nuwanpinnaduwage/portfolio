@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   UserCheck, 
@@ -31,6 +31,12 @@ export default function AdminLayout() {
   const { user, signOut, isConfigured } = useAuth();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // If inside Visual Studio Editor route, completely unmount AdminSuite dashboard shell
+  if (location.pathname.includes('/editor')) {
+    return <Outlet />;
+  }
 
   // Enforce consistent dark developer studio theme for all admin pages
   useEffect(() => {
