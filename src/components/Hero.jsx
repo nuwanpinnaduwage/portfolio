@@ -85,10 +85,34 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
   }, [heroBgLight, heroBgDark]);
 
   // Extract contact URLs
-  const linkedInUrl = personal.socialLinks?.find(l => l.platform.toLowerCase() === 'linkedin')?.url || 'https://linkedin.com/in/nuwan-pinnaduwage';
-  const githubUrl = personal.socialLinks?.find(l => l.platform.toLowerCase() === 'github')?.url || 'https://github.com/nuwan-pinnaduwage';
-  const emailRaw = personal.email || personal.directEmail || personal.socialLinks?.find(l => l.platform.toLowerCase() === 'email')?.url?.replace('mailto:', '') || 'nuwan.pinnaduwage@example.com';
-  const gmailMailto = emailRaw.startsWith('mailto:') ? emailRaw : `mailto:${emailRaw}`;
+  const linkedInUrl = personal.socialLinks?.find(l => (l.platform || l.label || '').toLowerCase().includes('linkedin'))?.url || 'https://linkedin.com/in/nuwan-pinnaduwage';
+  const githubUrl = personal.socialLinks?.find(l => (l.platform || l.label || '').toLowerCase().includes('git'))?.url || 'https://github.com/nuwan-pinnaduwage';
+  
+  const gmailSocialLink = personal.socialLinks?.find(l => {
+    const p = (l.platform || l.label || '').toLowerCase();
+    return p.includes('gmail') || p.includes('mail') || p.includes('email');
+  });
+
+  const getResolvedEmailUrl = (configuredUrl, fallbackEmail) => {
+    const raw = (configuredUrl || '').trim();
+    if (raw) {
+      if (/^https?:\/\//i.test(raw)) return raw;
+      if (raw.toLowerCase().startsWith('mailto:')) return raw;
+      return `mailto:${raw}`;
+    }
+    const fb = (fallbackEmail || '').trim();
+    if (fb) {
+      if (/^https?:\/\//i.test(fb)) return fb;
+      if (fb.toLowerCase().startsWith('mailto:')) return fb;
+      return `mailto:${fb}`;
+    }
+    return 'mailto:nuwan.pinnaduwage@example.com';
+  };
+
+  const gmailUrl = getResolvedEmailUrl(
+    gmailSocialLink?.url,
+    personal.email || personal.directEmail
+  );
 
   // Consistent transition durations respecting prefers-reduced-motion
   // Crossfade: ~700ms (within requested 500-800ms)
@@ -345,7 +369,9 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
 
             {/* Gmail */}
             <a
-              href={gmailMailto}
+              href={gmailUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Send email via Gmail"
               className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-xl text-black dark:text-white hover:opacity-75 transition-all hover:scale-110 active:scale-95"
             >

@@ -212,8 +212,38 @@ export default function AdminAboutPage() {
 
   const handleAddSocialLink = (e) => {
     e.preventDefault();
-    if (!newSocial.platform.trim() || !newSocial.url.trim()) return;
-    setSocialLinks(prev => [...prev, { ...newSocial }]);
+    const trimmedUrl = (newSocial.url || '').trim();
+    if (!newSocial.platform.trim() || !trimmedUrl) return;
+
+    const lower = trimmedUrl.toLowerCase();
+    if (lower.startsWith('javascript:') || lower.startsWith('data:') || lower.startsWith('vbscript:') || lower.startsWith('file:')) {
+      setFeedback({ type: 'error', message: 'Unsafe link scheme detected. Please provide a valid web URL or email link.' });
+      return;
+    }
+
+    let normalizedUrl = trimmedUrl;
+    if (/^https?:\/\//i.test(trimmedUrl)) {
+      try {
+        const parsed = new URL(trimmedUrl);
+        if (!['http:', 'https:'].includes(parsed.protocol)) {
+          setFeedback({ type: 'error', message: 'Please provide a valid web URL starting with https:// or http://' });
+          return;
+        }
+      } catch {
+        setFeedback({ type: 'error', message: 'Invalid URL format.' });
+        return;
+      }
+    } else if (lower.startsWith('mailto:')) {
+      const emailRecipient = trimmedUrl.slice(7).split('?')[0].trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRecipient)) {
+        setFeedback({ type: 'error', message: 'Please enter a valid email address for mailto: link.' });
+        return;
+      }
+    } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedUrl)) {
+      normalizedUrl = `mailto:${trimmedUrl}`;
+    }
+
+    setSocialLinks(prev => [...prev, { ...newSocial, url: normalizedUrl }]);
     setNewSocial({ platform: '', url: '', username: '' });
   };
 
@@ -619,10 +649,10 @@ export default function AdminAboutPage() {
                 className="w-full px-3 py-1.5 bg-dark-850 border border-slate-750 rounded-xl text-xs text-white"
               />
               <input
-                type="url"
+                type="text"
                 value={newSocial.url}
                 onChange={(e) => setNewSocial(s => ({ ...s, url: e.target.value }))}
-                placeholder="Full URL (https://...)..."
+                placeholder="Full URL (https://...) or email..."
                 className="w-full px-3 py-1.5 bg-dark-850 border border-slate-750 rounded-xl text-xs text-white"
               />
               <input

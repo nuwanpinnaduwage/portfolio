@@ -222,7 +222,7 @@ export default function AdminContactPage() {
   const platformPresets = [
     { name: 'LinkedIn', icon: 'Linkedin', defaultUrl: 'https://linkedin.com/in/' },
     { name: 'GitHub', icon: 'Github', defaultUrl: 'https://github.com/' },
-    { name: 'Gmail', icon: 'Mail', defaultUrl: 'mailto:nuwan.pinnaduwage@example.com' },
+    { name: 'Gmail', icon: 'Mail', defaultUrl: 'https://mail.google.com/mail/?view=cm&fs=1&to=nuwan.pinnaduwage@example.com' },
   ];
 
   const renderSocialIcon = (iconName, platform) => {
@@ -261,46 +261,92 @@ export default function AdminContactPage() {
 
   const handlePlatformChange = (selectedPlatform) => {
     const preset = platformPresets.find(p => p.name === selectedPlatform);
+    const prevPreset = platformPresets.find(p => p.name === socialFormData.platform);
+    const isUrlDefaultOrEmpty = !socialFormData.url || 
+      socialFormData.url === 'https://' || 
+      (prevPreset && socialFormData.url === prevPreset.defaultUrl);
+
     setSocialFormData(prev => ({
       ...prev,
       platform: selectedPlatform,
       label: prev.label && prev.label !== prev.platform ? prev.label : selectedPlatform,
       icon: preset?.icon || prev.icon,
-      url: prev.url && prev.url !== 'https://' ? prev.url : (preset?.defaultUrl || 'https://'),
+      url: isUrlDefaultOrEmpty ? (preset?.defaultUrl || 'https://') : prev.url,
     }));
   };
 
   const handleSaveSocialModal = (e) => {
     e.preventDefault();
-    const trimmedUrl = socialFormData.url.trim();
+    const trimmedUrl = (socialFormData.url || '').trim();
     if (!trimmedUrl) {
       setFeedback({ type: 'error', message: 'URL or mailto link is required for a social link.' });
       return;
     }
 
-    if (socialFormData.platform === 'Gmail' || trimmedUrl.startsWith('mailto:')) {
-      const emailPart = trimmedUrl.replace(/^mailto:/, '').split('?')[0].trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailPart)) {
-        setFeedback({ type: 'error', message: 'Please provide a valid email address for Gmail / Mailto link.' });
-        return;
-      }
-    } else {
+    // Security check: block dangerous pseudoprotocols
+    const lower = trimmedUrl.toLowerCase();
+    if (
+      lower.startsWith('javascript:') || 
+      lower.startsWith('data:') || 
+      lower.startsWith('vbscript:') || 
+      lower.startsWith('file:')
+    ) {
+      setFeedback({ type: 'error', message: 'Unsafe link scheme detected. Please provide a secure web URL (https://) or email link.' });
+      return;
+    }
+
+    let normalizedUrl = trimmedUrl;
+
+    // 1. Web URL (HTTP / HTTPS)
+    if (/^https?:\/\//i.test(trimmedUrl)) {
       try {
         const parsed = new URL(trimmedUrl);
         if (!['http:', 'https:'].includes(parsed.protocol)) {
-          throw new Error();
+          setFeedback({ type: 'error', message: 'Please provide a valid URL starting with https:// or http://' });
+          return;
         }
+        if (!parsed.hostname || !parsed.hostname.includes('.')) {
+          setFeedback({ type: 'error', message: 'Please enter a valid domain name in the web URL.' });
+          return;
+        }
+        // Valid web URL - query parameters (?view=cm&fs=1&to=...) are preserved completely intact!
+        normalizedUrl = trimmedUrl;
       } catch {
-        setFeedback({ type: 'error', message: 'Please provide a valid web URL starting with https:// or http://' });
+        setFeedback({ type: 'error', message: 'Invalid URL format. Please ensure the URL is formatted correctly.' });
         return;
       }
+    } else if (lower.startsWith('mailto:')) {
+      // 2. Mailto link
+      const emailRecipient = trimmedUrl.slice(7).split('?')[0].trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRecipient)) {
+        setFeedback({ type: 'error', message: 'Please provide a valid email address for the mailto: link (e.g. mailto:you@example.com).' });
+        return;
+      }
+      normalizedUrl = trimmedUrl;
+    } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedUrl)) {
+      // 3. Raw email address provided -> format as mailto:
+      normalizedUrl = `mailto:${trimmedUrl}`;
+    } else {
+      // 4. Invalid input
+      if (socialFormData.platform === 'Gmail') {
+        setFeedback({ 
+          type: 'error', 
+          message: 'Please enter a valid Gmail compose URL (e.g., https://mail.google.com/mail/?view=cm&fs=1&to=yourname@gmail.com) or email address.' 
+        });
+      } else {
+        setFeedback({ 
+          type: 'error', 
+          message: 'Please provide a valid web URL starting with https:// or http://' 
+        });
+      }
+      return;
     }
 
     const updated = [...socialLinks];
     const itemToSave = {
       ...socialFormData,
       label: socialFormData.label.trim() || socialFormData.platform,
-      url: trimmedUrl,
+      url: normalizedUrl,
       username: socialFormData.username.trim(),
     };
 
@@ -1335,16 +1381,26 @@ export default function AdminContactPage() {
               {/* URL */}
               <div>
                 <label className="text-xs font-mono text-slate-300 block mb-1.5">
-                  Platform URL <span className="text-emerald-400">*</span>
+                  {socialFormData.platform === 'Gmail' ? 'Gmail Compose URL or Email' : 'Platform URL'}{' '}
+                  <span className="text-emerald-400">*</span>
                 </label>
                 <input
-                  type="url"
+                  type="text"
                   required
                   value={socialFormData.url}
                   onChange={(e) => setSocialFormData(prev => ({ ...prev, url: e.target.value }))}
-                  placeholder="https://github.com/..."
+                  placeholder={
+                    socialFormData.platform === 'Gmail'
+                      ? "https://mail.google.com/mail/?view=cm&fs=1&to=yourname@gmail.com"
+                      : "https://..."
+                  }
                   className="w-full px-3.5 py-2.5 bg-dark-850 border border-slate-750 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500"
                 />
+                {socialFormData.platform === 'Gmail' && (
+                  <p className="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
+                    Supports Gmail Compose URLs (<span className="text-emerald-400 font-mono text-[10px]">https://mail.google.com/mail/?view=cm&fs=1&to=...</span>) or <span className="text-emerald-400 font-mono text-[10px]">mailto:</span> links.
+                  </p>
+                )}
               </div>
 
               {/* Username / Handle */}

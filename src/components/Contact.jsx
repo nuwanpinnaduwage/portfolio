@@ -51,22 +51,43 @@ export default function Contact({ onShowToast, data, personalData }) {
   const locationText = contact.location || personal.location || '';
 
   // Extract strictly the three approved platforms: LinkedIn, GitHub, Gmail (matching Hero Section)
-  const linkedInUrl = contact.socialLinks?.find(l => (l.platform || '').toLowerCase().includes('linkedin'))?.url 
-    || personal.socialLinks?.find(l => (l.platform || '').toLowerCase().includes('linkedin'))?.url 
+  const linkedInUrl = contact.socialLinks?.find(l => (l.platform || l.label || '').toLowerCase().includes('linkedin'))?.url 
+    || personal.socialLinks?.find(l => (l.platform || l.label || '').toLowerCase().includes('linkedin'))?.url 
     || 'https://linkedin.com/in/nuwan-pinnaduwage';
 
-  const githubUrl = contact.socialLinks?.find(l => (l.platform || '').toLowerCase().includes('git'))?.url 
-    || personal.socialLinks?.find(l => (l.platform || '').toLowerCase().includes('git'))?.url 
+  const githubUrl = contact.socialLinks?.find(l => (l.platform || l.label || '').toLowerCase().includes('git'))?.url 
+    || personal.socialLinks?.find(l => (l.platform || l.label || '').toLowerCase().includes('git'))?.url 
     || 'https://github.com/nuwan-pinnaduwage';
 
-  const rawEmail = contact.directEmail 
-    || contact.socialLinks?.find(l => (l.platform || '').toLowerCase().includes('mail') || (l.platform || '').toLowerCase().includes('email'))?.url?.replace('mailto:', '')
-    || personal.email 
-    || personal.directEmail 
-    || personal.socialLinks?.find(l => (l.platform || '').toLowerCase().includes('email'))?.url?.replace('mailto:', '')
-    || 'nuwan.pinnaduwage@example.com';
+  // Gmail / Email link resolution: prioritize configured social link, then direct email fallback
+  const gmailSocialLink = contact.socialLinks?.find(l => {
+    const p = (l.platform || l.label || '').toLowerCase();
+    return p.includes('gmail') || p.includes('mail') || p.includes('email');
+  }) || personal.socialLinks?.find(l => {
+    const p = (l.platform || l.label || '').toLowerCase();
+    return p.includes('gmail') || p.includes('mail') || p.includes('email');
+  });
 
-  const gmailMailto = rawEmail.startsWith('mailto:') ? rawEmail : `mailto:${rawEmail}`;
+  const resolveEmailLink = (configuredUrl, fallbackEmail) => {
+    const raw = (configuredUrl || '').trim();
+    if (raw) {
+      if (/^https?:\/\//i.test(raw)) return raw;
+      if (raw.toLowerCase().startsWith('mailto:')) return raw;
+      return `mailto:${raw}`;
+    }
+    const fallback = (fallbackEmail || '').trim();
+    if (fallback) {
+      if (/^https?:\/\//i.test(fallback)) return fallback;
+      if (fallback.toLowerCase().startsWith('mailto:')) return fallback;
+      return `mailto:${fallback}`;
+    }
+    return 'mailto:nuwan.pinnaduwage@example.com';
+  };
+
+  const gmailUrl = resolveEmailLink(
+    gmailSocialLink?.url,
+    contact.directEmail || personal.email || personal.directEmail
+  );
 
   // Only display valid non-empty links for the 3 platforms (no broken links)
   const contactSocials = [
@@ -74,7 +95,6 @@ export default function Contact({ onShowToast, data, personalData }) {
       id: 'linkedin',
       platform: 'LinkedIn',
       url: linkedInUrl,
-      isMail: false,
       ariaLabel: 'LinkedIn profile',
       Icon: LinkedinIcon,
     },
@@ -82,15 +102,13 @@ export default function Contact({ onShowToast, data, personalData }) {
       id: 'github',
       platform: 'GitHub',
       url: githubUrl,
-      isMail: false,
       ariaLabel: 'GitHub profile',
       Icon: GithubIcon,
     },
     {
       id: 'gmail',
       platform: 'Gmail',
-      url: gmailMailto,
-      isMail: true,
+      url: gmailUrl,
       ariaLabel: 'Send email via Gmail',
       Icon: GmailIcon,
     },
@@ -481,8 +499,8 @@ export default function Contact({ onShowToast, data, personalData }) {
                   <a
                     key={item.id}
                     href={item.url}
-                    target={item.isMail ? undefined : "_blank"}
-                    rel={item.isMail ? undefined : "noopener noreferrer"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={item.ariaLabel}
                     className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-xl text-black dark:text-white hover:opacity-75 transition-all hover:scale-110 active:scale-95"
                     title={item.platform}
