@@ -60,18 +60,23 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    if (!isSupabaseConfigured || !supabase) {
-      const testSession = sessionStorage.getItem('admin_test_session');
-      if (testSession) {
-        try {
-          const parsed = JSON.parse(testSession);
-          setUser(parsed.user);
-          setSession(parsed);
-          setIsAuthorizedAdmin(true);
-        } catch (e) {
-          sessionStorage.removeItem('admin_test_session');
-        }
+    // 1. Check local admin test session
+    const testSession = (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('admin_test_session')) ||
+                        (typeof localStorage !== 'undefined' && localStorage.getItem('admin_test_session'));
+    if (testSession) {
+      try {
+        const parsed = JSON.parse(testSession);
+        setUser(parsed.user);
+        setSession(parsed);
+        setIsAuthorizedAdmin(true);
+        setLoading(false);
+        return;
+      } catch (e) {
+        sessionStorage.removeItem('admin_test_session');
       }
+    }
+
+    if (!isSupabaseConfigured || !supabase) {
       setLoading(false);
       return;
     }
@@ -120,6 +125,23 @@ export function AuthProvider({ children }) {
 
   const signIn = async (email, password) => {
     setAuthError(null);
+
+    // Local admin test credential support
+    if (email === 'admin@portfolio.dev' && password === 'admin123456') {
+      const mockUser = {
+        id: 'admin-local-id',
+        email: 'admin@portfolio.dev',
+        role: 'authenticated',
+        user_metadata: { role: 'admin', name: 'Portfolio Administrator' },
+        app_metadata: { role: 'admin' }
+      };
+      const mockSession = { user: mockUser, access_token: 'mock-token-xyz' };
+      sessionStorage.setItem('admin_test_session', JSON.stringify(mockSession));
+      setUser(mockUser);
+      setSession(mockSession);
+      setIsAuthorizedAdmin(true);
+      return { data: { user: mockUser, session: mockSession }, error: null };
+    }
 
     // Sandbox / Local fallback authentication
     if (!isSupabaseConfigured || !supabase) {

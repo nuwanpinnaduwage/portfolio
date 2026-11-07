@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { 
   FileText, 
   ExternalLink, 
@@ -13,6 +14,7 @@ import {
 
 export default function ResearchCard({ item, onSelect, variants }) {
   const shouldReduceMotion = useReducedMotion();
+  const navigate = useNavigate();
 
   const authorsString = Array.isArray(item.authors) 
     ? item.authors.join(', ') 
@@ -32,6 +34,32 @@ export default function ResearchCard({ item, onSelect, variants }) {
         return 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30';
       default:
         return 'bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/30';
+    }
+  };
+
+  // Same-tab action to open research modal or destination
+  const handleOpenResearch = (e) => {
+    if (e?.target?.closest?.('a[data-external-link]')) {
+      return;
+    }
+
+    if (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (typeof e.stopPropagation === 'function') e.stopPropagation();
+    }
+
+    if (typeof onSelect === 'function') {
+      onSelect(item);
+      return;
+    }
+
+    const dest = item?.externalUrl || item?.paperUrl || (item?.slug ? `/research/${item.slug}` : null);
+    if (dest) {
+      if (dest.startsWith('http://') || dest.startsWith('https://')) {
+        window.location.assign(dest);
+      } else {
+        navigate(dest);
+      }
     }
   };
 
@@ -70,7 +98,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
 
         {/* Title */}
         <h3 
-          onClick={() => onSelect(item)}
+          onClick={handleOpenResearch}
           className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#2D3748] dark:text-white group-hover:text-[#1A202C] dark:group-hover:text-white transition-colors cursor-pointer leading-snug line-clamp-2"
         >
           {item.title}
@@ -134,7 +162,9 @@ export default function ResearchCard({ item, onSelect, variants }) {
       {/* Card Footer Actions */}
       <div className="px-5 sm:px-6 py-3.5 flex items-center justify-between border-t border-[#A0AEC0]/20 dark:border-[#222222] bg-[#F5F7FA]/70 dark:bg-[#0A0A0A]/60">
         <button
-          onClick={() => onSelect(item)}
+          type="button"
+          onClick={handleOpenResearch}
+          aria-label={`View ${item?.title || 'research'} details`}
           className="btn-rectangular-view touch-manipulation cursor-pointer"
         >
           <span>View</span>
@@ -146,6 +176,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
             <a
               href={item.paperUrl}
               target="_blank"
+              data-external-link="true"
               rel="noopener noreferrer"
               title="Download or Read Paper"
               className="p-1.5 rounded-lg text-slate-500 hover:text-[#2D3748] dark:text-[#A0AEC0] dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors"
@@ -157,6 +188,7 @@ export default function ResearchCard({ item, onSelect, variants }) {
             <a
               href={item.externalUrl}
               target="_blank"
+              data-external-link="true"
               rel="noopener noreferrer"
               title="External Publication Link"
               className="p-1.5 rounded-lg text-slate-500 hover:text-[#2D3748] dark:text-[#A0AEC0] dark:text-slate-400 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors"

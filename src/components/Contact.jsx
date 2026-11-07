@@ -161,8 +161,9 @@ export default function Contact({ onShowToast, data, personalData }) {
       let apiSucceeded = false;
       let apiMessage = '';
 
+      let response;
       try {
-        const response = await fetch('/api/contact', {
+        response = await fetch('/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -175,32 +176,35 @@ export default function Contact({ onShowToast, data, personalData }) {
             website: formData.website || '',
           }),
         });
-
-        const resData = await response.json().catch(() => ({}));
-        if (response.ok && resData.success) {
-          apiSucceeded = true;
-          apiMessage = resData.message;
-        } else {
-          throw new Error(resData.error || 'Failed to deliver message via email.');
-        }
-      } catch (fetchErr) {
-        // Fallback: If /api/contact is unavailable (e.g. running in purely static preview environment)
+      } catch (networkErr) {
+        // Fallback only if /api/contact endpoint is completely unreachable (e.g. offline)
         if (isSupabaseConfigured && supabase) {
           const { error: insertErr } = await supabase.from('contact_messages').insert([{
             name: formData.name.trim(),
             email: formData.email.trim(),
             subject: formData.subject.trim(),
             message: formData.message.trim(),
-            delivery_status: 'fallback_client_db',
+            delivery_status: 'offline_client_db',
             delivery_provider: 'supabase_direct',
             reply_to: formData.email.trim(),
           }]);
           if (!insertErr) {
             apiSucceeded = true;
+            apiMessage = 'Message recorded offline. Direct notifications will dispatch when online.';
           }
         }
         if (!apiSucceeded) {
-          throw fetchErr;
+          throw new Error('Unable to connect to the server. Please check your internet connection or email directly.');
+        }
+      }
+
+      if (response) {
+        const resData = await response.json().catch(() => ({}));
+        if (response.ok && resData.success) {
+          apiSucceeded = true;
+          apiMessage = resData.message;
+        } else {
+          throw new Error(resData.error || 'Failed to deliver message via email.');
         }
       }
 
@@ -348,6 +352,24 @@ export default function Contact({ onShowToast, data, personalData }) {
           {/* ========================================================= */}
           {/* RIGHT COLUMN: CONTACT FORM (Slides subtly from right)      */}
           {/* ========================================================= */}
+          {!isFormEnabled && (
+            <div className="lg:col-span-7 flex flex-col items-center justify-center p-8 sm:p-12 rounded-2xl border border-slate-200 dark:border-[#222] bg-white dark:bg-[#0E0E0E] text-center shadow-subtle">
+              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-4">
+                <Mail className="w-6 h-6 text-emerald-400" />
+              </div>
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Direct Inquiries Only</h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm mb-5 leading-relaxed">
+                The online contact form is currently paused. Please send an inquiry directly to:
+              </p>
+              <a
+                href={gmailUrl}
+                className="btn-primary-pill text-xs font-semibold cursor-pointer"
+              >
+                Send Email to {directEmail || 'nuwandevinda2002@gmail.com'}
+              </a>
+            </div>
+          )}
+
           {isFormEnabled && (
             <ScrollReveal 
               direction="right" 

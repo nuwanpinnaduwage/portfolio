@@ -48,7 +48,15 @@ export default function AdminResearchPage() {
   const researchSection = portfolio?.research || { items: [], types: [], categories: [], tags: [], filterConfig: {} };
   const items = researchSection.items || [];
   const types = researchSection.types || [];
-  const categories = researchSection.categories || [];
+  const rawCategories = researchSection.categories || [];
+  const categories = useMemo(() => {
+    const fromItems = items.map(r => r.category).filter(Boolean);
+    const merged = [
+      ...rawCategories.map(c => typeof c === 'string' ? c : c.name).filter(c => c && c !== 'All'),
+      ...fromItems
+    ];
+    return Array.from(new Set(merged));
+  }, [rawCategories, items]);
   const tags = researchSection.tags || [];
   const filterConfig = researchSection.filterConfig || {};
 
@@ -227,6 +235,15 @@ export default function AdminResearchPage() {
       setFeedback({ type: 'error', message: 'Research title is required.' });
       return;
     }
+    const trimmedCategory = (formData.category || '').trim();
+    if (!trimmedCategory) {
+      setFeedback({ type: 'error', message: 'Research category is required.' });
+      return;
+    }
+    if (trimmedCategory.length > 100) {
+      setFeedback({ type: 'error', message: 'Category must be 100 characters or less.' });
+      return;
+    }
     if (!formData.abstract.trim()) {
       setFeedback({ type: 'error', message: 'Research abstract / short summary is required.' });
       return;
@@ -258,7 +275,7 @@ export default function AdminResearchPage() {
       title: formData.title.trim(),
       slug: formData.slug.trim() || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       type: formData.type,
-      category: formData.category,
+      category: trimmedCategory,
       status: formData.status,
       publicationYear: formData.publicationYear.trim(),
       publicationDate: formData.publicationDate || `${formData.publicationYear}-01`,
@@ -282,6 +299,13 @@ export default function AdminResearchPage() {
     setSaving(false);
 
     if (res.success) {
+      if (!categories.includes(trimmedCategory)) {
+        try {
+          await saveCategory({ newName: trimmedCategory }, 'research');
+        } catch (catErr) {
+          console.warn('Could not auto-register category:', catErr);
+        }
+      }
       setEditorOpen(false);
       setFeedback({ type: 'success', message: editingItem ? 'Research publication updated successfully!' : 'New research publication added successfully!' });
     } else {
@@ -1132,16 +1156,23 @@ export default function AdminResearchPage() {
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1">Category</label>
-                    <select
+                    <label className="block text-slate-300 mb-1">
+                      Category <span className="text-xs text-slate-400 font-normal">(Custom category / free text)</span>
+                    </label>
+                    <input
+                      type="text"
+                      list="research-category-suggestions"
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-dark-800 border border-slate-700 text-white focus:outline-none"
-                    >
-                      {categories.filter(c => c !== 'All').map(c => (
-                        <option key={c} value={c}>{c}</option>
+                      placeholder="e.g. Artificial Intelligence, Distributed Systems"
+                      maxLength={100}
+                      className="w-full px-3 py-2 rounded-lg bg-dark-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                    />
+                    <datalist id="research-category-suggestions">
+                      {categories.filter(c => c && c !== 'All').map(c => (
+                        <option key={c} value={c} />
                       ))}
-                    </select>
+                    </datalist>
                   </div>
 
                   <div>

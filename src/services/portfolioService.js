@@ -415,6 +415,8 @@ export const portfolioService = {
         footerCopyright: settingRow?.footer_copyright || footer.copyrightNotice,
         heroBgLight: settingRow?.hero_bg_light || initialStaticData.settings?.heroBgLight || '/hero-light.png',
         heroBgDark: settingRow?.hero_bg_dark || initialStaticData.settings?.heroBgDark || '/hero-dark.png',
+        heroDesign: sectionContent.hero_studio_pro || sectionContent.hero_design || sectionContent.hero || initialStaticData.settings?.heroDesign || {},
+        heroStudioPro: sectionContent.hero_studio_pro || null,
       };
 
       const formatted = {
@@ -2954,6 +2956,140 @@ export const portfolioService = {
     } catch (error) {
       console.error("Failed to reset footer in Supabase:", error);
       return { success: false, error: error.message };
+    }
+  },
+
+  // Save Hero Section Content, Typography & Animation Design
+  async saveHero(heroData) {
+    persistStagedChange((prev) => {
+      const currentPersonal = prev.personal || initialStaticData.personal;
+      const currentHeroDesign = currentPersonal.heroDesign || prev.settings?.heroDesign || {};
+      const currentHeroStudioPro = prev.settings?.heroStudioPro || currentPersonal.heroStudioPro || null;
+
+      const studioProData = heroData.heroStudioPro || (heroData.layers ? heroData : currentHeroStudioPro);
+
+      const getLayerText = (layerId, fallback = '') => {
+        if (!studioProData?.layers) return fallback;
+        const layer = studioProData.layers.find(l => l.id === layerId);
+        if (!layer) return fallback;
+        if (layer.rawText) return layer.rawText;
+        if (Array.isArray(layer.segments) && layer.segments.length > 0) {
+          return layer.segments.map(s => s.text).join('');
+        }
+        return fallback;
+      };
+
+      const headingText = heroData.heading || heroData.name || getLayerText('heading') || currentHeroDesign.content?.heading || currentPersonal.name;
+      const subtitleText = heroData.subtitle || heroData.degree || getLayerText('subtitle') || currentHeroDesign.content?.subtitle || currentPersonal.degree;
+      const careerText = heroData.careerPath || heroData.role || getLayerText('career') || currentHeroDesign.content?.careerPath || currentPersonal.careerPath || currentPersonal.specialization;
+      const universityText = heroData.university || getLayerText('university') || currentHeroDesign.content?.university || currentPersonal.university;
+      const locationText = heroData.location || getLayerText('location') || currentHeroDesign.content?.location || currentPersonal.location;
+      const descriptionText = heroData.description || heroData.bioShort || getLayerText('description') || currentHeroDesign.content?.description || currentPersonal.bioShort;
+      const greetingText = heroData.greeting || getLayerText('greeting') || currentHeroDesign.content?.greeting || "Hi, I'm";
+
+      const nextHeroDesign = {
+        ...currentHeroDesign,
+        ...(heroData.heroDesign || {}),
+        heroStudioPro: studioProData,
+        content: {
+          ...(currentHeroDesign.content || {}),
+          ...(heroData.content || {}),
+          heading: headingText,
+          highlightedText: heroData.highlightedText !== undefined ? heroData.highlightedText : currentHeroDesign.content?.highlightedText || '',
+          subtitle: subtitleText,
+          careerPath: careerText,
+          university: universityText,
+          location: locationText,
+          description: descriptionText,
+          greeting: greetingText,
+          textSegments: heroData.textSegments || currentHeroDesign.content?.textSegments || []
+        },
+        design: {
+          ...(currentHeroDesign.design || {}),
+          ...(heroData.design || {})
+        },
+        animations: {
+          ...(currentHeroDesign.animations || {}),
+          ...(heroData.animations || {})
+        }
+      };
+
+      const updatedPersonal = {
+        ...currentPersonal,
+        name: headingText,
+        degree: subtitleText,
+        role: careerText,
+        university: universityText,
+        location: locationText,
+        bioShort: descriptionText,
+        heroDesign: nextHeroDesign,
+        heroStudioPro: studioProData,
+      };
+
+      const updatedSettings = {
+        ...(prev.settings || {}),
+        heroDesign: nextHeroDesign,
+        heroStudioPro: studioProData,
+      };
+
+      return {
+        ...prev,
+        personal: updatedPersonal,
+        settings: updatedSettings
+      };
+    });
+
+    if (!isSupabaseConfigured || !supabase) {
+      return { success: true, error: null };
+    }
+
+    try {
+      // 1. Persist to Supabase site_settings
+      const { data: existingSettings } = await supabase.from('site_settings').select('id, section_content').limit(1).maybeSingle();
+      const currentSectionContent = existingSettings?.section_content || {};
+      const studioProData = heroData.heroStudioPro || (heroData.layers ? heroData : currentSectionContent.hero_studio_pro || null);
+
+      const updatedSectionContent = {
+        ...currentSectionContent,
+        hero: heroData,
+        hero_design: heroData.heroDesign || heroData,
+        hero_studio_pro: studioProData
+      };
+
+      if (existingSettings?.id) {
+        await supabase.from('site_settings').update({
+          section_content: updatedSectionContent,
+          updated_at: new Date().toISOString()
+        }).eq('id', existingSettings.id);
+      } else {
+        await supabase.from('site_settings').insert([{
+          section_content: updatedSectionContent,
+          default_theme: 'dark',
+          accent_color: 'emerald',
+          updated_at: new Date().toISOString()
+        }]);
+      }
+
+      // 2. Sync profile attributes
+      const { data: existingProfile } = await supabase.from('profiles').select('id').limit(1).maybeSingle();
+      if (existingProfile?.id) {
+        const pUpdates = { updated_at: new Date().toISOString() };
+        const hText = heroData.heading || heroData.name;
+        const sText = heroData.subtitle || heroData.degree;
+        const cText = heroData.careerPath || heroData.role;
+        if (hText) pUpdates.name = hText;
+        if (sText) pUpdates.degree = sText;
+        if (cText) pUpdates.role = cText;
+        if (heroData.university) pUpdates.university = heroData.university;
+        if (heroData.location) pUpdates.location = heroData.location;
+        if (heroData.description || heroData.bioShort) pUpdates.bio_short = heroData.description || heroData.bioShort;
+        await supabase.from('profiles').update(pUpdates).eq('id', existingProfile.id);
+      }
+
+      return { success: true, error: null };
+    } catch (err) {
+      console.error("Failed to save hero to Supabase:", err);
+      return { success: false, error: err.message };
     }
   }
 };

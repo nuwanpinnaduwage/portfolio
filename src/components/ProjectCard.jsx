@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ExternalLink } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { GithubIcon } from './BrandIcons';
 
 export default function ProjectCard({ 
@@ -11,20 +12,34 @@ export default function ProjectCard({
   index = 0 
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const navigate = useNavigate();
 
   const slug = project?.slug || project?.id || project?.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const projectUrl = `/projects/${slug}`;
+  const projectUrl = project?.projectUrl || (slug ? `/projects/${slug}` : '#');
+  const isExternalUrl = typeof projectUrl === 'string' && (projectUrl.startsWith('http://') || projectUrl.startsWith('https://'));
 
-  // Safe navigation to open project details page in a new browser tab/window
+  // Same-tab navigation to open project details page or external project URL
   const handleOpenProject = (e) => {
     // If the click came from a specific external link (GitHub or Demo), don't hijack it
-    if (e.target.closest('a[data-external-link]')) {
+    if (e?.target?.closest?.('a[data-external-link]')) {
       return;
     }
     
-    // Prevent default anchor navigation if triggered by click to use window.open with safe rel
-    e.preventDefault();
-    window.open(projectUrl, '_blank', 'noopener,noreferrer');
+    if (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (typeof e.stopPropagation === 'function') e.stopPropagation();
+    }
+
+    if (typeof onSelect === 'function') {
+      onSelect(project);
+      return;
+    }
+
+    if (isExternalUrl) {
+      window.location.assign(projectUrl);
+    } else {
+      navigate(projectUrl);
+    }
   };
 
   const hasRealExternalDemo = Boolean(
@@ -45,11 +60,10 @@ export default function ProjectCard({
       className="group relative flex flex-col justify-between h-full rounded-2xl overflow-hidden border border-[#A0AEC0]/30 dark:border-[#262626] bg-white dark:bg-[#121212] transition-all duration-300 shadow-subtle hover:shadow-card hover:border-[#2D3748]/50 dark:hover:border-[#383838] focus-within:ring-2 focus-within:ring-[#2D3748] dark:focus-within:ring-[#F5F7FA] cursor-pointer"
       onClick={handleOpenProject}
     >
-      {/* Invisible anchor for native browser accessibility (right-click -> open in new tab, SEO, keyboard nav) */}
+      {/* Invisible anchor for native browser accessibility (same-tab navigation, SEO, keyboard nav) */}
       <a 
         href={projectUrl} 
-        target="_blank" 
-        rel="noopener noreferrer"
+        target="_self" 
         aria-label={`View ${project?.title || 'project'} details`}
         className="absolute inset-0 z-0 pointer-events-none focus:outline-none"
         tabIndex={-1}
@@ -70,12 +84,15 @@ export default function ProjectCard({
           className="absolute inset-0 bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center"
         >
           {/* Animated Centered "View" Button */}
-          <div 
-            className="transform translate-y-3 scale-95 opacity-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 transition-all duration-200 btn-rectangular-view pointer-events-auto"
+          <button 
+            type="button"
+            onClick={handleOpenProject}
+            aria-label={`View ${project?.title || 'project'} case study`}
+            className="transform translate-y-3 scale-95 opacity-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 transition-all duration-200 btn-rectangular-view pointer-events-auto touch-manipulation cursor-pointer"
           >
             <span>View</span>
             <ExternalLink className="w-3.5 h-3.5" />
-          </div>
+          </button>
         </div>
 
         {/* Featured Tag (if applicable) */}
@@ -134,10 +151,15 @@ export default function ProjectCard({
           {/* Bottom Bar: Mobile View Action + External Links */}
           <div className="flex items-center justify-between pt-1 text-xs">
             {/* Direct accessible action for mobile & keyboard */}
-            <div className="btn-rectangular-view pointer-events-auto">
+            <button
+              type="button"
+              onClick={handleOpenProject}
+              aria-label={`View ${project?.title || 'project'} details`}
+              className="btn-rectangular-view pointer-events-auto touch-manipulation cursor-pointer"
+            >
               <span>View</span>
               <ExternalLink className="w-3.5 h-3.5" />
-            </div>
+            </button>
 
             {/* External Quick Links (GitHub & Live Demo) */}
             <div className="flex items-center gap-1.5 z-10">

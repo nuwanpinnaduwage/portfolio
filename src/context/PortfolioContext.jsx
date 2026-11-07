@@ -626,6 +626,12 @@ export function PortfolioProvider({ children }) {
     return await portfolioService.uploadAsset(file, folder);
   };
 
+  const saveHero = async (heroData) => {
+    const res = await portfolioService.saveHero(heroData);
+    if (res.success) await loadData();
+    return res;
+  };
+
   const saveContact = async (contactData) => {
     const res = await portfolioService.saveContact(contactData);
     if (res.success) await loadData();
@@ -654,7 +660,8 @@ export function PortfolioProvider({ children }) {
         setPreviewMode,
         refreshData: loadData,
         updateProfile,
-        saveContact,
+        saveHero,
+    saveContact,
         saveFooter,
         resetFooterToDefault,
         saveProject,

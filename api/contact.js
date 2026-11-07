@@ -99,6 +99,40 @@ function getMailTransporter() {
   });
 }
 
+// Fetch dynamic contact receiving email & enabled status from Supabase site_settings
+async function getAdminContactConfig(supabaseClient) {
+  let receivingEmail = process.env.CONTACT_RECEIVING_EMAIL || process.env.GMAIL_USER || 'nuwandevinda2002@gmail.com';
+  let isFormEnabled = true;
+
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient
+        .from('site_settings')
+        .select('section_content')
+        .limit(1)
+        .maybeSingle();
+
+      if (!error && data?.section_content?.contact) {
+        const contact = data.section_content.contact;
+        const savedEmail = contact.contactSettings?.receivingEmail || contact.directEmail;
+        if (savedEmail && typeof savedEmail === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(savedEmail.trim())) {
+          receivingEmail = savedEmail.trim();
+        }
+        if (contact.contactSettings?.isFormEnabled !== undefined) {
+          isFormEnabled = Boolean(contact.contactSettings.isFormEnabled);
+        } else if (contact.formFields?.enabled !== undefined) {
+          isFormEnabled = Boolean(contact.formFields.enabled);
+        }
+      }
+    } catch (e) {
+      console.warn('[API/Contact] Failed to fetch dynamic admin contact config:', e.message);
+    }
+  }
+
+  return { receivingEmail, isFormEnabled };
+}
+
+
 export default async function handler(req, res) {
   // CORS & Header Setup
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -111,6 +145,8 @@ export default async function handler(req, res) {
 
   const clientIp = getClientIp(req);
   const userAgent = req.headers['user-agent'] || 'Unknown';
+  const supabaseClient = getSupabaseClient();
+  const adminConfig = await getAdminContactConfig(supabaseClient);
 
   // Parse query or URL parameters
   const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
@@ -123,7 +159,7 @@ export default async function handler(req, res) {
     const gmailUser = process.env.GMAIL_USER || process.env.SMTP_USER;
     const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
     const resendKey = process.env.RESEND_API_KEY;
-    const receivingEmail = process.env.CONTACT_RECEIVING_EMAIL || gmailUser || 'nuwandevinda2002@gmail.com';
+    const receivingEmail = adminConfig.receivingEmail;
 
     const isGmailReady = Boolean(gmailUser && gmailPass);
     const isResendReady = Boolean(resendKey);
@@ -132,10 +168,11 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       configured: isConfigured,
-      provider: isGmailReady ? 'gmail_smtp' : isResendReady ? 'resend' : 'simulated_mode',
+      formEnabled: adminConfig.isFormEnabled,
+      provider: isGmailReady ? 'gmail_smtp' : isResendReady ? 'resend' : 'awaiting_credentials',
       receivingEmail: receivingEmail.replace(/(.{2})(.*)(@.*)/, '$1***$3'), // Mask for privacy
       fullReceivingEmail: receivingEmail,
-      status: isConfigured ? 'Operational' : 'Simulated (Awaiting GMAIL_USER and GMAIL_APP_PASSWORD in .env)',
+      status: isConfigured ? 'Operational' : 'Awaiting GMAIL_USER and GMAIL_APP_PASSWORD in .env',
     });
   }
 
@@ -152,7 +189,7 @@ export default async function handler(req, res) {
   // -------------------------------------------------------------
   if (action === 'test') {
     const transporter = getMailTransporter();
-    const targetEmail = req.body?.recipient || process.env.CONTACT_RECEIVING_EMAIL || process.env.GMAIL_USER || 'nuwandevinda2002@gmail.com';
+    const targetEmail = req.body?.recipient || adminConfig.receivingEmail;
 
     if (!transporter && !process.env.RESEND_API_KEY) {
       return res.status(200).json({
@@ -207,6 +244,14 @@ export default async function handler(req, res) {
   // -------------------------------------------------------------
   const body = req.body || {};
   const { name, email, subject, message, website, honeypot } = body;
+
+  // 0. Form Enabled Check
+  if (!adminConfig.isFormEnabled) {
+    return res.status(403).json({
+      success: false,
+      error: 'The contact form is currently disabled by the site administrator. Please reach out directly via email.',
+    });
+  }
 
   // 1. Honeypot check (Spam Protection)
   // If the hidden 'website' or 'honeypot' field is filled out, reject bot silently
@@ -278,7 +323,6 @@ export default async function handler(req, res) {
   inflightSubmissions.set(submissionKey, now);
 
   // 5. Audit Recording in Supabase `contact_messages` table
-  const supabaseClient = getSupabaseClient();
   let dbRecordId = null;
 
   if (supabaseClient) {
@@ -311,10 +355,7 @@ export default async function handler(req, res) {
   // 6. Real Email Dispatch via Gmail SMTP (nodemailer)
   const transporter = getMailTransporter();
   const gmailUser = process.env.GMAIL_USER || process.env.SMTP_USER;
-  const receivingEmail =
-    process.env.CONTACT_RECEIVING_EMAIL ||
-    gmailUser ||
-    'nuwandevinda2002@gmail.com';
+  const receivingEmail = adminConfig.receivingEmail;
 
   const cleanName = sanitizeHeader(trimmedName);
   const cleanEmail = sanitizeHeader(trimmedEmail);
@@ -454,9 +495,9 @@ export default async function handler(req, res) {
       .eq('id', dbRecordId);
   }
 
-  return res.status(200).json({
-    success: true,
-    message: 'Message received and stored successfully! (Email notification awaiting GMAIL_USER in .env)',
-    simulated: true,
+  return res.status(503).json({
+    success: false,
+    error: 'Email delivery service is awaiting Gmail credentials (GMAIL_USER and GMAIL_APP_PASSWORD in .env). Message was securely recorded in database.',
+    recorded: Boolean(dbRecordId),
   });
 }

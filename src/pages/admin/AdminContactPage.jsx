@@ -49,83 +49,7 @@ export default function AdminContactPage() {
   useEffect(() => {
     if (feedback) {
       const timer = setTimeout(() => setFeedback(null), 5000);
-      // ==========================================
-  // HANDLERS: TAB 5 (CONTACT & DELIVERY SETTINGS)
-  // ==========================================
-  const handleSaveDeliverySettings = async (e) => {
-    if (e) e.preventDefault();
-    const emailToSave = (deliverySettings.receivingEmail || '').trim();
-    if (emailToSave && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailToSave)) {
-      setFeedback({ type: 'error', message: 'Please enter a valid receiving email address.' });
-      return;
-    }
-
-    setSaving(true);
-    const updatedContact = {
-      ...contact,
-      directEmail: emailToSave || 'nuwandevinda2002@gmail.com',
-      contactSettings: {
-        receivingEmail: emailToSave || 'nuwandevinda2002@gmail.com',
-        platform: deliverySettings.platform,
-        sendButtonText: (deliverySettings.sendButtonText || 'Send Message').trim(),
-        isFormEnabled: Boolean(deliverySettings.isFormEnabled),
-        updatedAt: new Date().toISOString(),
-      },
-      formFields: {
-        ...(contact.formFields || {}),
-        enabled: Boolean(deliverySettings.isFormEnabled),
-        buttonText: (deliverySettings.sendButtonText || 'Send Message').trim(),
-      },
-      displaySettings: {
-        ...(contact.displaySettings || {}),
-        showContactForm: Boolean(deliverySettings.isFormEnabled),
-      },
-    };
-
-    const res = await saveContact(updatedContact);
-    setSaving(false);
-
-    if (res?.error) {
-      setFeedback({ type: 'error', message: 'Failed to save contact delivery settings.' });
-    } else {
-      setFeedback({ type: 'success', message: 'Contact delivery settings saved and synchronized to Supabase!' });
-    }
-  };
-
-  const handleSendTestEmail = async () => {
-    const target = (testEmailRecipient || deliverySettings.receivingEmail || 'nuwandevinda2002@gmail.com').trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) {
-      setFeedback({ type: 'error', message: 'Please provide a valid recipient email for the test.' });
-      return;
-    }
-
-    setTestEmailSending(true);
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'test',
-          recipient: target,
-        }),
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setFeedback({ type: 'success', message: data.message || `Test email sent successfully to ${target}!` });
-      } else {
-        setFeedback({ 
-          type: 'error', 
-          message: data.error || 'Failed to send test email. Please ensure GMAIL_USER and GMAIL_APP_PASSWORD are set in your .env file.' 
-        });
-      }
-    } catch (err) {
-      setFeedback({ type: 'error', message: 'Failed to reach delivery API: ' + err.message });
-    } finally {
-      setTestEmailSending(false);
-    }
-  };
-
-  return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
     }
   }, [feedback]);
 
@@ -247,6 +171,83 @@ export default function AdminContactPage() {
   useEffect(() => {
     fetchDeliveryStatus();
   }, []);
+
+  // ==========================================
+  // HANDLERS: TAB 5 (CONTACT & DELIVERY SETTINGS)
+  // ==========================================
+  const handleSaveDeliverySettings = async (e) => {
+    if (e) e.preventDefault();
+    const emailToSave = (deliverySettings.receivingEmail || '').trim();
+    if (emailToSave && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailToSave)) {
+      setFeedback({ type: 'error', message: 'Please enter a valid receiving email address.' });
+      return;
+    }
+
+    setSaving(true);
+    const updatedContact = {
+      ...contact,
+      directEmail: emailToSave || 'nuwandevinda2002@gmail.com',
+      contactSettings: {
+        receivingEmail: emailToSave || 'nuwandevinda2002@gmail.com',
+        platform: deliverySettings.platform,
+        sendButtonText: (deliverySettings.sendButtonText || 'Send Message').trim(),
+        isFormEnabled: Boolean(deliverySettings.isFormEnabled),
+        updatedAt: new Date().toISOString(),
+      },
+      formFields: {
+        ...(contact.formFields || {}),
+        enabled: Boolean(deliverySettings.isFormEnabled),
+        buttonText: (deliverySettings.sendButtonText || 'Send Message').trim(),
+      },
+      displaySettings: {
+        ...(contact.displaySettings || {}),
+        showContactForm: Boolean(deliverySettings.isFormEnabled),
+      },
+    };
+
+    const res = await saveContact(updatedContact);
+    setSaving(false);
+
+    if (res?.error) {
+      setFeedback({ type: 'error', message: 'Failed to save contact delivery settings.' });
+    } else {
+      setFeedback({ type: 'success', message: 'Contact delivery settings saved and synchronized to Supabase!' });
+      fetchDeliveryStatus();
+    }
+  };
+
+  const handleSendTestEmail = async () => {
+    const target = (testEmailRecipient || deliverySettings.receivingEmail || 'nuwandevinda2002@gmail.com').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) {
+      setFeedback({ type: 'error', message: 'Please provide a valid recipient email for the test.' });
+      return;
+    }
+
+    setTestEmailSending(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'test',
+          recipient: target,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setFeedback({ type: 'success', message: data.message || `Test email sent successfully to ${target}!` });
+      } else {
+        setFeedback({ 
+          type: 'error', 
+          message: data.error || 'Failed to send test email. Please ensure GMAIL_USER and GMAIL_APP_PASSWORD are set in your .env file.' 
+        });
+      }
+    } catch (err) {
+      setFeedback({ type: 'error', message: 'Failed to reach delivery API: ' + err.message });
+    } finally {
+      setTestEmailSending(false);
+    }
+  };
 
   // Initialize state from portfolio context
   useEffect(() => {
@@ -1627,7 +1628,7 @@ export default function AdminContactPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="btn-mint-glass px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2"
+                className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
                 <span>{saving ? 'Saving...' : 'Save Contact Settings'}</span>
@@ -1661,7 +1662,7 @@ export default function AdminContactPage() {
                 type="button"
                 onClick={handleSendTestEmail}
                 disabled={testEmailSending}
-                className="btn-mint-glass px-6 py-2.5 text-xs sm:text-sm flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shrink-0 cursor-pointer transition-all disabled:opacity-50 shadow-sm"
               >
                 {testEmailSending ? (
                   <>

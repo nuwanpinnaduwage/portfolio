@@ -27,6 +27,7 @@ import AdminSectionVisibilityPage from './pages/admin/AdminSectionVisibilityPage
 import AdminContactPage from './pages/admin/AdminContactPage';
 import AdminFooterPage from './pages/admin/AdminFooterPage';
 import ProjectVisualEditorPage from './pages/admin/ProjectVisualEditorPage';
+import HeroStudioPage from './pages/admin/HeroStudioPage';
 
 export default function App() {
   return (
@@ -42,6 +43,16 @@ export default function App() {
 
             {/* Private Admin Login Route */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
+
+            {/* Dedicated Fullscreen Hero Visual Studio (Zero Dashboard Shell) */}
+            <Route
+              path="/admin/hero/studio"
+              element={
+                <AdminRoute>
+                  <HeroStudioPage />
+                </AdminRoute>
+              }
+            />
 
             {/* Dedicated Fullscreen Project Visual Studio (Zero Dashboard Shell) */}
             <Route

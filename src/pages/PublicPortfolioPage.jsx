@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
@@ -22,6 +22,7 @@ import { isSectionVisible } from '../utils/sectionVisibilityUtils';
 export default function PublicPortfolioPage() {
   const { portfolio, previewMode, setPreviewMode } = usePortfolio();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   // Dark/Light theme state
   const [darkMode, setDarkMode] = useState(() => {
@@ -41,7 +42,11 @@ export default function PublicPortfolioPage() {
   const handleOpenProject = (project, tab = 'overview') => {
     const slug = project?.slug || project?.id;
     if (slug) {
-      window.open(`/projects/${slug}`, '_blank', 'noopener,noreferrer');
+      if (typeof slug === 'string' && (slug.startsWith('http://') || slug.startsWith('https://'))) {
+        window.location.assign(slug);
+      } else {
+        navigate(`/projects/${slug}`);
+      }
       return;
     }
     setSelectedProject(project);

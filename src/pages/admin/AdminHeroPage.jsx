@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Sparkles, 
   User, 
@@ -183,6 +184,31 @@ export default function AdminHeroPage() {
           )}
           <span>{saving ? 'Saving...' : 'Save Changes'}</span>
         </button>
+      </div>
+
+            {/* Hero Visual Studio Mode Banner */}
+      <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#0E1A14] to-[#121E19] border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+              STUDIO WORKSPACE
+            </span>
+            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-1.5">
+              <span>Hero Studio Pro — Advanced Text, Spacing & Animation Editor</span>
+            </h2>
+          </div>
+          <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
+            Visual Studio-style editor featuring structured text layers, word-level rich segments, 20+ animation types (Entrance, Typing, Continuous, Exit), independent line/text spacing, and an interactive animation timeline editor with Desktop, Tablet, and Mobile simulation.
+          </p>
+        </div>
+
+        <Link
+          to="/admin/hero/studio"
+          className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shrink-0 shadow-md"
+        >
+          <Sparkles className="w-4 h-4" />
+          <span>Launch Hero Studio Pro →</span>
+        </Link>
       </div>
 
       {/* Feedback Banner */}
