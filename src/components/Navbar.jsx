@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
@@ -7,10 +7,77 @@ import { portfolioData } from '../data/portfolioData';
 import { defaultEase } from './animations/MotionWrappers';
 import { getVisibleNavLinks, isSectionVisible } from '../utils/sectionVisibilityUtils';
 
-export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection, data, visibility, sectionNames, navVisibility }) {
+export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection, onSectionChange, data, visibility, sectionNames, navVisibility }) {
   const personal = data || portfolioData.personal;
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navbarRef = useRef(null);
+
+  // Measure actual navbar height and sync --navbar-height CSS variable on root
+  useEffect(() => {
+    const updateNavbarHeight = () => {
+      if (navbarRef.current) {
+        const height = navbarRef.current.offsetHeight;
+        if (height > 0) {
+          document.documentElement.style.setProperty('--navbar-height', `${height}px`);
+        }
+      }
+    };
+
+    updateNavbarHeight();
+
+    let observer = null;
+    if (typeof ResizeObserver !== 'undefined' && navbarRef.current) {
+      observer = new ResizeObserver(updateNavbarHeight);
+      observer.observe(navbarRef.current);
+    }
+
+    window.addEventListener('resize', updateNavbarHeight, { passive: true });
+    window.addEventListener('scroll', updateNavbarHeight, { passive: true });
+
+    return () => {
+      if (observer) observer.disconnect();
+      window.removeEventListener('resize', updateNavbarHeight);
+      window.removeEventListener('scroll', updateNavbarHeight);
+    };
+  }, []);
+
+  // Programmatic, pixel-perfect smooth navigation click handler
+  const handleNavClick = (e, href, id) => {
+    if (e && e.preventDefault) e.preventDefault();
+    setMobileMenuOpen(false);
+
+    const targetId = id || (href ? href.replace(/^#/, '') : '');
+    if (!targetId) return;
+
+    if (targetId === 'hero' || targetId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, '', '#hero');
+      }
+      if (onSectionChange) onSectionChange('hero');
+      return;
+    }
+
+    const element = document.getElementById(targetId);
+    if (element) {
+      const navH = navbarRef.current ? navbarRef.current.offsetHeight : 64;
+      const elementRect = element.getBoundingClientRect();
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const targetScrollY = elementRect.top + currentScrollY - navH;
+
+      window.scrollTo({
+        top: Math.max(0, Math.round(targetScrollY)),
+        behavior: 'smooth',
+      });
+
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, '', `#${targetId}`);
+      }
+      if (onSectionChange) onSectionChange(targetId);
+    }
+  };
+
 
   const navLinks = getVisibleNavLinks(visibility, sectionNames, navVisibility);
 
@@ -103,17 +170,19 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-250 ${
+        ref={navbarRef}
+        className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 ${
           isScrolled
-            ? 'glass-panel shadow-subtle py-2.5 sm:py-3 border-b border-[#A0AEC0]/30 dark:border-[#222222]'
-            : 'bg-white/90 dark:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-[#A0AEC0]/20 dark:border-transparent md:border-b-0 md:bg-transparent py-2.5 sm:py-3 md:py-5'
+            ? 'glass-panel shadow-subtle border-b border-[#A0AEC0]/30 dark:border-[#222222]'
+            : 'bg-white/90 dark:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-[#A0AEC0]/20 dark:border-transparent md:border-b-0 md:bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 md:py-3.5">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a
               href="#hero"
+              onClick={(e) => handleNavClick(e, "#hero", "hero")}
               aria-label={`${personal.name || "Nuwan Pinnaduwage"} Portfolio Home`}
               className="flex items-center group text-[#2D3748] dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0] rounded-lg shrink-0"
             >
@@ -131,6 +200,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                   <a
                     key={link.id || link.href}
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href, link.id)}
                     className={`nav-tab-item px-2.5 lg:px-3 py-1.5 text-xs lg:text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] dark:focus-visible:ring-[#A0AEC0] rounded-lg shrink-0 ${
                       isActive
                         ? 'active text-[#2D3748] dark:text-white font-semibold'
@@ -179,7 +249,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
               <button
                 type="button"
                 onClick={onOpenCV}
-                className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle hover:shadow transition-all active:scale-98 touch-manipulation shrink-0 cursor-pointer"
+                className="hidden sm:inline-flex btn-secondary-pill shrink-0 cursor-pointer"
               >
                 <FileDown className="w-3.5 h-3.5" />
                 <span>Resume</span>
@@ -239,7 +309,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                 <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#A0AEC0]/20 dark:border-[#262626] bg-[#F5F7FA] dark:bg-[#050505]">
                   <a
                     href="#hero"
-                    onClick={handleNavLinkClick}
+                    onClick={(e) => handleNavClick(e, "#hero", "hero")}
                     aria-label={`${personal.name || "Nuwan Pinnaduwage"} Portfolio Home`}
                     className="font-mono font-bold text-lg text-[#2D3748] dark:text-white flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748] rounded-lg"
                   >
@@ -266,7 +336,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                         <a
                           key={link.id || link.href}
                           href={link.href}
-                          onClick={handleNavLinkClick}
+                          onClick={(e) => handleNavClick(e, link.href, link.id)}
                           className={`min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                             isActive
                               ? 'bg-[#F5F7FA] dark:bg-[#121212] text-[#2D3748] dark:text-white font-semibold border border-[#A0AEC0]/30 dark:border-[#262626]'
@@ -288,7 +358,7 @@ export default function Navbar({ darkMode, setDarkMode, onOpenCV, activeSection,
                         setMobileMenuOpen(false);
                         onOpenCV();
                       }}
-                      className="min-h-[42px] w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle transition-all active:scale-[0.99] touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2D3748]"
+                      className="w-full btn-secondary-pill"
                     >
                       <FileDown className="w-4 h-4" />
                       <span>View / Download Resume</span>

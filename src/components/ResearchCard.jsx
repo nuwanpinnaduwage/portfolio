@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'motion/react';
 import { 
   FileText, 
   ExternalLink, 
-  ArrowUpRight, 
   BookOpen, 
   Download, 
   Calendar,
@@ -136,10 +135,10 @@ export default function ResearchCard({ item, onSelect, variants }) {
       <div className="px-5 sm:px-6 py-3.5 flex items-center justify-between border-t border-[#A0AEC0]/20 dark:border-[#222222] bg-[#F5F7FA]/70 dark:bg-[#0A0A0A]/60">
         <button
           onClick={() => onSelect(item)}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2D3748] dark:text-[#F5F7FA] hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors touch-manipulation"
+          className="btn-rectangular-view touch-manipulation cursor-pointer"
         >
-          <span>Read Abstract & Citation</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
+          <span>View</span>
+          <ExternalLink className="w-3.5 h-3.5" />
         </button>
 
         <div className="flex items-center gap-2">

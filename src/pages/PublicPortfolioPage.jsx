@@ -228,6 +228,72 @@ export default function PublicPortfolioPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [portfolio.settings?.sectionVisibility]);
 
+  // Global smooth scroll click handler for in-page anchors (#projects, #contact, etc.)
+  useEffect(() => {
+    const handleAnchorClick = (e) => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+
+      const targetId = href.substring(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl || targetId === 'hero') {
+        e.preventDefault();
+        const nav = document.querySelector('header');
+        const navH = nav ? nav.offsetHeight : 64;
+
+        if (targetId === 'hero' || targetId === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (window.history && window.history.pushState) {
+            window.history.pushState(null, '', '#hero');
+          }
+          setActiveSection('hero');
+          return;
+        }
+
+        const rect = targetEl.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = Math.max(0, Math.round(rect.top + scrollTop - navH));
+
+        window.scrollTo({
+          top: targetY,
+          behavior: 'smooth',
+        });
+
+        if (window.history && window.history.pushState) {
+          window.history.pushState(null, '', `#${targetId}`);
+        }
+        setActiveSection(targetId);
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
+  }, []);
+
+  // Handle direct hash navigation on initial page load
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hashId = window.location.hash.substring(1);
+      const timer = setTimeout(() => {
+        const el = document.getElementById(hashId);
+        if (el) {
+          const nav = document.querySelector('header');
+          const navH = nav ? nav.offsetHeight : 64;
+          const rect = el.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          window.scrollTo({
+            top: Math.max(0, Math.round(rect.top + scrollTop - navH)),
+            behavior: 'smooth',
+          });
+          setActiveSection(hashId);
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const showToast = ({ type = 'info', message }) => {
     setToast({ type, message });
   };
@@ -269,6 +335,7 @@ export default function PublicPortfolioPage() {
         setDarkMode={setDarkMode}
         onOpenCV={() => setIsCVModalOpen(true)}
         activeSection={activeSection}
+        onSectionChange={setActiveSection}
         data={portfolio.personal}
         visibility={portfolio.settings?.sectionVisibility}
         sectionNames={portfolio.settings?.sectionNames}

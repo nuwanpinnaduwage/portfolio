@@ -4,7 +4,8 @@ import {
   Phone,
   MapPin, 
   AlertCircle, 
-  CheckCircle2
+  CheckCircle2,
+  Send
 } from 'lucide-react';
 import { 
   GithubIcon, 
@@ -40,7 +41,8 @@ export default function Contact({ onShowToast, data, personalData }) {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    website: ''
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -156,23 +158,58 @@ export default function Contact({ onShowToast, data, personalData }) {
 
     setIsSubmitting(true);
     try {
-      if (isSupabaseConfigured && supabase) {
-        const { error: insertErr } = await supabase.from('contact_messages').insert([{
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          subject: formData.subject.trim(),
-          message: formData.message.trim(),
-        }]);
-        if (insertErr) {
-          console.error("Error submitting contact message to Supabase:", insertErr);
+      let apiSucceeded = false;
+      let apiMessage = '';
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim(),
+            message: formData.message.trim(),
+            website: formData.website || '',
+          }),
+        });
+
+        const resData = await response.json().catch(() => ({}));
+        if (response.ok && resData.success) {
+          apiSucceeded = true;
+          apiMessage = resData.message;
+        } else {
+          throw new Error(resData.error || 'Failed to deliver message via email.');
+        }
+      } catch (fetchErr) {
+        // Fallback: If /api/contact is unavailable (e.g. running in purely static preview environment)
+        if (isSupabaseConfigured && supabase) {
+          const { error: insertErr } = await supabase.from('contact_messages').insert([{
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim(),
+            message: formData.message.trim(),
+            delivery_status: 'fallback_client_db',
+            delivery_provider: 'supabase_direct',
+            reply_to: formData.email.trim(),
+          }]);
+          if (!insertErr) {
+            apiSucceeded = true;
+          }
+        }
+        if (!apiSucceeded) {
+          throw fetchErr;
         }
       }
+
       setSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '', website: '' });
       if (onShowToast) {
         onShowToast({ 
           type: 'success', 
-          message: formConfig.successMessage || "Thank you! Your message has been received. I'll get back to you shortly." 
+          message: apiMessage || formConfig.successMessage || "Message sent successfully! I'll get back to you shortly." 
         });
       }
     } catch (err) {
@@ -180,7 +217,7 @@ export default function Contact({ onShowToast, data, personalData }) {
       if (onShowToast) {
         onShowToast({
           type: 'error',
-          message: 'Failed to send message. Please try reaching out directly via email.',
+          message: err.message || 'Failed to send message. Please try reaching out directly via email.',
         });
       }
     } finally {
@@ -207,9 +244,9 @@ export default function Contact({ onShowToast, data, personalData }) {
     <section 
       id="contact" 
       aria-labelledby="contact-heading"
-      className="py-16 sm:py-24 relative overflow-hidden scroll-mt-24 bg-[#F5F7FA] dark:bg-[#050505] border-t border-[#A0AEC0]/20 dark:border-[#1F1F1F] transition-colors"
+      className="min-h-[calc(100dvh-var(--navbar-height))] flex flex-col justify-start pt-7 sm:pt-9 md:pt-10 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden scroll-mt-[var(--navbar-height)] bg-[#F5F7FA] dark:bg-[#050505] border-t border-[#A0AEC0]/20 dark:border-[#1F1F1F] transition-colors"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
         {/* Main Two-Column Layout (sitting directly on background without outer boxes/cards) */}
         <div className={
@@ -340,7 +377,7 @@ export default function Contact({ onShowToast, data, personalData }) {
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="mt-4 px-8 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] transition-all shadow-subtle"
+                      className="btn-secondary-pill mt-4 cursor-pointer"
                     >
                       Send Another Message
                     </button>
@@ -349,6 +386,18 @@ export default function Contact({ onShowToast, data, personalData }) {
                   <form onSubmit={handleSubmit} noValidate className="space-y-5 sm:space-y-6">
                     <StaggerContainer staggerDelay={0.06} once={false} className="space-y-5 sm:space-y-6">
                       
+                      {/* Anti-spam honeypot (hidden from human visitors) */}
+                      <input
+                        type="text"
+                        name="website"
+                        value={formData.website || ''}
+                        onChange={handleChange}
+                        autoComplete="off"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className="hidden opacity-0 absolute -z-10 w-0 h-0 pointer-events-none"
+                      />
+
                       {/* Row 1: Name & Email side-by-side (20-24px vertical gap, 16-20px horizontal gap) */}
                       <StaggerItem direction="up" distance={12} duration={0.45}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
@@ -462,15 +511,18 @@ export default function Contact({ onShowToast, data, personalData }) {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="px-10 py-3 rounded-lg bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] active:scale-98 disabled:opacity-60 font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-subtle hover:shadow flex items-center justify-center gap-2 cursor-pointer"
+                            className="btn-primary-pill disabled:opacity-60 cursor-pointer"
                           >
                             {isSubmitting ? (
                               <>
-                                <div className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
-                                <span>{formConfig.submittingText || "SENDING..."}</span>
+                                <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                <span>{formConfig.submittingText || "Sending..."}</span>
                               </>
                             ) : (
-                              <span>{formConfig.buttonText || "SEND"}</span>
+                              <>
+                                <span>{formConfig.buttonText || "Send Message"}</span>
+                                <Send className="w-4 h-4 ml-1" />
+                              </>
                             )}
                           </button>
                         </div>

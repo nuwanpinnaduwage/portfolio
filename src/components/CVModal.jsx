@@ -138,7 +138,7 @@ ${achievements.items.map(a => `• ${a.title} - ${a.issuer} (${a.date})`).join('
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={handleDownloadFile}
-              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] shadow-subtle transition-colors touch-manipulation"
+              className="btn-secondary-pill shrink-0 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span className="hidden xs:inline">Download</span>

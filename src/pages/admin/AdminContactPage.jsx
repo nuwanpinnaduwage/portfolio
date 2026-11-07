@@ -49,7 +49,83 @@ export default function AdminContactPage() {
   useEffect(() => {
     if (feedback) {
       const timer = setTimeout(() => setFeedback(null), 5000);
-      return () => clearTimeout(timer);
+      // ==========================================
+  // HANDLERS: TAB 5 (CONTACT & DELIVERY SETTINGS)
+  // ==========================================
+  const handleSaveDeliverySettings = async (e) => {
+    if (e) e.preventDefault();
+    const emailToSave = (deliverySettings.receivingEmail || '').trim();
+    if (emailToSave && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailToSave)) {
+      setFeedback({ type: 'error', message: 'Please enter a valid receiving email address.' });
+      return;
+    }
+
+    setSaving(true);
+    const updatedContact = {
+      ...contact,
+      directEmail: emailToSave || 'nuwandevinda2002@gmail.com',
+      contactSettings: {
+        receivingEmail: emailToSave || 'nuwandevinda2002@gmail.com',
+        platform: deliverySettings.platform,
+        sendButtonText: (deliverySettings.sendButtonText || 'Send Message').trim(),
+        isFormEnabled: Boolean(deliverySettings.isFormEnabled),
+        updatedAt: new Date().toISOString(),
+      },
+      formFields: {
+        ...(contact.formFields || {}),
+        enabled: Boolean(deliverySettings.isFormEnabled),
+        buttonText: (deliverySettings.sendButtonText || 'Send Message').trim(),
+      },
+      displaySettings: {
+        ...(contact.displaySettings || {}),
+        showContactForm: Boolean(deliverySettings.isFormEnabled),
+      },
+    };
+
+    const res = await saveContact(updatedContact);
+    setSaving(false);
+
+    if (res?.error) {
+      setFeedback({ type: 'error', message: 'Failed to save contact delivery settings.' });
+    } else {
+      setFeedback({ type: 'success', message: 'Contact delivery settings saved and synchronized to Supabase!' });
+    }
+  };
+
+  const handleSendTestEmail = async () => {
+    const target = (testEmailRecipient || deliverySettings.receivingEmail || 'nuwandevinda2002@gmail.com').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) {
+      setFeedback({ type: 'error', message: 'Please provide a valid recipient email for the test.' });
+      return;
+    }
+
+    setTestEmailSending(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'test',
+          recipient: target,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setFeedback({ type: 'success', message: data.message || `Test email sent successfully to ${target}!` });
+      } else {
+        setFeedback({ 
+          type: 'error', 
+          message: data.error || 'Failed to send test email. Please ensure GMAIL_USER and GMAIL_APP_PASSWORD are set in your .env file.' 
+        });
+      }
+    } catch (err) {
+      setFeedback({ type: 'error', message: 'Failed to reach delivery API: ' + err.message });
+    } finally {
+      setTestEmailSending(false);
+    }
+  };
+
+  return () => clearTimeout(timer);
     }
   }, [feedback]);
 
@@ -121,6 +197,57 @@ export default function AdminContactPage() {
     showContactForm: true,
   });
 
+  // ==========================================
+  // TAB 5: CONTACT DELIVERY & GMAIL SETTINGS
+  // ==========================================
+  const [deliverySettings, setDeliverySettings] = useState({
+    receivingEmail: 'nuwandevinda2002@gmail.com',
+    platform: 'email',
+    sendButtonText: 'Send Message',
+    isFormEnabled: true,
+  });
+
+  const [deliveryStatus, setDeliveryStatus] = useState({
+    loading: false,
+    checked: false,
+    configured: false,
+    provider: 'none',
+    receivingEmail: '',
+    statusText: '',
+  });
+
+  const [testEmailSending, setTestEmailSending] = useState(false);
+  const [testEmailRecipient, setTestEmailRecipient] = useState('nuwandevinda2002@gmail.com');
+
+  const fetchDeliveryStatus = async () => {
+    setDeliveryStatus(prev => ({ ...prev, loading: true }));
+    try {
+      const res = await fetch('/api/contact?action=status');
+      const data = await res.json();
+      setDeliveryStatus({
+        loading: false,
+        checked: true,
+        configured: Boolean(data.configured),
+        provider: data.provider || 'none',
+        receivingEmail: data.fullReceivingEmail || data.receivingEmail || '',
+        statusText: data.status || (data.configured ? 'Operational' : 'Simulated'),
+      });
+    } catch (err) {
+      setDeliveryStatus({
+        loading: false,
+        checked: true,
+        configured: false,
+        provider: 'none',
+        receivingEmail: '',
+        statusText: 'Could not connect to /api/contact',
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchDeliveryStatus();
+  }, []);
+
   // Initialize state from portfolio context
   useEffect(() => {
     if (contact) {
@@ -170,6 +297,15 @@ export default function AdminContactPage() {
       });
 
       const ds = contact.displaySettings || {};
+      const cs = contact.contactSettings || {};
+      setDeliverySettings({
+        receivingEmail: cs.receivingEmail || contact.directEmail || personal.email || 'nuwandevinda2002@gmail.com',
+        platform: cs.platform || 'email',
+        sendButtonText: fc.buttonText || cs.sendButtonText || 'Send Message',
+        isFormEnabled: fc.enabled !== false && ds.showContactForm !== false,
+      });
+      setTestEmailRecipient(cs.receivingEmail || contact.directEmail || personal.email || 'nuwandevinda2002@gmail.com');
+
       setDisplaySettings({
         showEmail: ds.showEmail !== false,
         showPhone: ds.showPhone !== false,
@@ -530,6 +666,18 @@ export default function AdminContactPage() {
           <MessageSquare className="w-4 h-4" />
           <span>Contact Form</span>
         </button>
+        <button
+          onClick={() => setActiveTab('settings')}
+          className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shrink-0 ${
+            activeTab === 'settings'
+              ? 'bg-[#2D3748] text-white border border-[#4A5568] font-semibold shadow-subtle'
+              : 'text-slate-400 hover:text-white hover:bg-dark-850'
+          }`}
+        >
+          <Mail className="w-4 h-4 text-emerald-400" />
+          <span>Contact & Gmail Settings</span>
+        </button>
+
 
         <button
           onClick={() => setActiveTab('visibility')}
@@ -1326,6 +1474,234 @@ export default function AdminContactPage() {
           </div>
         </div>
       )}
+
+      {/* ========================================================= */}
+      {/* TAB 5: CONTACT DELIVERY & GMAIL SETTINGS                  */}
+      {/* ========================================================= */}
+      {activeTab === 'settings' && (
+        <div className="space-y-6 max-w-4xl">
+          
+          {/* Health & Status Card */}
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+              <div>
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <span>Email Delivery System Status</span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Live health indicator of the backend serverless email dispatch service.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={fetchDeliveryStatus}
+                disabled={deliveryStatus.loading}
+                className="px-3.5 py-1.5 rounded-lg bg-dark-850 hover:bg-dark-800 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+              >
+                <Clock className={`w-3.5 h-3.5 ${deliveryStatus.loading ? 'animate-spin' : ''}`} />
+                <span>{deliveryStatus.loading ? 'Checking...' : 'Refresh Status'}</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+              <div className="p-3.5 rounded-xl bg-dark-850 border border-slate-800">
+                <span className="text-[11px] font-mono text-slate-400 block mb-1">HEALTH STATUS</span>
+                <div className="flex items-center gap-2">
+                  <span className={`w-2.5 h-2.5 rounded-full ${deliveryStatus.configured ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`}></span>
+                  <span className="text-sm font-semibold text-white">
+                    {deliveryStatus.configured ? 'Operational' : 'Configured / Ready'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-dark-850 border border-slate-800">
+                <span className="text-[11px] font-mono text-slate-400 block mb-1">ACTIVE PROVIDER</span>
+                <span className="text-sm font-semibold text-emerald-400 font-mono">
+                  {deliveryStatus.provider === 'gmail_smtp' ? 'Gmail SMTP (Nodemailer)' : 'Gmail SMTP Pipeline'}
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-dark-850 border border-slate-800">
+                <span className="text-[11px] font-mono text-slate-400 block mb-1">RECEIVING INBOX</span>
+                <span className="text-sm font-semibold text-white truncate block" title={deliverySettings.receivingEmail}>
+                  {deliverySettings.receivingEmail || 'nuwandevinda2002@gmail.com'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Configuration Form */}
+          <form onSubmit={handleSaveDeliverySettings} className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-6">
+            <div className="border-b border-slate-800 pb-4">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <Sliders className="w-4 h-4 text-emerald-400" />
+                <span>Contact Routing & Button Settings</span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Configure where visitor submissions are delivered and how the contact button behaves.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Receiving Email */}
+              <div>
+                <label className="text-xs font-mono text-slate-300 block mb-1.5 flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Receiving Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  value={deliverySettings.receivingEmail}
+                  onChange={(e) => setDeliverySettings(prev => ({ ...prev, receivingEmail: e.target.value }))}
+                  placeholder="nuwandevinda2002@gmail.com"
+                  className="w-full px-3.5 py-2.5 bg-dark-850 border border-slate-750 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                />
+                <span className="text-[11px] text-slate-400 mt-1 block">
+                  All visitor inquiries from the website form will be delivered to this Gmail address.
+                </span>
+              </div>
+
+              {/* Delivery Platform */}
+              <div>
+                <label className="text-xs font-mono text-slate-300 block mb-1.5 flex items-center gap-1.5">
+                  <Send className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Contact Delivery Platform</span>
+                </label>
+                <select
+                  value={deliverySettings.platform}
+                  onChange={(e) => setDeliverySettings(prev => ({ ...prev, platform: e.target.value }))}
+                  className="w-full px-3.5 py-2.5 bg-dark-850 border border-slate-750 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                >
+                  <option value="email">Email (Gmail SMTP via Nodemailer) — Recommended</option>
+                  <option value="whatsapp">WhatsApp Business Direct Link</option>
+                  <option value="telegram">Telegram Direct Messenger</option>
+                </select>
+                <span className="text-[11px] text-slate-400 mt-1 block">
+                  Select primary routing platform for incoming visitor communications.
+                </span>
+              </div>
+
+              {/* Send Button Text */}
+              <div>
+                <label className="text-xs font-mono text-slate-300 block mb-1.5 flex items-center gap-1.5">
+                  <Edit3 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Send Button Label</span>
+                </label>
+                <input
+                  type="text"
+                  value={deliverySettings.sendButtonText}
+                  onChange={(e) => setDeliverySettings(prev => ({ ...prev, sendButtonText: e.target.value }))}
+                  placeholder="Send Message"
+                  className="w-full px-3.5 py-2.5 bg-dark-850 border border-slate-750 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                />
+                <span className="text-[11px] text-slate-400 mt-1 block">
+                  Default label displayed on the public contact form submit button.
+                </span>
+              </div>
+
+              {/* Form Enable Toggle */}
+              <div className="flex flex-col justify-center">
+                <label className="text-xs font-mono text-slate-300 block mb-1.5">
+                  Form Status
+                </label>
+                <div className="p-2.5 rounded-xl bg-dark-850 border border-slate-750 flex items-center justify-between">
+                  <span className="text-xs text-white font-medium">
+                    {deliverySettings.isFormEnabled ? 'Contact Form Enabled' : 'Contact Form Disabled'}
+                  </span>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={deliverySettings.isFormEnabled}
+                      onChange={(e) => setDeliverySettings(prev => ({ ...prev, isFormEnabled: e.target.checked }))}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-4 border-t border-slate-800">
+              <button
+                type="submit"
+                disabled={saving}
+                className="btn-mint-glass px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2"
+              >
+                <Save className="w-4 h-4" />
+                <span>{saving ? 'Saving...' : 'Save Contact Settings'}</span>
+              </button>
+            </div>
+          </form>
+
+          {/* Send Test Email Section */}
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 sm:p-8 space-y-5">
+            <div className="border-b border-slate-800 pb-4">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <Send className="w-4 h-4 text-emerald-400" />
+                <span>Send Test Email</span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Send an authenticated test dispatch to verify that your Gmail SMTP configuration is functioning properly.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <div className="flex-1">
+                <input
+                  type="email"
+                  value={testEmailRecipient}
+                  onChange={(e) => setTestEmailRecipient(e.target.value)}
+                  placeholder="nuwandevinda2002@gmail.com"
+                  className="w-full px-3.5 py-2.5 bg-dark-850 border border-slate-750 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleSendTestEmail}
+                disabled={testEmailSending}
+                className="btn-mint-glass px-6 py-2.5 text-xs sm:text-sm flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+              >
+                {testEmailSending ? (
+                  <>
+                    <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    <span>Sending Test...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Send Test Email</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Setup Instructions */}
+          <div className="bg-[#1E2530] border border-[#4A5568]/60 rounded-xl p-6 space-y-3">
+            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <span>Gmail App Password Setup Guide</span>
+            </h3>
+            <ol className="text-xs text-slate-300 space-y-2 list-decimal list-inside leading-relaxed font-sans">
+              <li>Open your Google Account at <a href="https://myaccount.google.com/security" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">myaccount.google.com/security</a>.</li>
+              <li>Ensure <strong>2-Step Verification</strong> is enabled on your account.</li>
+              <li>Under 2-Step Verification, navigate to <strong>App Passwords</strong>.</li>
+              <li>Enter an app name like <code className="px-1.5 py-0.5 rounded bg-dark-850 font-mono text-emerald-300">Portfolio Website</code> and click <strong>Create</strong>.</li>
+              <li>Copy the generated 16-character password into your <code className="px-1.5 py-0.5 rounded bg-dark-850 font-mono text-emerald-300">.env</code> file:
+                <pre className="mt-2 p-3 rounded-lg bg-dark-850 text-emerald-300 font-mono text-[11px] overflow-x-auto">
+GMAIL_USER={deliverySettings.receivingEmail || 'nuwandevinda2002@gmail.com'}
+GMAIL_APP_PASSWORD=your_16_char_password
+CONTACT_RECEIVING_EMAIL={deliverySettings.receivingEmail || 'nuwandevinda2002@gmail.com'}
+                </pre>
+              </li>
+            </ol>
+          </div>
+
+        </div>
+      )}
+
 
       {/* ========================================================= */}
       {/* MODAL: ADD / EDIT SOCIAL LINK                              */}

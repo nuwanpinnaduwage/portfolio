@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 
 export default function ProjectCard({ 
@@ -69,12 +69,12 @@ export default function ProjectCard({
           aria-hidden="true" 
           className="absolute inset-0 bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center"
         >
-          {/* Animated Centered "View" Button using Primary Accent Color */}
+          {/* Animated Centered "View" Button */}
           <div 
-            className="transform translate-y-3 scale-95 opacity-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 transition-all duration-300 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold font-sans bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#0A0A0A] shadow-md pointer-events-auto"
+            className="transform translate-y-3 scale-95 opacity-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 transition-all duration-200 btn-rectangular-view pointer-events-auto"
           >
             <span>View</span>
-            <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
+            <ExternalLink className="w-3.5 h-3.5" />
           </div>
         </div>
 
@@ -134,9 +134,9 @@ export default function ProjectCard({
           {/* Bottom Bar: Mobile View Action + External Links */}
           <div className="flex items-center justify-between pt-1 text-xs">
             {/* Direct accessible action for mobile & keyboard */}
-            <div className="inline-flex items-center gap-1 font-sans font-semibold text-[#2D3748] dark:text-[#F5F7FA] group-hover:underline">
-              <span>View Project</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+            <div className="btn-rectangular-view pointer-events-auto">
+              <span>View</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </div>
 
             {/* External Quick Links (GitHub & Live Demo) */}

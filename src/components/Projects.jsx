@@ -229,9 +229,9 @@ export default function Projects({ onSelectProject, data }) {
     <section 
       id="projects" 
       aria-labelledby="projects-heading"
-      className="py-16 sm:py-20 relative overflow-hidden scroll-mt-24 bg-white dark:bg-[#0A0A0A] border-t border-[#A0AEC0]/20 dark:border-[#222222] transition-colors"
+      className="min-h-[calc(100dvh-var(--navbar-height))] flex flex-col justify-start pt-7 sm:pt-9 md:pt-10 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden scroll-mt-[var(--navbar-height)] bg-white dark:bg-[#0A0A0A] border-t border-[#A0AEC0]/20 dark:border-[#222222] transition-colors"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
         {/* Section Header */}
         <SectionHeader 

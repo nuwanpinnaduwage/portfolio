@@ -342,13 +342,24 @@ html:not(.dark) .public-portfolio [class*="text-violet-"] {
   --tw-ring-color: var(--portfolio-accent) !important;
 }
 
-/* Custom scrollbar */
+/* Standard CSS Scrollbars (Firefox & modern standards) */
+html, * {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 #F8FAFC;
+}
+
+html.dark, .dark, .dark * {
+  scrollbar-color: #2E2E2E #050505;
+}
+
+/* Custom WebKit & Chromium scrollbar — Subtle Neutral Grays (No green) */
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #F8FAFC;
 }
 
 .dark ::-webkit-scrollbar-track {
@@ -358,18 +369,334 @@ html:not(.dark) .public-portfolio [class*="text-violet-"] {
 ::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 9999px;
+  border: 1px solid #F8FAFC;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #2E2E2E;
+  border-radius: 9999px;
+  border: 1px solid #050505;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A0AEC0;
+  background: #94A3B8;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #383838;
+  background: #424242;
+}
+
+/* ======================================================== */
+/* EDITORIAL BUTTON DESIGN SYSTEM                           */
+/* Strict Flat Palette: #16C96B Primary & Outlined Accents   */
+/* Zero glassmorphism, gradients, shadows, or glow effects  */
+/* ======================================================== */
+
+/* 1. PRIMARY PILL BUTTONS (#16C96B Solid) */
+.btn-primary-pill,
+.btn-mint-glass {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #16C96B !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  font-family: var(--font-sans, 'Roboto', sans-serif);
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 25px !important;
+  min-height: 34px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: background-color 200ms ease !important;
+  touch-action: manipulation;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-primary-pill svg,
+.btn-mint-glass svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  width: 14px;
+  height: 14px;
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+
+.btn-primary-pill:hover,
+.btn-mint-glass:hover {
+  background-color: #12B85F !important;
+  color: #000000 !important;
+}
+
+.btn-primary-pill:hover svg,
+.btn-mint-glass:hover svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+.btn-primary-pill:active,
+.btn-mint-glass:active {
+  background-color: #12B85F !important;
+  transform: scale(0.98);
+}
+
+.btn-primary-pill:focus-visible,
+.btn-mint-glass:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #0A0A0A, 0 0 0 4px #16C96B !important;
+}
+
+html:not(.dark) .btn-primary-pill:focus-visible,
+html:not(.dark) .btn-mint-glass:focus-visible {
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #16C96B !important;
+}
+
+/* 2. SECONDARY OUTLINED PILL BUTTONS (Transparent + Outlined) */
+.btn-secondary-pill,
+.btn-mint-glass-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent !important;
+  color: #111111 !important;
+  border: 1px solid #B5B5B5 !important;
+  border-radius: 9999px !important;
+  font-family: var(--font-sans, 'Roboto', sans-serif);
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 25px !important;
+  min-height: 34px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: all 200ms ease !important;
+  touch-action: manipulation;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-secondary-pill svg,
+.btn-mint-glass-secondary svg {
+  color: #111111 !important;
+  stroke: #111111 !important;
+  width: 14px;
+  height: 14px;
+  transition: color 200ms ease, stroke 200ms ease;
+  flex-shrink: 0;
+}
+
+.btn-secondary-pill:hover,
+.btn-mint-glass-secondary:hover {
+  background-color: transparent !important;
+  color: #16C96B !important;
+  border-color: #16C96B !important;
+}
+
+.btn-secondary-pill:hover svg,
+.btn-mint-glass-secondary:hover svg {
+  color: #16C96B !important;
+  stroke: #16C96B !important;
+}
+
+.btn-secondary-pill:active,
+.btn-mint-glass-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary-pill:focus-visible,
+.btn-mint-glass-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #16C96B !important;
+}
+
+/* Dark mode styling for secondary outlined pill */
+html.dark .btn-secondary-pill,
+.dark .btn-secondary-pill,
+html.dark .btn-mint-glass-secondary,
+.dark .btn-mint-glass-secondary {
+  color: #FFFFFF !important;
+  border: 1px solid #505050 !important;
+}
+
+html.dark .btn-secondary-pill svg,
+.dark .btn-secondary-pill svg,
+html.dark .btn-mint-glass-secondary svg,
+.dark .btn-mint-glass-secondary svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+html.dark .btn-secondary-pill:hover,
+.dark .btn-secondary-pill:hover,
+html.dark .btn-mint-glass-secondary:hover,
+.dark .btn-mint-glass-secondary:hover {
+  background-color: transparent !important;
+  color: #16C96B !important;
+  border-color: #16C96B !important;
+}
+
+html.dark .btn-secondary-pill:hover svg,
+.dark .btn-secondary-pill:hover svg,
+html.dark .btn-mint-glass-secondary:hover svg,
+.dark .btn-mint-glass-secondary:hover svg {
+  color: #16C96B !important;
+  stroke: #16C96B !important;
+}
+
+html.dark .btn-secondary-pill:focus-visible,
+.dark .btn-secondary-pill:focus-visible,
+html.dark .btn-mint-glass-secondary:focus-visible,
+.dark .btn-mint-glass-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #0A0A0A, 0 0 0 4px #16C96B !important;
+}
+
+/* 3. RECTANGULAR VIEW BUTTONS (Projects & Research Cards) */
+.btn-rectangular-view {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background-color: #16C96B !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-family: var(--font-sans, 'Roboto', sans-serif);
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 9px 20px !important;
+  min-height: 34px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: background-color 200ms ease !important;
+  touch-action: manipulation;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-rectangular-view svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  width: 14px;
+  height: 14px;
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+
+.btn-rectangular-view:hover {
+  background-color: #12B85F !important;
+  color: #000000 !important;
+}
+
+.btn-rectangular-view:hover svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+.btn-rectangular-view:active {
+  background-color: #12B85F !important;
+  transform: scale(0.98);
+}
+
+.btn-rectangular-view:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #0A0A0A, 0 0 0 4px #16C96B !important;
+}
+
+html:not(.dark) .btn-rectangular-view:focus-visible {
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #16C96B !important;
+}
+
+/* 4. MINIMAL TEXT BUTTON (Get in Touch - Borderless & Clean) */
+.btn-text-minimal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  color: #111111 !important;
+  font-family: var(--font-sans, 'Roboto', sans-serif);
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 16px !important;
+  min-height: 34px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: color 200ms ease !important;
+  touch-action: manipulation;
+  user-select: none;
+  text-decoration: none !important;
+}
+
+.btn-text-minimal:hover {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #16C96B !important;
+}
+
+.btn-text-minimal:focus-visible {
+  outline: 2px solid #16C96B !important;
+  outline-offset: 2px !important;
+}
+
+html.dark .btn-text-minimal,
+.dark .btn-text-minimal {
+  color: #FFFFFF !important;
+}
+
+html.dark .btn-text-minimal:hover,
+.dark .btn-text-minimal:hover {
+  color: #16C96B !important;
+}
+
+html.dark .btn-text-minimal:focus-visible,
+.dark .btn-text-minimal:focus-visible {
+  outline: 2px solid #16C96B !important;
+  outline-offset: 2px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary-pill,
+  .btn-secondary-pill,
+  .btn-rectangular-view,
+  .btn-text-minimal {
+    transition: none !important;
+    transform: none !important;
+  }
+  .btn-primary-pill svg,
+  .btn-secondary-pill svg,
+  .btn-rectangular-view svg {
+    transition: none !important;
+  }
 }
 
 /* ======================================================== */

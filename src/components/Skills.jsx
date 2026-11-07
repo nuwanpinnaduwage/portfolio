@@ -81,9 +81,9 @@ export default function Skills({ data }) {
     <section 
       id="skills" 
       aria-labelledby="skills-heading"
-      className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 bg-[#F5F7FA] dark:bg-[#050505] border-t border-[#A0AEC0]/20 dark:border-[#1F1F1F] transition-colors"
+      className="min-h-[calc(100dvh-var(--navbar-height))] flex flex-col justify-start pt-7 sm:pt-9 md:pt-10 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden scroll-mt-[var(--navbar-height)] bg-[#F5F7FA] dark:bg-[#050505] border-t border-[#A0AEC0]/20 dark:border-[#1F1F1F] transition-colors"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
         {/* Section Header */}
         <SectionHeader 

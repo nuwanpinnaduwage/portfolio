@@ -148,7 +148,7 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
       id="hero"
       ref={heroRef}
       aria-label="Introduction and summary" 
-      className={`relative isolate min-h-screen min-h-[100svh] flex flex-col justify-between pb-4 sm:pb-6 overflow-x-clip scroll-mt-28 bg-slate-50 dark:bg-[#060608] transition-colors ${colorTransitionClass}`}
+      className={`relative isolate min-h-screen min-h-[100svh] flex flex-col justify-between pb-4 sm:pb-6 overflow-x-clip scroll-mt-[var(--navbar-height)] bg-slate-50 dark:bg-[#060608] transition-colors ${colorTransitionClass}`}
     >
       {/* Hero Background System: Theme-specific Light Mode & Dark Mode layers */}
       <div 
@@ -308,29 +308,29 @@ export default function Hero({ onOpenCV, data, settings, darkMode }) {
             {/* 9. Call-to-Action Action Buttons */}
             <motion.div 
               variants={itemVariants}
-              className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center gap-2 sm:gap-3.5 w-full sm:w-auto"
+              className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto"
             >
               <a
                 href="#projects"
-                className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-[#2D3748] hover:bg-[#1A202C] text-white dark:bg-[#F5F7FA] dark:hover:bg-white dark:text-[#2D3748] font-semibold text-xs sm:text-sm shadow-subtle hover:shadow transition-all ${colorTransitionClass} active:scale-98 group touch-manipulation`}
+                className="btn-primary-pill touch-manipulation"
               >
                 <span>View Projects</span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
 
               <button
                 onClick={onOpenCV}
-                className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-[#F5F7FA] hover:bg-white dark:bg-[#121212] dark:hover:bg-[#1A1A1A] text-[#2D3748] dark:text-[#F5F7FA] font-medium text-xs sm:text-sm border border-[#A0AEC0]/40 dark:border-[#262626] transition-all ${colorTransitionClass} active:scale-98 shadow-subtle touch-manipulation cursor-pointer`}
+                className="btn-secondary-pill cursor-pointer"
               >
-                <FileDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2D3748] dark:text-[#A0AEC0] transition-colors ${colorTransitionClass}`} />
+                <FileDown className="w-3.5 h-3.5" />
                 <span>Download CV</span>
               </button>
 
               <a
                 href="#contact"
-                className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[#2D3748] hover:bg-[#F5F7FA] dark:text-[#F5F7FA] dark:hover:bg-[#121212] font-medium text-xs sm:text-sm transition-all ${colorTransitionClass} touch-manipulation`}
+                className="btn-text-minimal touch-manipulation"
               >
-                <span>Contact Me</span>
+                <span>Get in Touch</span>
               </a>
             </motion.div>
 
